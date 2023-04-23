@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
-    <title>Gym Tracker - Tableau de bord</title>
+    <title>Gym Tracker - Gyms</title>
     <link rel="icon" type="image/png" href="{{ asset('images/logo/favicon.svg') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
@@ -61,8 +61,12 @@
                                             <iconify-icon icon="heroicons-outline:chevron-right" class="relative text-slate-500 text-sm rtl:rotate-180"></iconify-icon>
                                         </a>
                                     </li>
+                                    <li class="inline-block relative text-sm text-primary-500 font-Inter ">
+                                        Gym Management
+                                        <iconify-icon icon="heroicons-outline:chevron-right" class="relative top-[3px] text-slate-500 rtl:rotate-180"></iconify-icon>
+                                    </li>
                                     <li class="inline-block relative text-sm text-slate-500 font-Inter dark:text-white">
-                                        Tableau de bord</li>
+                                        Gyms</li>
                                 </ul>
                             </div>
                             <!-- END: BreadCrumb -->

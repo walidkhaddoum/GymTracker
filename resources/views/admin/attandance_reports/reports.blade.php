@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
-    <title>Gym Tracker - Tableau de bord</title>
+    <title>Gym Tracker - Reports</title>
     <link rel="icon" type="image/png" href="{{ asset('images/logo/favicon.svg') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
@@ -62,7 +62,7 @@
                                         </a>
                                     </li>
                                     <li class="inline-block relative text-sm text-slate-500 font-Inter dark:text-white">
-                                        Tableau de bord</li>
+                                        Reports</li>
                                 </ul>
                             </div>
                             <!-- END: BreadCrumb -->
