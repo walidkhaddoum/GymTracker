@@ -71,5 +71,13 @@ Route::middleware(['auth'])->group(function () {
         Route::get('gym-memberships/{id}/edit', 'AdminController@gymMembershipEdit')->name('gym_memberships.edit');
         Route::get('profile/view', 'AdminController@viewProfile')->name('profile.view');
         Route::get('profile/change-password', 'AdminController@changePasswordView')->name('profile.change_password');
+        Route::post('gym-memberships/store', [GymMembershipController::class, 'store'])->name('gym_memberships.store');
+        Route::get('gym-memberships/{id}/active-subscriptions', [GymMembershipController::class, 'active_subscriptions'])->name('gym_memberships.active_subscriptions');
+
     });
+    Route::get('/admin/gym_memberships/{id}/edit', [GymMembershipController::class, 'edit'])->name('admin.gym_memberships.edit');
+    Route::put('/admin/gym_memberships/{id}', [GymMembershipController::class, 'update'])->name('admin.gym_memberships.update');
+    Route::get('/admin/subscriptions', [SubscriptionController::class, 'subscriptions'])->name('admin.subscriptions');
+    Route::get('/admin/subscriptions/{id}', [SubscriptionController::class, 'show']);
+
 });

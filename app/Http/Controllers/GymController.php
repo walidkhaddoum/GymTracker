@@ -11,4 +11,6 @@ class GymController extends Controller
     {
         return view('admin.gym_management.gyms');
     }
+
+
 }
