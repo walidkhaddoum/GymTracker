@@ -6,6 +6,7 @@ use App\Http\Controllers\GroupSessionController;
 use App\Http\Controllers\GymController;
 use App\Http\Controllers\GymMembershipController;
 use App\Http\Controllers\IndividualSessionController;
+use App\Http\Controllers\MemberController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SpaceController;
@@ -55,7 +56,7 @@ Route::middleware(['auth'])->group(function () {
             return view('admin.dashboard');
         })->name('dashboard');
         Route::get('admins', [AdminController::class, 'admins'])->name('admins');
-        Route::get('members', [AdminController::class, 'members'])->name('members');
+        Route::get('members', [MemberController::class, 'index'])->name('members');
         Route::get('trainers', [TrainerController::class, 'index'])->name('trainers');
         Route::get('gyms', [GymController::class, 'index'])->name('gyms');
         Route::get('spaces', [SpaceController::class, 'index'])->name('spaces');
@@ -79,5 +80,13 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/admin/gym_memberships/{id}', [GymMembershipController::class, 'update'])->name('admin.gym_memberships.update');
     Route::get('/admin/subscriptions', [SubscriptionController::class, 'subscriptions'])->name('admin.subscriptions');
     Route::get('/admin/subscriptions/{id}', [SubscriptionController::class, 'show']);
+    Route::get('/trainers/{id}', [TrainerController::class, 'show']);
+    Route::get('/members/{member}', [App\Http\Controllers\MemberController::class, 'show'])->name('members.show');
+    //Route::put('/admin/spaces/{space}', [\App\Http\Controllers\SpaceController::class, 'update'])->name('admin.spaces.update');
+    Route::put('/admin/spaces/{id}', 'App\Http\Controllers\SpaceController@update')->name('admin.spaces.update');
+    Route::post('/admin/spaces', [App\Http\Controllers\SpaceController::class, 'store'])->name('admin.spaces.store');
+    Route::get('/admin/spaces/{space}/edit', [\App\Http\Controllers\SpaceController::class, 'edit'])->name('admin.spaces.edit');
+    Route::get('/admin/users', [AdminController::class, 'index'])->name('admin.users.index');
+    Route::post('/admin/users', [AdminController::class, 'store'])->name('admin.users.store');
 
 });

@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
-    <title>Gym Tracker - Members</title>
+    <title>Gym Tracker - Members Lists</title>
     <link rel="icon" type="image/png" href="{{ asset('images/logo/favicon.svg') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
@@ -28,6 +28,7 @@
     <div class="flex flex-col justify-between min-h-screen">
         <div>
             <!-- BEGIN: Header -->
+
             <!-- BEGIN: Header -->
             @include('partials.header')
             <!-- BEGIN: Search Modal -->
@@ -49,6 +50,7 @@
             <!-- END: Header -->
             <!-- END: Header -->
             <div class="content-wrapper transition-all duration-150 ltr:ml-[248px] rtl:mr-[248px]" id="content_wrapper">
+
                 <div class="page-content">
                     <div class="transition-all duration-150 container-fluid" id="page_layout">
                         <div id="content_layout">
@@ -66,16 +68,80 @@
                                         <iconify-icon icon="heroicons-outline:chevron-right" class="relative top-[3px] text-slate-500 rtl:rotate-180"></iconify-icon>
                                     </li>
                                     <li class="inline-block relative text-sm text-slate-500 font-Inter dark:text-white">
-                                        Members</li>
+                                        Members Lists</li>
                                 </ul>
                             </div>
                             <!-- END: BreadCrumb -->
                             <div class=" space-y-5">
-                                <div class="card">
 
+                                <div class="card">
+                                    <header class=" card-header noborder">
+                                        <h4 class="card-title">Members Lists </h4>
+                                    </header>
+                                    <div class="card-body px-6 pb-6">
+                                        <div class="overflow-x-auto -mx-6 dashcode-data-table">
+                                            <span class=" col-span-8  hidden"></span>
+                                            <span class="  col-span-4 hidden"></span>
+                                            <div class="inline-block min-w-full align-middle">
+                                                <div class="overflow-hidden ">
+                                                    <table class="min-w-full divide-y divide-slate-100 table-fixed dark:divide-slate-700" id="data-table">
+                                                        <thead class=" border-t border-slate-100 dark:border-slate-800">
+                                                        <tr>
+                                                        <tr>
+                                                            <th scope="col" class=" table-th ">ID</th>
+                                                            <th scope="col" class=" table-th ">Name</th>
+                                                            <th scope="col" class=" table-th ">Email</th>
+                                                            <th scope="col" class=" table-th ">Current Membership</th>
+                                                            <th scope="col" class=" table-th ">Action</th>
+                                                        </tr>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody class="bg-white divide-y divide-slate-100 dark:bg-slate-800 dark:divide-slate-700">
+                                                        @foreach($members as $member)
+                                                            <tr>
+                                                                <td  class="table-td">{{ $member->id }}</td>
+                                                                <td  class="table-td">{{ $member->first_name }} {{ $member->last_name }}</td>
+                                                                <td  class="table-td">{{ $member->email }}</td>
+                                                                <td  class="table-td">
+                                                                    @php
+                                                                        $latestSubscription = $member->subscriptions()->latest()->first();
+                                                                        $subscriptionStatus = $member->getSubscriptionStatus();
+
+                                                                    @endphp
+
+                                                                    @if ($subscriptionStatus === 'active')
+                                                                        <span class="badge bg-success-500 text-white capitalize">
+                                                            <iconify-icon class="ltr:mr-1 rtl:ml-1"
+                                                                          icon="heroicons-outline:check"></iconify-icon>
+                                                            Active
+                                                        </span>
+                                                                    @elseif ($subscriptionStatus === 'inactive')
+                                                                        <span class="badge bg-warning-500 text-white capitalize">
+                                                            <iconify-icon class="ltr:mr-1 rtl:ml-1"
+                                                                          icon="heroicons-outline:x-mark"></iconify-icon>
+                                                            Inactive
+                                                        </span>
+                                                                    @else
+                                                                        <span class="badge bg-danger-500 text-white capitalize">
+                                                        <iconify-icon class="ltr:mr-1 rtl:ml-1"
+                                                                      icon="heroicons-outline:exclamation"></iconify-icon>
+                                                        No Subscription
+                                                    </span>
+                                                                    @endif
+                                                                </td>
+                                                                <td>
+                                                                    <a href="{{ route('members.show', $member) }}" class="btn btn-primary">View</a>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>

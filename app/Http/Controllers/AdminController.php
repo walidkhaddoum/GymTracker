@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\GymMembership;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -24,8 +25,10 @@ class AdminController extends Controller
 
     public function admins()
     {
-        return view('admin.users.admins');
+        $admins = User::where('role_id', '1')->get();
+        return view('admin.users.admins', compact('admins'));
     }
+
 
     public function members()
     {
@@ -103,4 +106,29 @@ class AdminController extends Controller
     {
         return view('admin.attandance_reports.reports');
     }
+
+    public function index()
+    {
+        $admins = User::where('role', 'admin')->get();
+        return view('admin.users.index', compact('admins'));
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email|unique:users',
+            'password' => 'required|min:6',
+        ]);
+
+        User::create([
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'password' => bcrypt($request->input('password')),
+            'role_id' => 1,
+        ]);
+
+        return response()->json(['message' => 'Admin created successfully']);
+    }
+
 }

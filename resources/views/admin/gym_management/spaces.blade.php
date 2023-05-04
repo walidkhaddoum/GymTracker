@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
-    <title>Gym Tracker - Spaces</title>
+    <title>Gym Tracker - Members Lists</title>
     <link rel="icon" type="image/png" href="{{ asset('images/logo/favicon.svg') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
@@ -28,6 +28,7 @@
     <div class="flex flex-col justify-between min-h-screen">
         <div>
             <!-- BEGIN: Header -->
+
             <!-- BEGIN: Header -->
             @include('partials.header')
             <!-- BEGIN: Search Modal -->
@@ -49,6 +50,7 @@
             <!-- END: Header -->
             <!-- END: Header -->
             <div class="content-wrapper transition-all duration-150 ltr:ml-[248px] rtl:mr-[248px]" id="content_wrapper">
+
                 <div class="page-content">
                     <div class="transition-all duration-150 container-fluid" id="page_layout">
                         <div id="content_layout">
@@ -62,20 +64,105 @@
                                         </a>
                                     </li>
                                     <li class="inline-block relative text-sm text-primary-500 font-Inter ">
-                                        Gym Management
+                                        Users
                                         <iconify-icon icon="heroicons-outline:chevron-right" class="relative top-[3px] text-slate-500 rtl:rotate-180"></iconify-icon>
                                     </li>
                                     <li class="inline-block relative text-sm text-slate-500 font-Inter dark:text-white">
-                                        Spaces</li>
+                                        Members Lists</li>
                                 </ul>
                             </div>
                             <!-- END: BreadCrumb -->
                             <div class=" space-y-5">
-                                <div class="card">
 
+                                <div class="card">
+                                    <header class=" card-header noborder">
+                                        <h4 class="card-title">Members Lists </h4>
+                                    </header>
+                                    <div class="card-body px-6 pb-6">
+                                        <div class="overflow-x-auto -mx-6 dashcode-data-table">
+                                            <span class=" col-span-8  hidden"></span>
+                                            <span class="  col-span-4 hidden"></span>
+                                            <div class="inline-block min-w-full align-middle">
+                                                <div class="overflow-hidden ">
+                                                    <table class="min-w-full divide-y divide-slate-100 table-fixed dark:divide-slate-700" id="data-table">
+                                                        <thead class=" border-t border-slate-100 dark:border-slate-800">
+                                                        <tr>
+                                                        <tr>
+                                                            <th scope="col" class=" table-th ">ID</th>
+                                                            <th scope="col" class=" table-th ">Name</th>
+                                                            <th scope="col" class=" table-th ">Capacity</th>
+                                                            <th scope="col" class=" table-th ">Created At</th>
+                                                            <th scope="col" class=" table-th ">Action</th>
+                                                        </tr>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody class="bg-white divide-y divide-slate-100 dark:bg-slate-800 dark:divide-slate-700">
+                                                        @foreach($spaces as $space)
+                                                            <tr>
+                                                                <td  class="table-td">{{ $space->id }}</td>
+                                                                <td  class="table-td">{{ $space->name }}</td>
+                                                                <td  class="table-td">{{ $space->capacity }}</td>
+                                                                <td  class="table-td">{{ $space->created_at }}</td>
+                                                                <td>
+                                                                    <a href="#" class="text-indigo-500 hover:text-indigo-700 ml-2 edit-btn" data-id="{{ $space->id }}" id="editBtn_{{ $space->id }}">
+                                                                        <iconify-icon icon="heroicons-outline:pencil-square" class="relative top-[2px] text-lg ltr:mr-1 rtl:ml-1"></iconify-icon>
+                                                                    </a>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div class="modal fade fixed top-0 left-0 hidden w-full h-full outline-none overflow-x-hidden overflow-y-auto" id="add_space_modal" tabindex="-1" aria-labelledby="add_space_modal" aria-hidden="true">
+                                                    <div class="modal-dialog relative w-auto pointer-events-none">
+                                                        <div class="modal-content border-none shadow-lg relative flex flex-col w-full pointer-events-auto bg-white bg-clip-padding rounded-md outline-none text-current">
+                                                            <div class="relative bg-white rounded-lg shadow dark:bg-slate-700">
+                                                                <div class="p-6 space-y-4">
+                                                                    <form action="{{ route('admin.spaces.store') }}" method="POST" id="add_space_form">
+                                                                        @csrf
+                                                                        <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
+                                                                        <input type="text" name="name" id="name" required class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+
+                                                                        <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
+                                                                        <textarea name="description" id="description" required class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"></textarea>
+                                                                    </form>
+                                                                </div>
+                                                                <div class="flex items-center justify-end p-6 space-x-2 border-t border-slate-200 rounded-b dark:border-slate-600">
+                                                                    <button type="submit" form="add_space_form" class="btn inline-flex justify-center text-white bg-black-500">Add Space</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="modal fade fixed top-0 left-0 hidden w-full h-full outline-none overflow-x-hidden overflow-y-auto" id="edit_space_modal" tabindex="-1" aria-labelledby="edit_space_modal" aria-hidden="true">
+                                                    <div class="modal-dialog relative w-auto pointer-events-none">
+                                                        <div class="modal-content border-none shadow-lg relative flex flex-col w-full pointer-events-auto bg-white bg-clip-padding rounded-md outline-none text-current">
+                                                            <div class="relative bg-white rounded-lg shadow dark:bg-slate-700">
+                                                                <div class="p-6 space-y-4">
+                                                                    <form action="#" method="POST" id="edit_space_form">
+                                                                        @csrf
+                                                                        <input type="hidden" name="space_id" id="edit_space_id">
+                                                                        <label for="edit_name" class="block text-sm font-medium text-gray-700">Name</label>
+                                                                        <input type="text" name="edit_name" id="edit_name" required class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+
+                                                                        <label for="edit_description" class="block text-sm font-medium text-gray-700">Description</label>
+                                                                        <textarea name="edit_description" id="edit_description" required class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"></textarea>
+                                                                    </form>
+                                                                </div>
+                                                                <div class="flex items-center justify-end p-6 space-x-2 border-t border-slate-200 rounded-b dark:border-slate-600">
+                                                                    <button type="submit" form="edit_space_form" class="btn inline-flex justify-center text-white bg-black-500">Update Space</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -90,5 +177,70 @@
 <script src="{{ asset('js/jquery-3.6.0.min.js') }}"></script>
 <script src="{{ asset('js/rt-plugins.js') }}"></script>
 <script src="{{ asset('js/app.js') }}"></script>
+<script>
+    function openModal(id) {
+        var modalId = 'view_modal_' + id;
+        var modalElement = document.getElementById(modalId);
+
+        if (modalElement) {
+            modalElement.classList.add('show');
+            modalElement.style.display = 'block';
+        }
+    }
+
+    function showAlert(duration) {
+        const alertElement = document.getElementById('temp-alert');
+        alertElement.classList.remove('hidden');
+
+        setTimeout(() => {
+            alertElement.classList.add('hidden');
+        }, duration);
+    }
+
+    $(document).ready(function() {
+        $('.edit-btn').on('click', function() {
+            let spaceId = $(this).data('id');
+            fetchSpaceData(spaceId);
+        });
+    });
+
+    function fetchSpaceData(spaceId) {
+        $.ajax({
+            url: '/admin/spaces/' + spaceId + '/edit',
+            type: 'GET',
+            success: function(response) {
+                $('#edit_space_id').val(response.id);
+                $('#edit_name').val(response.name);
+                $('#edit_description').val(response.description);
+                $('#edit_space_modal').modal('show');
+            },
+            error: function(error) {
+                console.log(error);
+            }
+        });
+    }
+
+
+    $('#edit_space_form').on('submit', function(e) {
+        e.preventDefault();
+
+        let spaceId = $('#edit_space_id').val();
+        let formData = $(this).serialize();
+
+        $.ajax({
+            url: '/admin/spaces/' + spaceId,
+            type: 'PUT',
+            data: formData,
+            success: function(response) {
+                location.reload();
+            },
+            error: function(error) {
+                console.log(error);
+            }
+        });
+
+    });
+
+</script>
 </body>
 </html>
