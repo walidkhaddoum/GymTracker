@@ -36,7 +36,7 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/admin/dashboard', [App\Http\Controllers\AdminController::class, 'index'])->name('admin.dashboard');
+    Route::get('/admin/dashboard', [App\Http\Controllers\AdminController::class, 'getDashboardData'])->name('admin.dashboard');
 
     Route::get('/trainer/dashboard', function () {
         // Your trainer dashboard logic here
@@ -52,9 +52,8 @@ Route::middleware(['auth'])->group(function () {
             return redirect()->route('admin.dashboard');
         });
 
-        Route::get('/dashboard', function () {
-            return view('admin.dashboard');
-        })->name('dashboard');
+        Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
+
         Route::get('admins', [AdminController::class, 'admins'])->name('admins');
         Route::get('members', [MemberController::class, 'index'])->name('members');
         Route::get('trainers', [TrainerController::class, 'index'])->name('trainers');

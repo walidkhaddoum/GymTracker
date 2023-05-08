@@ -5,12 +5,61 @@ namespace App\Http\Controllers;
 use App\Models\GymMembership;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
 {
     public function dashboard()
     {
-        return view('admin.dashboard');
+        // Fetch data using Eloquent and raw SQL
+        // You can replace the raw SQL with Eloquent methods if you prefer
+        // For brevity, I'm using raw SQL for now
+
+        $totalMembers = DB::table('users')->where('role_id', 2)->count();
+        $totalTrainers = DB::table('users')->where('role_id', 3)->count();
+        $totalGyms = DB::table('gyms')->count();
+        $monthlyRevenue = DB::table('payments')->where('payment_status', 1)->whereRaw("DATE_FORMAT(payment_date, '%Y-%m') = DATE_FORMAT(CURDATE(), '%Y-%m')")->sum('amount');
+
+        // Get Top 5 Gyms
+        $top5Gyms = DB::table('attendances')
+            ->join('gyms', 'attendances.gym_space_id', '=', 'gyms.id')
+            ->select('gyms.id', 'gyms.name', DB::raw('COUNT(attendances.id) AS attendance_count'))
+            ->groupBy('gyms.id', 'gyms.name')
+            ->orderByDesc('attendance_count')
+            ->limit(5)
+            ->get();
+
+        // Get member demographics
+        $memberDemographics = DB::table('members')
+            ->select(DB::raw("
+                                COUNT(CASE WHEN TIMESTAMPDIFF(YEAR, date_of_birth, CURDATE()) < 18 THEN 1 END) AS under_18,
+                                COUNT(CASE WHEN TIMESTAMPDIFF(YEAR, date_of_birth, CURDATE()) BETWEEN 18 AND 30 THEN 1 END) AS between_18_and_30,
+                                COUNT(CASE WHEN TIMESTAMPDIFF(YEAR, date_of_birth, CURDATE()) > 30 THEN 1 END) AS over_30
+                            "))
+            ->first();
+
+        // Get new client statistics
+        $newClients = DB::table('subscriptions')
+            ->join('payments', 'subscriptions.payment_id', '=', 'payments.id')
+            ->where('payments.payment_status', 1)
+            ->select(DB::raw("DATE_FORMAT(subscriptions.created_at, '%Y-%m') AS month"), DB::raw('COUNT(*) AS new_clients'))
+            ->groupBy('month')
+            ->orderBy('month')
+            ->get();
+        $newClientsJson = json_encode($newClients);
+
+        // Get latest subscriptions
+        $latestSubscriptions = DB::table('subscriptions')
+            ->join('members', 'subscriptions.member_id', '=', 'members.id')
+            ->join('gym_memberships', 'subscriptions.gym_membership_id', '=', 'gym_memberships.id')
+            ->join('payments', 'subscriptions.payment_id', '=', 'payments.id')
+            ->where('payments.payment_status', 1)
+            ->select('members.first_name', 'members.last_name', 'gym_memberships.name as membership_name', 'payments.amount', 'subscriptions.start_date', DB::raw('DATEDIFF(subscriptions.end_date, subscriptions.start_date) AS date_diff'), 'payments.payment_method')
+            ->orderByDesc('subscriptions.start_date')
+            ->limit(10)
+            ->get();
+
+        return view('admin.dashboard', compact('totalMembers', 'totalTrainers', 'totalGyms', 'monthlyRevenue', 'top5Gyms', 'memberDemographics', 'newClientsJson', 'latestSubscriptions'));
     }
 
     public function viewProfile()
@@ -130,5 +179,6 @@ class AdminController extends Controller
 
         return response()->json(['message' => 'Admin created successfully']);
     }
+
 
 }
