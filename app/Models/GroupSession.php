@@ -1,5 +1,7 @@
 <?php
 
+// app/Models/GroupSession.php
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -17,16 +19,14 @@ class GroupSession extends Model
         'capacity',
     ];
 
-    public function sessionRegistrations()
-    {
-        return $this->hasMany(SessionRegistration::class);
-    }
-
     public function sessionAssignments()
     {
         return $this->hasMany(SessionAssignment::class);
     }
 
-
+    public function sessionRegistrations()
+    {
+        return $this->hasMany(SessionRegistration::class);
+    }
 }
 

@@ -9,10 +9,12 @@ use App\Http\Controllers\IndividualSessionController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\SpaceController;
 use App\Http\Controllers\SpecializationController;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\TrainerController;
+use App\Http\Controllers\MemberUserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -88,4 +90,26 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/admin/users', [AdminController::class, 'index'])->name('admin.users.index');
     Route::post('/admin/users', [AdminController::class, 'store'])->name('admin.users.store');
 
+
+    Route::prefix('user')->group(function () {
+        Route::get('/gyms', [MemberUserController::class, 'gymsIndex'])->name('user.gyms.index');
+        Route::get('/group-sessions/browse', [MemberUserController::class, 'browseGroupSessions'])->name('user.group-sessions.browse');
+        Route::get('/group-sessions/upcoming', [MemberUserController::class, 'upcomingGroupSessions'])->name('user.group-sessions.upcoming');
+        Route::get('/group-sessions/reserve/{id}', [MemberUserController::class, 'reserveGroupSession'])->name('user.group-sessions.reserve');
+        Route::get('/personal-training', [MemberUserController::class, 'personalTrainingIndex'])->name('user.personal-training.index');
+        Route::get('/trainers', [MemberUserController::class, 'trainersIndex'])->name('user.trainers.index');
+        Route::get('/trainers/reserve/{id}', [MemberUserController::class, 'reserveTrainer'])->name('user.trainers.reserve');
+        Route::get('/personal-training/upcoming', [MemberUserController::class, 'upcomingPersonalTrainingSessions'])->name('user.personal-training.upcoming');
+        Route::get('/personal-training/previous', [MemberUserController::class, 'previousPersonalTrainingSessions'])->name('user.personal-training.previous');
+        Route::get('/subscription', [MemberUserController::class, 'subscriptionIndex'])->name('user.subscription.index');
+        Route::get('/subscription/details', [MemberUserController::class, 'subscriptionDetails'])->name('user.subscription.details');
+        Route::get('/subscription/history', [MemberUserController::class, 'subscriptionHistory'])->name('user.subscription.history');
+        Route::get('/subscription/change', [MemberUserController::class, 'changeSubscription'])->name('user.subscription.change');
+        Route::get('/reservations', [MemberUserController::class, 'reservationsIndex'])->name('user.reservations.index');
+        Route::get('/reservations/upcoming', [MemberUserController::class, 'upcomingReservations'])->name('user.reservations.upcoming');
+        Route::get('/reservations/past', [MemberUserController::class, 'pastReservations'])->name('user.reservations.past');
+        Route::post('/reservations', [ReservationController::class, 'store'])->name('reservations.store');
+        Route::post('/group-sessions/reserve/{session}', [ReservationController::class, 'reserveGroupSession'])->name('user.reserveGroupSession');
+
+    });
 });

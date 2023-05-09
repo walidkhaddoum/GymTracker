@@ -25,5 +25,9 @@ class DatabaseSeeder extends Seeder
         $this->call(GymMembershipsTableSeeder::class);
         $this->call(PaymentsTableSeeder::class);
         $this->call(SubscriptionsTableSeeder::class);
+        $this->call([
+            GroupSessionSeeder::class,
+            SessionAssignmentSeeder::class,
+        ]);
     }
 }
