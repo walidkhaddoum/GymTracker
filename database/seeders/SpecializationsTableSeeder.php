@@ -17,6 +17,16 @@ class SpecializationsTableSeeder extends Seeder
             ['name' => 'Personal Training'],
             ['name' => 'Yoga'],
             ['name' => 'Boxing'],
+            ['name' => 'Cardio'],
+            ['name' => 'Strength Training'],
+            ['name' => 'Yoga'],
+            ['name' => 'Kickboxing'],
+            ['name' => 'Pilates'],
+            ['name' => 'Crossfit'],
+            ['name' => 'Aerobics'],
+            ['name' => 'Martial Arts'],
+            ['name' => 'Zumba'],
+            ['name' => 'Weight Lifting'],
         ]);
     }
 }

@@ -2,11 +2,13 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\CoursesController;
 use App\Http\Controllers\GroupSessionController;
 use App\Http\Controllers\GymController;
 use App\Http\Controllers\GymMembershipController;
 use App\Http\Controllers\IndividualSessionController;
 use App\Http\Controllers\MemberController;
+use App\Http\Controllers\MembershipController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ReservationController;
@@ -15,8 +17,11 @@ use App\Http\Controllers\SpecializationController;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\TrainerController;
 use App\Http\Controllers\MemberUserController;
+use App\Models\GroupSession;
+use App\Models\GymMembership;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Models\Trainer;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,13 +34,41 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
 Route::get('/', function () {
-    return view('welcome');
+    $sessions = GroupSession::with('trainers')->whereHas('session_assignments', function ($query) {
+        $query->where('date', '>', date('Y-m-d'));
+    })->inRandomOrder()->limit(4)->get();
+    $trainers = Trainer::with('specializations')->inRandomOrder()->limit(5)->get();
+    return view('welcome', ['trainers' => $trainers], ['sessions' => $sessions]);
 });
+
+Route::get('/trainers', function () {
+    $trainers = Trainer::with('specializations')->get();
+    return view('trainers', ['trainers' => $trainers]);
+})->name('trainers');
+
+
+Route::get('/trainer/{id}', 'App\Http\Controllers\TrainerController@showinformation')->name('trainer.show');
+
+Route::get('session/{session}', 'SessionController@checkLoginAndRedirect')->name('session.redirect');
+
+Route::get('/prices', function () {
+    $memberships = GymMembership::all();
+    return view('prices', ['memberships' => $memberships]);
+})->name('prices');
+
+Route::get('/courses-list', [CoursesController::class, 'index'])->name('courses-list');
+
+Route::post('/subscribe', [MembershipController::class, 'subscribe']);
+
+Route::get('/gyms', [GymController::class, 'indexPublic'])->name('gyms');
+
 
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/get-schedule', 'App\Http\Controllers\ScheduleController@getSchedule');
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/admin/dashboard', [App\Http\Controllers\AdminController::class, 'getDashboardData'])->name('admin.dashboard');
@@ -110,6 +143,5 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/reservations/past', [MemberUserController::class, 'pastReservations'])->name('user.reservations.past');
         Route::post('/reservations', [ReservationController::class, 'store'])->name('reservations.store');
         Route::post('/group-sessions/reserve/{session}', [ReservationController::class, 'reserveGroupSession'])->name('user.reserveGroupSession');
-
     });
 });

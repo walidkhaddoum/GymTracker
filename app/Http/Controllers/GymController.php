@@ -12,5 +12,13 @@ class GymController extends Controller
         return view('admin.gym_management.gyms');
     }
 
+    public function indexPublic()
+    {
+        $gyms = Gym::with('spaces')->get();
+        $gyms = Gym::with('spaces')->get();
+
+        return view('spaces', compact('gyms'));
+    }
+
 
 }

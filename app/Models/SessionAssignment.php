@@ -29,4 +29,5 @@ class SessionAssignment extends Model
     {
         return $this->belongsTo(IndividualSession::class);
     }
+
 }

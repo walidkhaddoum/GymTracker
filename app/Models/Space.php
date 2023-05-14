@@ -12,7 +12,10 @@ class Space extends Model
     protected $fillable = [
         'name',
         'description',
-        'location',
-        'capacity',
     ];
+
+    public function gyms()
+    {
+        return $this->belongsToMany(Gym::class, 'gym_space');
+    }
 }

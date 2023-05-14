@@ -21,6 +21,8 @@ class MemberUserController extends Controller
     public function browseGroupSessions()
     {
         $user_id = Auth::id();
+
+        if (Auth::check()) {
         $today = Carbon::today()->toDateString();
 
         $group_sessions = GroupSession::with(['sessionAssignments.trainer', 'sessionRegistrations' => function ($query) use ($user_id) {
@@ -31,6 +33,9 @@ class MemberUserController extends Controller
             ->get();
 
         return view('user.group-sessions.browse', ['group_sessions' => $group_sessions]);
+        } else {
+            return redirect()->route('prices');
+        }
     }
 
     public function upcomingGroupSessions()
@@ -163,4 +168,5 @@ class MemberUserController extends Controller
     {
         return view('user.reservations.past');
     }
+
 }

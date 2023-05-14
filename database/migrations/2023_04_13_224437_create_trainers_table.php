@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('last_name');
             $table->string('email')->unique();
             $table->string('phone_number');
+            $table->string('picture')->nullable();
             $table->unsignedBigInteger('gym_id');
             $table->foreign('gym_id')->references('id')->on('gyms');
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));

@@ -28,5 +28,17 @@ class GroupSession extends Model
     {
         return $this->hasMany(SessionRegistration::class);
     }
+
+    public function trainers()
+    {
+        return $this->belongsToMany(Trainer::class, 'session_assignments', 'group_session_id', 'trainer_id');
+    }
+
+    public function session_assignments()
+    {
+        return $this->hasMany(SessionAssignment::class, 'group_session_id');
+    }
+
+
 }
 

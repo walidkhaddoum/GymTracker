@@ -24,4 +24,9 @@ class IndividualSession extends Model
     {
         return $this->hasMany(SessionRegistration::class);
     }
+
+    public function sessionAssignments()
+    {
+        return $this->hasMany(SessionAssignment::class);
+    }
 }

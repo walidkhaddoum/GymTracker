@@ -83,7 +83,9 @@
 
                                     @foreach ($trainers as $trainer)
                                         <div class="bg-slate-900 dark:bg-slate-800 mb-10 mt-7 p-4 relative text-center rounded-2xl text-white">
-                                            <img src={{ asset('images/svg/gift.svg') }} alt="" class="mx-auto relative -mt-[40px]">
+                                            <div class="image-container">
+                                                <img src="{{ asset('storage/'.$trainer->picture) }}" alt="" class="trainer-image">
+                                            </div>
                                             <div class="max-w-[160px] mx-auto mt-6">
                                                 <div class="widget-title">{{ $trainer->first_name }} {{ $trainer->last_name }}</div>
                                                 <div class="text-xs font-normal">

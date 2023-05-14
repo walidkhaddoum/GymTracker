@@ -20,5 +20,10 @@ class Gym extends Model
     {
         return $this->hasMany(Trainer::class);
     }
+
+    public function spaces()
+    {
+        return $this->belongsToMany(Space::class, 'gym_space');
+    }
 }
 

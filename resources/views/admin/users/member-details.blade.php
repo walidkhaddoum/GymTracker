@@ -85,7 +85,7 @@
                                         <div
                                             class="flex justify-between flex-wrap space-y-4 px-6 pt-6 bg-slate-50 dark:bg-slate-800 pb-6 rounded-t-md">
                                             <div>
-                                                <img src="{{asset('images/logo/logo-white.svg')}}" alt=""
+                                                <img src="{{asset('images/logo/logo.svg')}}" alt=""
                                                      class="mb-10 dark_logo">
                                                 <img src="{{asset('images/logo/logo-white.svg')}}" alt=""
                                                      class="mb-10 white_logo">

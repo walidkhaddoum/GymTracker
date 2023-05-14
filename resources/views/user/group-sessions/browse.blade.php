@@ -115,7 +115,7 @@
                                                 @endphp
 
                                                 @if(!$registered && !$capacity_reached)
-                                                    <button class="btn btn-primary">Reserve</button>
+                                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#reservationModal{{ $session->id }}">Reserve</button>
                                                 @else
                                                     @if($registered)
                                                         <span class="text-warning">Already registered</span>

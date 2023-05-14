@@ -1,0 +1,562 @@
+/*------------------------------------------------------------------
+[Table of contents]
+
+3.1. Price section
+3.2. Clubcard
+3.3. Lessons accordion
+3.4. FAQ page
+3.5. Media queries
+-------------------------------------------------------------------*/
+
+._Bold {
+    font-weight: 700;
+}
+
+._Light {
+    font-weight: 300;
+}
+
+._Medium {
+    font-weight: 500;
+}
+
+._SemiBold {
+    font-weight: 600;
+}
+
+.price-page {
+    .page_title {
+        font-size: 39px;
+    }
+}
+
+
+/*----------------------------------------------------------------------------------
+3.1. Price section
+-----------------------------------------------------------------------------------*/
+.price_section {
+    .links {
+        margin: 30px 0;
+        
+        .lessons-link {
+            width: auto;
+            font-size: 14px;
+            ._Medium;
+            line-height: 38px;
+            position: relative;
+            padding-right: 26px;
+            letter-spacing: 1px;
+            margin-left: 30px;
+            
+            &:before {
+                position: absolute;
+                content: '';
+                top: 50%;
+                width: 14px;
+                height: 22px;
+                margin-top: -11px;
+                background: url(../img/link-arrow.svg) center center no-repeat;
+                background-size: contain;
+                right: 0;
+            }
+            
+        }
+    }
+}
+
+
+/*----------------------------------------------------------------------------------
+3.2. Clubcard
+-----------------------------------------------------------------------------------*/
+.clubcard {
+    margin: 20px 0 30px;
+    
+    .left {
+        max-width: 586px;
+        
+        img {
+            width: 100%;
+            display: block;
+            border-radius: 10px;
+        }
+    }
+    
+    .right {
+        max-width: 644px;
+        float: right;
+        
+        ._title {
+            font-size: 31px;
+            ._Bold;
+            color: #080B14;
+            margin-bottom: 20px;
+        }
+        
+        ul {
+            display: block;
+            float: left;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            
+            li {
+                font-size: 16px;
+                position: relative;
+                display: block;
+                padding-left: 20px;
+                line-height: 1.5;
+                margin-bottom: 8px;
+                
+                &:last-child {
+                    margin-bottom: 0;
+                }
+                
+                &:before {
+                    width: 12px;
+                    height: 8px;
+                    background: url(../img/correct-symbol.svg) center center no-repeat;
+                    background-size: contain;
+                    position: absolute;
+                    content: '';
+                    left: 0;
+                    top: 7px;
+                }
+            }
+        }
+    }
+}
+
+
+/*----------------------------------------------------------------------------------
+3.3. Lessons accordion
+-----------------------------------------------------------------------------------*/
+.lessons-accordion {
+    margin-top: 20px;
+    
+    .title {
+        font-size: 31px;
+        margin-bottom: 28px;
+    }
+    
+    .lessons {
+        .accordion-item {
+            margin-bottom: 15px;
+            
+            &:last-child {
+                margin-bottom: 0;
+            }
+            
+            &.active {
+                .lessons_top {
+                    &:before {
+                        transform: rotate(180deg);
+                        transition: all .2s linear;
+                    }
+                }
+            }
+            
+            &.light-color {
+                .lessons_list .lesson-item:hover {
+                    ._cost,
+                    ._info ._title,
+                    ._info .author .name {
+                        color: #080B14;
+                        transition: all .2s linear;
+                    }
+                }
+                
+                .lessons_top .title,
+                .lessons_top .cost {
+                    color: #080B14;
+                }
+                
+                .lessons_top {
+                    &:before {
+                        background-image: url(../img/accordion-arrow.svg);
+                    }
+                }
+            }
+            
+            .lessons_top {
+                margin-bottom: 0;
+                position: relative;
+                padding-right: 74px;
+                background: #ff5100;
+                
+                &:hover {
+                    cursor: pointer;
+                    
+                    * {
+                        cursor: pointer;
+                    }
+                }
+                
+                &:before {
+                    width: 14px;
+                    height: 8px;
+                    background: url(../img/accordion-arrow-white.svg) center center no-repeat;
+                    background-size: contain;
+                    position: absolute;
+                    right: 40px;
+                    top: 50%;
+                    margin-top: -4px;
+                    content: '';
+                    transition: all .2s linear;
+                }
+                
+                .title {
+                    margin-bottom: 0;
+                }
+            }
+            
+            .lessons_bottom {
+                display: none;
+                margin-top: 25px;
+                padding-bottom: 50px;
+            }
+            
+            .select-trainer {
+                margin-top: 12px;
+            }
+            
+            .select-trainer .trainers-p {
+                font-size: 26px;
+            }
+            
+            .select-trainer .select_div .select_val {
+                font-size: 26px;
+            }
+        }
+    }
+}
+
+
+/*----------------------------------------------------------------------------------
+3.4. FAQ page
+-----------------------------------------------------------------------------------*/
+.faq-page {
+    .page_title {
+        font-size: 39px;
+        margin-bottom: 25px;
+    }
+}
+
+.faq_section {
+    padding-bottom: 75px;
+    
+    .left {
+        max-width: 852px;
+    }
+    
+    .right {
+        max-width: 390px;
+        float: right;
+    }
+    
+    .section_content {
+        margin-top: 32px;
+    }
+    
+    .faq-item {
+        margin-bottom: 12px;
+        
+        &:last-child {
+            margin-bottom: 0;
+        }
+        
+        p {
+            display: block;
+            float: left;
+            width: 100%;
+            margin: 0;
+        }
+        
+        &.active {
+            .faq-question {
+                background: #080B14;
+                color: #fff;
+                transition: all .2s linear;
+                
+                &:before {
+                    transform: rotate(180deg);
+                    transition: all .2s linear;
+                    opacity: 0;
+                }
+                
+                &:after {
+                    transform: rotate(180deg);
+                    transition: all .2s linear;
+                    opacity: 1;
+                }
+            }
+        }
+        
+        .faq-question {
+            background: #F0F2F8;
+            font-size: 14px;
+            ._Medium;
+            border-radius: 10px;
+            padding: 18px 34px;
+            line-height: 1.8;
+            position: relative;
+            padding-right: 60px;
+            transition: all .2s linear;
+            
+            &:hover {
+                cursor: pointer;
+                
+                * {
+                    cursor: pointer;
+                }
+            }
+            
+            &:before {
+                width: 14px;
+                height: 8px;
+                background: url(../img/accordion-arrow.svg) center center no-repeat;
+                background-size: contain;
+                position: absolute;
+                right: 22px;
+                top: 50%;
+                margin-top: -4px;
+                content: '';
+                transition: all .2s linear;
+            }
+            
+            &:after {
+                width: 14px;
+                height: 8px;
+                background: url(../img/accordion-arrow-white.svg) center center no-repeat;
+                background-size: contain;
+                position: absolute;
+                right: 22px;
+                top: 50%;
+                margin-top: -4px;
+                content: '';
+                transition: all .2s linear;
+                opacity: 0;
+            }
+        }
+        
+        .faq-answer {
+            padding: 18px 34px;
+            display: none;
+            
+            .answer-text {
+                
+                font-size: 14px;
+                ._Medium;
+                line-height: 1.8;
+            }
+        }
+    }
+}
+
+.answer-author {
+    position: relative;
+    padding: 2px 0;
+    padding-left: 56px;
+    font-size: 14px;
+    ._Medium;
+    margin-top: 18px;
+    
+    .userpic {
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        overflow: hidden;
+        position: absolute;
+        top: 0;
+        left: 0;
+        
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+    }
+    
+    .name {
+        margin-bottom: 2px;
+    }
+    
+    .position {
+        color: #91919C;
+    }
+}
+
+
+/*----------------------------------------------------------------------------------
+3.5. Media queries
+-----------------------------------------------------------------------------------*/
+
+@media screen and (max-width: 1315px) {
+    .clubcard .right {
+        max-width: 500px;
+    }
+    
+    .faq_section .left {
+        max-width: 725px;
+    }
+}
+
+@media screen and (max-width: 1260px) {
+    .clubcard .left {
+        max-width: 460px;
+    }
+    
+    .clubcard .right {
+        max-width: 460px;
+    }
+    
+    .faq_section .left {
+        max-width: 556px;
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    .clubcard .left {
+        max-width: 700px;
+    }
+    
+    .clubcard .right {
+        max-width: 700px;
+        float: left;
+        margin-top: 40px;
+    }
+    
+    .lessons .lessons_list .lesson-item ._bottom .btn {
+        opacity: 1;
+    }
+    
+    .faq_section .left {
+        width: 100%;
+        max-width: 100%;
+    }
+    
+    .faq_section .right {
+        max-width: 100%;
+        width: 100%;
+        margin-top: 40px;
+    }
+    
+    .sitemap_section ._title {
+        font-size: 18px;
+    }
+    
+    .sitemap_section .column ul li {
+        font-size: 17px;
+    }
+}
+
+@media screen and (max-width: 760px) {
+    .price-page .page_title {
+        font-size: 34px;
+    }
+    
+    .lessons-accordion .lessons .accordion-item .lessons_top:before {
+        right: 22px;
+    }
+    
+    .lessons-accordion .lessons .accordion-item .lessons_top {
+        padding-right: 55px;
+    }
+    
+    .price-page .page_title {
+        br {
+            display: none;
+        }
+    }
+    
+    .faq-page .page_title {
+        font-size: 34px;
+    }
+}
+
+@media screen and (max-width: 590px) {
+    .price-page .page_title {
+        font-size: 32px;
+    }
+    
+    .price_section .links .lessons-link {
+        margin-left: 15px;
+    }
+    
+    .clubcard .right ._title,
+    .lessons-accordion .title {
+        font-size: 28px;
+    }
+    
+    .clubcard {
+        margin-bottom: 20px;
+    }
+    
+    .faq-page .page_title {
+        font-size: 32px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .price_section .links .lessons-link {
+        margin-left: 0;
+        clear: both;
+        margin-top: 10px;
+    }
+    
+    .price_section .links {
+        text-align: center;
+        margin: 20px 0;
+        
+        & > * {
+            display: inline-block;
+            float: none;
+            margin: 0 10px;
+        }
+    }
+    
+    .price-page .page_title {
+        font-size: 28px;
+    }
+    
+    .clubcard .right ._title, .lessons-accordion .title {
+        font-size: 26px;
+    }
+    
+    .faq-page .page_title {
+        font-size: 28px;
+    }
+    
+    .faq_section .faq-item .faq-question {
+        padding: 20px;
+    }
+    
+    .faq_section .faq-item .faq-question:before,
+    .faq_section .faq-item .faq-question:after {
+        right: 14px;
+    }
+    
+    .faq_section .faq-item .faq-question {
+        padding-right: 44px;
+    }
+    
+    .faq_section .faq-item .faq-answer {
+        padding: 20px;
+    }
+    
+    .faq_section .faq-item:last-child {
+        .faq-answer {
+            padding-bottom: 0;
+        }
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .lessons-accordion .lessons .accordion-item .lessons_top:before {
+        right: 15px;
+    }
+    
+    .lessons-accordion .lessons .accordion-item .lessons_top {
+        padding-right: 42px;
+    }
+}

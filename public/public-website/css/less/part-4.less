@@ -1,0 +1,363 @@
+/*------------------------------------------------------------------
+About us page
+-------------------------------------------------------------------*/
+
+._Bold {
+    font-weight: 700;
+}
+
+._Light {
+    font-weight: 300;
+}
+
+._Medium {
+    font-weight: 500;
+}
+
+._SemiBold {
+    font-weight: 600;
+}
+
+.about-page {
+    
+    .page_title {
+        font-size: 39px;
+    }
+    
+    .slider {
+        margin-bottom: 50px;
+        
+        .slick-arrow {
+            width: 108px;
+            height: 108px;
+            background: rgba(255, 255, 255, .27);
+            position: absolute;
+            top: 50%;
+            margin-top: -54px;
+            z-index: 1;
+            color: transparent;
+            transition: all .2s linear;
+            
+            &:before {
+                width: 22px;
+                height: 14px;
+                background: url(../img/slick-arrow.svg) center center no-repeat;
+                background-size: contain;
+                content: '';
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                margin-top: -7px;
+                margin-left: -11px;
+            }
+            
+            &.slick-prev {
+                left: 0;
+            }
+            
+            &.slick-next {
+                right: 0;
+                
+                &:before {
+                    transform: rotate(180deg);
+                }
+            }
+            
+            &:hover {
+                background: rgba(255, 255, 255, .6);
+                transition: all .2s linear;
+            }
+        }
+        
+        .slide {
+            width: 1290px;
+            height: 580px;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 0 18px;
+            
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                margin: 0;
+            }
+        }
+        
+        .slick-list {
+            overflow: visible;
+        }
+    }
+}
+
+.about_section {
+    padding-bottom: 40px;
+    overflow: hidden;
+}
+
+.about-text {
+    font-size: 20px;
+    ._SemiBold;
+    color: #080B14;
+    text-align: center;
+    line-height: 1.6;
+}
+
+.history-block {
+    padding-top: 40px;
+    padding-bottom: 63px;
+    
+    .title {
+        font-size: 31px;
+        color: #080B14;
+        text-align: center;
+    }
+    
+    .controls {
+        text-align: center;
+        margin: 30px 0 10px;
+        
+        .year {
+            width: 100px;
+            display: inline-block;
+            float: none;
+            position: relative;
+            height: 38px;
+            vertical-align: middle;
+            margin: 0 50px;
+            
+            .year-item {
+                position: absolute;
+                width: 100%;
+                top: 0;
+                left: 100%;
+                font-size: 31px;
+                ._Bold;
+                color: #FF5100;
+                text-align: center;
+                opacity: 0;
+                height: 38px;
+                transition: all .2s linear;
+                
+                &.active {
+                    opacity: 1;
+                    left: 0;
+                    transition: all .2s linear;
+                }
+                
+                &.prev-year {
+                    left: -100%;
+                    opacity: 0;
+                    transition: all .2s linear;
+                }
+            }
+        }
+        
+        .arrow {
+            position: relative;
+            width: auto;
+            display: inline-block;
+            float: none;
+            font-size: 18px;
+            z-index: 1;
+            vertical-align: middle;
+            
+            &.slick-disabled {
+                opacity: .3;
+                
+                &:hover {
+                    cursor: default;
+                    
+                    * {
+                        cursor: default;
+                    }
+                }
+            }
+            
+            &:before {
+                width: 22px;
+                height: 14px;
+                background: url(../img/history-arrow.svg) center center no-repeat;
+                background-size: contain;
+                position: absolute;
+                content: '';
+                top: 50%;
+                margin-top: -7px;
+            }
+            
+            &:hover {
+                cursor: pointer;
+                
+                * {
+                    cursor: pointer;
+                }
+            }
+            
+            &.prev {
+                padding-left: 36px;
+                
+                &:before {
+                    left: 0;
+                }
+            }
+            
+            &.next {
+                padding-right: 36px;
+                
+                &:before {
+                    right: 0;
+                    transform: rotate(180deg);
+                }
+            }
+        }
+    }
+    
+    .history-content {
+        text-align: center;
+        
+        ._content {
+            font-size: 20px;
+            
+            .text-block {
+                padding: 0 180px;
+                margin: 0;
+            }
+            
+            b, strong {
+                ._SemiBold;
+            }
+            
+            .images {
+                width: 100%;
+                margin: 0;
+                margin-top: 20px;
+                margin-left: 0;
+            }
+        }
+    }
+}
+
+.other-info {
+    text-align: center;
+    padding: 75px 0;
+    
+    .classes_info {
+        padding-top: 0;
+        text-align: left;
+        margin-top: 40px;
+    }
+    
+    .text {
+        
+    }
+}
+
+@media screen and (max-width: 1315px) {
+    .about-page .slider .slide {
+        width: 1140px;
+        height: 530px;
+    }
+    
+    .history-block .history-content ._content .text-block {
+        padding: 0 80px;
+    }
+}
+
+@media screen and (max-width: 1260px) {
+    .about-page .slider .slide {
+        width: 970px;
+        height: 460px;
+    }
+    
+    .history-block .history-content ._content .text-block {
+        padding: 0;
+    }
+}
+
+@media screen and (max-width: 1260px) {
+    .about-page .slider .slide {
+        height: 44vw;
+    }
+    
+    .about-page .slider .slide {
+        margin: 0 6px;
+    }
+}
+
+@media screen and (max-width: 760px) {
+    .other-info {
+        .classes_info {
+            text-align: center;
+            
+            .items {
+                width: auto;
+                display: inline-block;
+                float: none;
+
+                .item {
+                    width: auto;
+                    clear: both;
+                    text-align: left;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 590px) {
+    .about-text {
+        font-size: 18px;
+    }
+    
+    .history-block .controls .year {
+        margin: 0 30px;
+    }
+    
+    .history-block .controls .arrow {
+        span {
+            display: none;
+        }
+    }
+    
+    .about-page .page_title {
+        font-size: 38px;
+    }
+    
+    .about-page .slider {
+        margin-bottom: 28px;
+    }
+    
+    .history-block .title {
+        font-size: 28px;
+    }
+    
+    .history-block .controls {
+        margin: 20px 0 10px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .about-page .page_title {
+        font-size: 32px;
+    }
+    
+    .about-text {
+        font-size: 16px;
+    }
+    
+    .about_section {
+        padding-bottom: 20px;
+    }
+    
+    .history-block {
+        padding-top: 20px;
+    }
+    
+    .history-block .history-content ._content .images {
+        margin-top: 10px;
+    }
+    
+    .other-info {
+        padding: 50px 0;
+    }
+}

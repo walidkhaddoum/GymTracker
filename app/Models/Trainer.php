@@ -27,5 +27,18 @@ class Trainer extends Model
     {
         return $this->belongsTo(Gym::class);
     }
+
+    public function groupSessions()
+    {
+        return $this->belongsToMany(GroupSession::class, 'session_assignments', 'trainer_id', 'group_session_id');
+    }
+
+
+    public function sessions()
+    {
+        return $this->hasMany(SessionAssignment::class);
+    }
+
+
 }
 

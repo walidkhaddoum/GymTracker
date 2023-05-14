@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Trainer;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class TrainerController extends Controller
@@ -19,4 +20,14 @@ class TrainerController extends Controller
         $trainer = Trainer::with('specializations', 'gym')->findOrFail($id);
         return response()->json($trainer);
     }
+
+    public function showinformation($id)
+    {
+        $trainer = Trainer::with(['specializations', 'groupSessions' => function ($query) {
+            $query->where('date', '>', Carbon::today()->toDateString());
+        }])->findOrFail($id);
+
+        return view('trainer-details', ['trainer' => $trainer]);
+    }
+
 }

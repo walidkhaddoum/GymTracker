@@ -27,6 +27,12 @@ class GroupSession extends Model
         return $this->hasMany(SessionAssignment::class);
     }
 
+    public function getGroupSessionsByDate(Request $request, $date)
+    {
+        $group_sessions = GroupSession::where('date', $date)->take(6)->get();
+        return response()->json($group_sessions);
+    }
+
 
 }
 

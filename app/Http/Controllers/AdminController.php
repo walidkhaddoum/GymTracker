@@ -11,9 +11,6 @@ class AdminController extends Controller
 {
     public function dashboard()
     {
-        // Fetch data using Eloquent and raw SQL
-        // You can replace the raw SQL with Eloquent methods if you prefer
-        // For brevity, I'm using raw SQL for now
 
         $totalMembers = DB::table('users')->where('role_id', 2)->count();
         $totalTrainers = DB::table('users')->where('role_id', 3)->count();

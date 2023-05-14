@@ -94,12 +94,17 @@
                                     @foreach($previous_sessions as $index => $session)
                                         <tr>
                                             <td class="table-td">{{ $index + 1 }}</td>
-                                            <td class="table-td">{{ $session->trainer->name }}</td>
-                                            <td class="table-td">{{ $session->individualSession->start_date }}</td>
-                                            <td class="table-td">{{ $session->individualSession->end_date }}</td>
-                                            <td class="table-td">{{ $session->individualSession->start_date->diffInDays($session->individualSession->end_date) }}</td>
+                                            <td class="table-td">{{ $session->sessionAssignments->first()->trainer->first_name }} {{ $session->sessionAssignments->first()->trainer->last_name }}</td>
+                                            <td class="table-td">{{ $session->date }} {{ $session->start_time }}</td>
+                                            <td class="table-td">{{ $session->date }} {{ $session->end_time }}</td>
+                                            @php
+                                                $startDateTime = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $session->date . ' ' . $session->start_time);
+                                                $endDateTime = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $session->date . ' ' . $session->end_time);
+                                            @endphp
+                                            <td class="table-td">{{ $startDateTime->diffInMinutes($endDateTime) }} minutes</td>
                                         </tr>
                                     @endforeach
+
                                     </tbody>
                                 </table>
                             </div>
