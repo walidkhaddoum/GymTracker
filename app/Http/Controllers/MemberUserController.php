@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\GroupSession;
+use App\Models\Gym;
 use App\Models\IndividualSession;
 use App\Models\Trainer;
 use App\Models\User;
@@ -15,12 +16,14 @@ class MemberUserController extends Controller
 {
     public function gymsIndex()
     {
-        return view('user.gyms.index');
+        $gyms = Gym::with('spaces')->get();
+
+        return view('user.gyms.index', compact('gyms'));
     }
 
     public function browseGroupSessions()
     {
-        $user_id = Auth::id();
+        $user_id = Auth::user()->member->id;
 
         if (Auth::check()) {
         $today = Carbon::today()->toDateString();
@@ -40,7 +43,7 @@ class MemberUserController extends Controller
 
     public function upcomingGroupSessions()
     {
-        $user_id = Auth::id();
+        $user_id = Auth::user()->member->id;
 
         $upcoming_sessions = GroupSession::whereHas('sessionRegistrations', function ($query) use ($user_id) {
             $query->where('member_id', $user_id);
@@ -54,8 +57,6 @@ class MemberUserController extends Controller
 
     public function reserveGroupSession($id)
     {
-        // Implement reservation logic here
-
         return view('user.group-sessions.reserve');
     }
 
@@ -79,7 +80,7 @@ class MemberUserController extends Controller
 
     public function upcomingReservations()
     {
-        $user_id = Auth::id();
+        $user_id = Auth::user()->member->id;
 
         $upcoming_individual_sessions = IndividualSession::whereHas('sessionRegistrations', function ($query) use ($user_id) {
             $query->where('member_id', $user_id);
@@ -102,7 +103,7 @@ class MemberUserController extends Controller
     }
     public function previousPersonalTrainingSessions()
     {
-        $member_id = Auth::id();
+        $member_id = Auth::user()->member->id;
 
         $previous_sessions = IndividualSession::whereHas('sessionRegistrations', function ($query) use ($member_id) {
             $query->where('member_id', $member_id);
@@ -121,7 +122,7 @@ class MemberUserController extends Controller
 
     public function upcomingPersonalTrainingSessions()
     {
-        $member_id = Auth::id();
+        $member_id = Auth::user()->member->id;
 
         $upcoming_sessions = IndividualSession::whereHas('sessionRegistrations', function ($query) use ($member_id) {
             $query->where('member_id', $member_id);

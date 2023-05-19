@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Http\Controllers\SessionRegistration;
+use App\Notifications\ResetPasswordNotification;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -58,6 +59,16 @@ class User extends Authenticatable
     public function sessionRegistrations()
     {
         return $this->hasMany(SessionRegistration::class);
+    }
+
+    public function reservations()
+    {
+        return $this->hasMany(Reservation::class);
+    }
+
+    public function member()
+    {
+        return $this->hasOne(Member::class, 'user_id', 'id');
     }
 
 }

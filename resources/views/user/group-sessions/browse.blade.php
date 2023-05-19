@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <title>Gym Tracker - Tableau de bord</title>
-    <link rel="icon" type="image/png" href="{{ asset('images/logo/favicon.svg') }}">
+    <link rel="icon" type="image/png" href="{{ asset('images/logo/logo-c-white.svg') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
@@ -107,7 +107,7 @@
                                             <td class="table-td">{{ $session->sessionAssignments->first()->trainer->first_name }} {{ $session->sessionAssignments->first()->trainer->last_name }}</td>
                                             <td class="table-td">
                                                 @php
-                                                    $user_id = Auth::id();
+                                                    $user_id = Auth::user()->member->id;
                                                 @endphp
                                                 @php
                                                     $registered = $session->sessionRegistrations->contains('member_id', $user_id);

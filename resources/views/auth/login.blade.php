@@ -2,6 +2,13 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr" class="light">
 <head>
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('images/logo/logo-c-white.svg') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('images/logo/logo-c-white.svg') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('images/logo/logo-c-white.svg') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('images/logo/logo-c-white.svg') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('images/logo/logo-c-white.svg') }}">
+    <link rel="icon" type="image/png" href="{{ asset('images/logo/logo-c-white.svg') }}" sizes="32x32">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('images/logo/logo-c-white.svg') }}">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
@@ -20,23 +27,23 @@
     <div class="lg-inner-column">
         <div class="left-columns lg:w-1/2 lg:block hidden">
             <div class="logo-box-3">
-                <a href="index.html" class="">
-                    <img src="{{ asset('images/logo/logo-white.png') }}" alt="">
+                <a href="{{ route('IndexPage') }}" class="">
+                    <img src="{{ asset('public-website/img/logo.png') }}" alt="">
                 </a>
             </div>
         </div>
         <div class="lg:w-1/2 w-full flex flex-col items-center justify-center">
             <div class="auth-box-3">
                 <div class="mobile-logo text-center mb-6 lg:hidden block">
-                    <a href="index.html">
-                        <img src="{{ asset('images/logo/logo.png') }}" alt="" class="mb-10 dark_logo">
+                    <a href="{{ route('IndexPage') }}">
+                        <img src="{{ asset('public-website/img/logo.png') }}" alt="" class="mb-10 dark_logo">
                         <img src="{{ asset('images/logo/logo-white.png') }}" alt="" class="mb-10 white_logo">
                     </a>
                 </div>
                 <div class="text-center 2xl:mb-10 mb-5">
-                    <h4 class="font-medium">Sign In</h4>
+                    <h4 class="font-medium">Gym Tracker</h4>
                     <div class="text-slate-500 dark:text-slate-400 text-base">
-                        Sign in to your account to start using Gym Space
+                        Log in to your account and embark on your fitness journey with us
                     </div>
                 </div>
                 <!-- BEGIN: Login Form -->
@@ -45,7 +52,7 @@
                     <div class="fromGroup">
                         <label class="block capitalize form-label">email</label>
                         <div class="relative">
-                            <input type="email" name="email" class="form-control py-2" placeholder="Add placeholder" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                            <input type="email" name="email" class="form-control py-2" placeholder="Email" value="{{ old('email') }}" required autocomplete="email" autofocus>
                         </div>
                         @error('email')
                         <span class="text-danger" style="color:red">{{ $message }}</span>
@@ -54,7 +61,7 @@
                     <div class="fromGroup">
                         <label class="block capitalize form-label">password</label>
                         <div class="relative">
-                            <input type="password" name="password" class="form-control py-2" placeholder="Add placeholder" required autocomplete="current-password">
+                            <input type="password" name="password" class="form-control py-2" placeholder="Password" required autocomplete="current-password">
                         </div>
                         @error('password')
                         <span class="text-danger" style="color:red">{{ $message }}</span>

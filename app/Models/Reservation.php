@@ -13,7 +13,11 @@ class Reservation extends Model
         'user_id',
         'trainer_id',
         'session_date',
+        'start_time',
+        'end_time',
+        'duration',
     ];
+
 
     public function user()
     {
@@ -24,5 +28,12 @@ class Reservation extends Model
     {
         return $this->belongsTo(Trainer::class);
     }
+
+    public function member()
+    {
+        return $this->belongsTo(Member::class, 'user_id', 'user_id');
+    }
+
+
 }
 

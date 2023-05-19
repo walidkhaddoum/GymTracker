@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Gym;
+use App\Models\Space;
 use Illuminate\Http\Request;
 
 class GymController extends Controller
@@ -12,13 +13,25 @@ class GymController extends Controller
         return view('admin.gym_management.gyms');
     }
 
-    public function indexPublic()
+    public function indexPublic(Request $request)
     {
-        $gyms = Gym::with('spaces')->get();
-        $gyms = Gym::with('spaces')->get();
+        $spaceId = $request->get('space_id');
 
-        return view('spaces', compact('gyms'));
+        $gyms = Gym::with('spaces');
+
+        if ($spaceId) {
+            $gyms->whereHas('spaces', function ($query) use ($spaceId) {
+                $query->where('spaces.id', $spaceId);
+            });
+        }
+
+        $gyms = $gyms->get();
+
+        $spaces = Space::all();
+
+        return view('spaces', compact('gyms', 'spaces'));
     }
+
 
 
 }

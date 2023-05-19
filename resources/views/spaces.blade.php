@@ -9,35 +9,27 @@
     <div class="breadcrumbs">
         <div class="wrap">
             <div class="wrap_float">
-                <a href="/">Home</a> / <a href="vacancies.html" class="current">Vacancies</a>
+                <a href="/">Home</a> / <a href="vacancies.html" class="current">Workout Areas</a>
             </div>
         </div>
     </div>
     <section class="vacancies">
         <div class="wrap">
             <div class="wrap_float">
-                <h1 class="title">Vacancy Light</h1>
+                <h1 class="title">Exploring Gym Tracker Fitness Club's Dynamic Workout Areas</h1>
                 <div class="text">
-                    Introductory instruction in the direction of Cycle Connect-training based on the power index (FTP). Each time you connect to the system, the simulator adjusts the complexity to a specific person. Thus, in one lesson, people with different levels of training can be at neighboring simulators.
+                    Gym Tracker Fitness Club offers a variety of workout spaces to cater to different fitness needs, from cardio zones to weightlifting sections and group exercise studios.
                 </div>
                 <div class="sorting">
                     <div class="sorting-item">
-                        <div class="label">Departments:</div>
+                        <div class="label">Spaces:</div>
                         <div class="select_div">
                             <div class="select_val">All</div>
-                            <select class="js-select">
-                                <option value="Departments 1">Departments 1</option>
-                                <option value="Departments 2">Departments 2</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="sorting-item">
-                        <div class="label">City:</div>
-                        <div class="select_div">
-                            <div class="select_val">All</div>
-                            <select class="js-select">
-                                <option value="City 1">City 1</option>
-                                <option value="City 2">City 2</option>
+                            <select id="space-select" class="js-select">
+                                <option value="">All</option>
+                                @foreach($spaces as $space)
+                                    <option value="{{ $space->id }}" {{ request('space_id') == $space->id ? 'selected' : '' }}>{{ $space->name }}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
@@ -78,7 +70,7 @@
                                         @endforeach
                                     </div>
                                     <div class="btn_wrap">
-                                        <button class="btn getModal" data-href="#vacancy">APPLY FOR THIS JOB</button>
+                                        <a class="btn" href="{{ route('prices') }}">JOIN OUR CLUB</a>
                                     </div>
                                     <div class="date">
                                         DATE OF PUBLICATION: {{ \Carbon\Carbon::parse($gym->updated_at)->format('d M. Y') }}
@@ -256,6 +248,29 @@
 <script src="{{ asset('public-website/js/slick.min.js') }}"></script>
 <script src="{{ asset('public-website/js/jquery.arcticmodal.min.js') }}"></script>
 <script src="{{ asset('public-website/js/scripts.js') }}"></script>
+<script>
+    $(document).ready(function() {
+        $('#space-select').change(function() {
+            var selectedSpace = $(this).val();
+            var selectedSpaceText = $(this).find('option:selected').text();
+            $('#selected-value').text(selectedSpaceText);
+            var url = new URL(window.location.href);
+
+            if (selectedSpace) {
+                url.searchParams.set('space_id', selectedSpace);
+            } else {
+                url.searchParams.delete('space_id');
+            }
+
+            window.location.href = url.href;
+        });
+
+        // Get the selected text after page reload
+        var selectedSpaceText = $('#space-select option:selected').text();
+        $('.select_val').text(selectedSpaceText);
+    });
+</script>
+
 </body>
 
 </html>

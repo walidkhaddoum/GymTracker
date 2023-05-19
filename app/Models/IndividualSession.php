@@ -11,14 +11,26 @@ class IndividualSession extends Model
 
     protected $fillable = [
         'trainer_id',
-        'start_date',
-        'end_date',
+        'date',
+        'start_time',
+        'end_time',
     ];
 
     public function trainer()
     {
         return $this->belongsTo(Trainer::class);
     }
+
+    public function members()
+    {
+        return $this->belongsToMany(
+            Member::class,
+            'session_registrations',
+            'individual_session_id',
+            'member_id'
+        );
+    }
+
 
     public function sessionRegistrations()
     {

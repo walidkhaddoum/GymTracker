@@ -49,7 +49,7 @@ class LoginController extends Controller
             case 'trainer':
                 return redirect()->route('trainer.dashboard');
             default:
-                return redirect()->route('user.dashboard');
+                return redirect()->route('user.gyms.index');
         }
     }
 

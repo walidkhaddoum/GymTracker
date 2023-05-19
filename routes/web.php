@@ -2,7 +2,11 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\CatalogueController;
 use App\Http\Controllers\CoursesController;
+use App\Http\Controllers\EquipmentController;
 use App\Http\Controllers\GroupSessionController;
 use App\Http\Controllers\GymController;
 use App\Http\Controllers\GymMembershipController;
@@ -17,8 +21,10 @@ use App\Http\Controllers\SpecializationController;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\TrainerController;
 use App\Http\Controllers\MemberUserController;
+use App\Http\Controllers\TrainerUsercontroller;
 use App\Models\GroupSession;
 use App\Models\GymMembership;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Models\Trainer;
@@ -41,13 +47,21 @@ Route::get('/', function () {
     })->inRandomOrder()->limit(4)->get();
     $trainers = Trainer::with('specializations')->inRandomOrder()->limit(5)->get();
     return view('welcome', ['trainers' => $trainers], ['sessions' => $sessions]);
-});
+})->name('IndexPage');
 
 Route::get('/trainers', function () {
     $trainers = Trainer::with('specializations')->get();
-    return view('trainers', ['trainers' => $trainers]);
+    $specializations = \App\Models\Specialization::all();
+    return view('trainers', ['trainers' => $trainers, 'specializations' => $specializations]);
 })->name('trainers');
 
+Route::get('/trainers/{specializationId}', function ($specializationId) {
+    $trainers = Trainer::with('specializations')->whereHas('specializations', function ($query) use ($specializationId) {
+        $query->where('specialization_id', $specializationId);
+    })->get();
+
+    return view('trainerslist', ['trainers' => $trainers]);
+});
 
 Route::get('/trainer/{id}', 'App\Http\Controllers\TrainerController@showinformation')->name('trainer.show');
 
@@ -56,13 +70,37 @@ Route::get('session/{session}', 'SessionController@checkLoginAndRedirect')->name
 Route::get('/prices', function () {
     $memberships = GymMembership::all();
     return view('prices', ['memberships' => $memberships]);
-})->name('prices');
+})->name('prices')->middleware('check.membership');
+
+Route::post('/subscribe', [MembershipController::class, 'subscribe']);
+Route::post('/resubscribe', [MembershipController::class, 'resubscribe']);
+Route::get('/member-data', function () {
+    if (auth()->check()) {
+        $user = auth()->user();
+        $member = $user->member; // This assumes that a 'member' relationship is defined in your User model
+        return response()->json($member);
+    }
+
+    return response()->json(null);
+})->name('member.data');
+
 
 Route::get('/courses-list', [CoursesController::class, 'index'])->name('courses-list');
 
-Route::post('/subscribe', [MembershipController::class, 'subscribe']);
-
 Route::get('/gyms', [GymController::class, 'indexPublic'])->name('gyms');
+
+
+
+
+
+
+Route::get('/add-trainer', [TrainerController::class, 'create']);
+Route::post('/add-trainer', [TrainerController::class, 'store']);
+
+
+
+
+
 
 
 Auth::routes();
@@ -86,9 +124,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/', function () {
             return redirect()->route('admin.dashboard');
         });
-
         Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
-
         Route::get('admins', [AdminController::class, 'admins'])->name('admins');
         Route::get('members', [MemberController::class, 'index'])->name('members');
         Route::get('trainers', [TrainerController::class, 'index'])->name('trainers');
@@ -108,6 +144,10 @@ Route::middleware(['auth'])->group(function () {
         Route::get('profile/change-password', 'AdminController@changePasswordView')->name('profile.change_password');
         Route::post('gym-memberships/store', [GymMembershipController::class, 'store'])->name('gym_memberships.store');
         Route::get('gym-memberships/{id}/active-subscriptions', [GymMembershipController::class, 'active_subscriptions'])->name('gym_memberships.active_subscriptions');
+        Route::get('equipments', [EquipmentController::class, 'index'])->name('equipments');
+        Route::get('equipments/create', [EquipmentController::class, 'create'])->name('equipments.create');
+        Route::post('equipments/store', [EquipmentController::class, 'store'])->name('equipments.store');
+
 
     });
     Route::get('/admin/gym_memberships/{id}/edit', [GymMembershipController::class, 'edit'])->name('admin.gym_memberships.edit');
@@ -123,25 +163,89 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/admin/users', [AdminController::class, 'index'])->name('admin.users.index');
     Route::post('/admin/users', [AdminController::class, 'store'])->name('admin.users.store');
 
+    ////////////////////////
+    ///
+    ///
+
+    Route::get('/admin/catalogues', [CatalogueController::class, 'index'])->name('admin.catalogues');
+    Route::put('/admin/catalogues/{id}', 'App\Http\Controllers\CatalogueController@update')->name('admin.catalogues.update');
+    Route::post('/admin/catalogues', [App\Http\Controllers\CatalogueController::class, 'store'])->name('admin.catalogues.store');
+    Route::get('/admin/catalogues/{catalogue}/edit', [\App\Http\Controllers\CatalogueController::class, 'edit'])->name('admin.catalogues.edit');
+    Route::post('/admin/catalogues/store', [CatalogueController::class, 'store'])->name('catalogues.store');
+
+    /////////////////////
+    ///
+    ///
+    ///
+    ///
+    ///
+    ///
+    ///
+    Route::put('/admin/equipments/{id}', 'App\Http\Controllers\EquipmentController@update')->name('admin.materiels.update');
+    Route::post('/admin/equipments', [App\Http\Controllers\EquipmentController::class, 'store'])->name('admin.materiels.store');
+    Route::get('/admin/equipments/{equipment}/edit', [\App\Http\Controllers\EquipmentController::class, 'edit'])->name('admin.materiels.edit');
+    ///
+    ///
+    ///
+    ///
+    ///
+    ///
+    ///
+    ///
+    ///
+    /////////////////////
 
     Route::prefix('user')->group(function () {
-        Route::get('/gyms', [MemberUserController::class, 'gymsIndex'])->name('user.gyms.index');
-        Route::get('/group-sessions/browse', [MemberUserController::class, 'browseGroupSessions'])->name('user.group-sessions.browse');
-        Route::get('/group-sessions/upcoming', [MemberUserController::class, 'upcomingGroupSessions'])->name('user.group-sessions.upcoming');
-        Route::get('/group-sessions/reserve/{id}', [MemberUserController::class, 'reserveGroupSession'])->name('user.group-sessions.reserve');
-        Route::get('/personal-training', [MemberUserController::class, 'personalTrainingIndex'])->name('user.personal-training.index');
-        Route::get('/trainers', [MemberUserController::class, 'trainersIndex'])->name('user.trainers.index');
-        Route::get('/trainers/reserve/{id}', [MemberUserController::class, 'reserveTrainer'])->name('user.trainers.reserve');
-        Route::get('/personal-training/upcoming', [MemberUserController::class, 'upcomingPersonalTrainingSessions'])->name('user.personal-training.upcoming');
-        Route::get('/personal-training/previous', [MemberUserController::class, 'previousPersonalTrainingSessions'])->name('user.personal-training.previous');
-        Route::get('/subscription', [MemberUserController::class, 'subscriptionIndex'])->name('user.subscription.index');
-        Route::get('/subscription/details', [MemberUserController::class, 'subscriptionDetails'])->name('user.subscription.details');
-        Route::get('/subscription/history', [MemberUserController::class, 'subscriptionHistory'])->name('user.subscription.history');
-        Route::get('/subscription/change', [MemberUserController::class, 'changeSubscription'])->name('user.subscription.change');
-        Route::get('/reservations', [MemberUserController::class, 'reservationsIndex'])->name('user.reservations.index');
-        Route::get('/reservations/upcoming', [MemberUserController::class, 'upcomingReservations'])->name('user.reservations.upcoming');
-        Route::get('/reservations/past', [MemberUserController::class, 'pastReservations'])->name('user.reservations.past');
-        Route::post('/reservations', [ReservationController::class, 'store'])->name('reservations.store');
-        Route::post('/group-sessions/reserve/{session}', [ReservationController::class, 'reserveGroupSession'])->name('user.reserveGroupSession');
+        Route::get('/gyms', [MemberUserController::class, 'gymsIndex'])->middleware('active.subscription')->name('user.gyms.index');
+        Route::get('/group-sessions/browse', [MemberUserController::class, 'browseGroupSessions'])->middleware('active.subscription')->name('user.group-sessions.browse');
+        Route::get('/group-sessions/upcoming', [MemberUserController::class, 'upcomingGroupSessions'])->middleware('active.subscription')->name('user.group-sessions.upcoming');
+        Route::get('/group-sessions/reserve/{id}', [MemberUserController::class, 'reserveGroupSession'])->middleware('active.subscription')->name('user.group-sessions.reserve');
+        Route::get('/personal-training', [MemberUserController::class, 'personalTrainingIndex'])->middleware('active.subscription')->name('user.personal-training.index');
+        Route::get('/trainers', [MemberUserController::class, 'trainersIndex'])->middleware('active.subscription')->name('user.trainers.index');
+        Route::get('/trainers/reserve/{id}', [MemberUserController::class, 'reserveTrainer'])->middleware('active.subscription')->name('user.trainers.reserve');
+        Route::get('/personal-training/upcoming', [MemberUserController::class, 'upcomingPersonalTrainingSessions'])->middleware('active.subscription')->name('user.personal-training.upcoming');
+        Route::get('/personal-training/previous', [MemberUserController::class, 'previousPersonalTrainingSessions'])->middleware('active.subscription')->name('user.personal-training.previous');
+        Route::get('/subscription', [MemberUserController::class, 'subscriptionIndex'])->middleware('active.subscription')->name('user.subscription.index');
+        Route::get('/subscription/details', [MemberUserController::class, 'subscriptionDetails'])->middleware('active.subscription')->name('user.subscription.details');
+        Route::get('/subscription/history', [MemberUserController::class, 'subscriptionHistory'])->middleware('active.subscription')->name('user.subscription.history');
+        Route::get('/subscription/change', [MemberUserController::class, 'changeSubscription'])->middleware('active.subscription')->name('user.subscription.change');
+        Route::get('/reservations', [MemberUserController::class, 'reservationsIndex'])->middleware('active.subscription')->name('user.reservations.index');
+        Route::get('/reservations/upcoming', [MemberUserController::class, 'upcomingReservations'])->middleware('active.subscription')->name('user.reservations.upcoming');
+        Route::get('/reservations/past', [MemberUserController::class, 'pastReservations'])->middleware('active.subscription')->name('user.reservations.past');
+        Route::post('/reservations', [ReservationController::class, 'store'])->middleware('active.subscription')->name('reservations.store');
+        Route::post('/group-sessions/reserve/{session}', [ReservationController::class, 'reserveGroupSession'])->middleware('active.subscription')->name('user.reserveGroupSession');
+        Route::post('/toggle-favorite', function (Request $request) {
+            $trainer = App\Models\Trainer::find($request->trainer_id);
+            $member = Auth::user()->member;
+
+            if ($member->favorite_trainers->contains($trainer)) {
+                $member->favorite_trainers()->detach($trainer);
+            } else {
+                $member->favorite_trainers()->attach($trainer);
+            }
+
+            return response()->json(['success' => true]);
+        })->middleware('auth')->middleware('active.subscription');
+
     });
+
+
+    Route::prefix('trainer-space')->name('trainer.')->group(function () {
+        Route::get('/', function () {
+            return redirect()->route('trainer.groupSessions');
+        })->name('dashboard');
+        Route::get('/group-sessions', [TrainerUsercontroller::class, 'groupSessions'])->name('groupSessions');
+        Route::get('/individual-sessions', [TrainerUsercontroller::class, 'individualSessions'])->name('individualSessions');
+        Route::get('/reservations', [TrainerUsercontroller::class, 'reservations'])->name('reservations');
+        Route::get('/upcoming-events', [TrainerUsercontroller::class, 'upcomingEvents'])->name('upcomingEvents');
+        Route::get('/settings', [TrainerUsercontroller::class, 'settings'])->name('settings');
+        Route::post('/update-reservation', [TrainerUsercontroller::class, 'updateReservation'])->name('updateReservation');
+        Route::post('/change-password', [TrainerUsercontroller::class, 'changePassword'])->name('changePassword');
+
+    });
+
+
+
+
+
 });

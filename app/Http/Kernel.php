@@ -23,6 +23,12 @@ class Kernel extends HttpKernel
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
     ];
 
+    protected $routeMiddleware = [
+        'active.subscription' => \App\Http\Middleware\CheckActiveSubscription::class,
+        'check.membership' => \App\Http\Middleware\CheckIfUserHasMembership::class,
+
+    ];
+
     /**
      * The application's route middleware groups.
      *

@@ -29,5 +29,10 @@ class DatabaseSeeder extends Seeder
             GroupSessionSeeder::class,
             SessionAssignmentSeeder::class,
         ]);
+        $this->call(MaterielsTableSeeder::class);
+        $this->call(CataloguesTableSeeder::class);
+        $this->call(GymMaterielTableSeeder::class);
+        $this->call(CatalogueGroupSessionTableSeeder::class);
+
     }
 }

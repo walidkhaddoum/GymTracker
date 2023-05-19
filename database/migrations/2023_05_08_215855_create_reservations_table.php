@@ -15,9 +15,12 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('trainer_id');
-            $table->dateTime('session_date');
+            $table->date('session_date');
+            $table->time('start_time');
+            $table->time('end_time');
+            $table->integer('duration');
+            $table->boolean('status')->default(0);
             $table->timestamps();
-
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('trainer_id')->references('id')->on('trainers')->onDelete('cascade');
         });

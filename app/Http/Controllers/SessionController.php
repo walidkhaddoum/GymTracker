@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 
 class SessionController extends Controller
 {
-    public function checkLoginAndRedirect(GroupSession $session)
+    public function checkLoginAndRedirect(GroupSessionController $session)
     {
         if(Auth::check()) {
             // User is logged in, redirect them to their group sessions

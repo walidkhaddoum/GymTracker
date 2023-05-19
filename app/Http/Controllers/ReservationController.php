@@ -16,23 +16,31 @@ class ReservationController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'user_id' => 'required|exists:users,id',
             'trainer_id' => 'required|exists:trainers,id',
             'session_date' => 'required|date|after:today',
+            'start_time' => 'required|date_format:H:i',
+            'end_time' => 'required|date_format:H:i|after:start_time',
+            'duration' => 'required|integer|min:1',
         ]);
 
-        Reservation::create($request->all());
+        $reservationData = $request->all();
+        $reservationData['user_id'] = Auth::user()->member->id;
+
+        Reservation::create($reservationData);
 
         return response()->json([
             'success' => true,
-            'message' => 'Reservation created successfully.',
+            'message' => 'Reservation created successfully. You should wait for the trainer\'s acceptance.',
+            'redirect_url' => route('user.trainers.index') // replace 'your.redirect.route' with your route
         ]);
     }
 
 
+
+
     public function reserveGroupSession(GroupSession $session)
     {
-        $member_id = Auth::id();
+        $member_id = Auth::user()->member->id;
 
         $registration = new SessionRegistration();
         $registration->member_id = $member_id;

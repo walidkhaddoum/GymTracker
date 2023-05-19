@@ -1,38 +1,35 @@
 <?php
 
-namespace App\Models;
+namespace App\Http\Controllers;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use App\Models\GroupSession;
+use Illuminate\Http\Request;
 
-class GroupSession extends Model
+class GroupSessionController extends Controller
 {
-    use HasFactory;
-
-    protected $fillable = [
-        'name',
-        'date',
-        'start_time',
-        'end_time',
-        'capacity',
-    ];
-
-    public function sessionRegistrations()
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application
+     */
+    public function index()
     {
-        return $this->hasMany(SessionRegistration::class);
+        $groupSessions = GroupSession::all();
+        return view('admin.sessions_management.group_sessions', compact('groupSessions'));
     }
 
-    public function sessionAssignments()
-    {
-        return $this->hasMany(SessionAssignment::class);
-    }
-
+    /**
+     * Get group sessions by date.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  string  $date
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getGroupSessionsByDate(Request $request, $date)
     {
-        $group_sessions = GroupSession::where('date', $date)->take(6)->get();
-        return response()->json($group_sessions);
+        $groupSessions = GroupSession::where('date', $date)->take(6)->get();
+        return response()->json($groupSessions);
     }
 
-
+    // ... rest of your methods ...
 }
-

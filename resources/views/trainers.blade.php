@@ -2,6 +2,7 @@
 <html lang="en">
 
 @include('partials/header_files')
+<meta name="csrf-token" content="{{ csrf_token() }}">
 
 <body>
 <div class="container page">
@@ -18,20 +19,21 @@
             <div class="wrap_float">
                 <h1 class="page_title">Trainers</h1>
                 <div class="text">
-                    Introductory instruction in the direction of Cycle Connect-training based on the power index (FTP). Each time you connect to the system, the simulator adjusts the complexity to a specific person. Thus, in one lesson, people with different levels of training can be at neighboring simulators.
+                    Meet our Expert Trainers: Get Ready to Elevate Your Fitness Journey with their Guidance and Support. Experience personalized training sessions tailored to your goals, led by our dedicated team of experienced and certified fitness trainers.
                 </div>
                 <div class="select-trainer">
-                    <div class="trainers-p">Trainers:</div>
+                    <div class="trainers-p">Specialities:</div>
                     <div class="select_div">
                         <div class="select_val">All</div>
-                        <select class="js-select">
+                        <select class="js-select" id="specializationSelect">
                             <option value="All Classes">All</option>
-                            <option value="Swimming">Swimming</option>
-                            <option value="Crossfit">Crossfit</option>
+                            @foreach($specializations as $specialization)
+                                <option value="{{ $specialization->id }}">{{ $specialization->name }}</option>
+                            @endforeach
                         </select>
                     </div>
                 </div>
-                <div class="section_content">
+                <div class="section_content" id="trainersContainer">
                     @foreach($trainers as $trainer)
                         <div class="item">
                             <a href="{{ route('trainer.show', ['id' => $trainer->id]) }}" class="photo ie-img">
@@ -223,6 +225,47 @@
 <script src="{{ asset('public-website/js/slick.min.js') }}"></script>
 <script src="{{ asset('public-website/js/jquery.arcticmodal.min.js') }}"></script>
 <script src="{{ asset('public-website/js/scripts.js') }}"></script>
+<script>
+    $(document).ready(function() {
+        $('select[name="specialization"]').on('change', function() {
+            var specializationId = $(this).val();
+            console.log(specializationId);
+
+        });
+    })
+</script>
+
+<script>
+    // Get the select element
+    const specializationSelect = document.getElementById('specializationSelect');
+
+    // Get the container element for trainers
+    const trainersContainer = document.getElementById('trainersContainer');
+
+    // Add an event listener for the select element
+    specializationSelect.addEventListener('change', function() {
+        const specializationId = this.value; // Get the selected specialization ID
+
+        // Send an AJAX request to fetch trainers based on the selected specialization
+        fetch(`/trainers/${specializationId}`)
+            .then(response => response.text())
+            .then(data => {
+                console.log(data);
+                trainersContainer.innerHTML = data; // Populate the trainers container with the fetched data
+            })
+            .catch(error => {
+                console.log('Error:', error);
+            });
+    });
+</script>
+<script>
+    $(document).ready(function() {
+        $('.js-select').change(function() {
+            var selectedOption = $(this).children("option:selected").text();
+            $('.select_val').text(selectedOption);
+        });
+    });
+</script>
 </body>
 
 </html>

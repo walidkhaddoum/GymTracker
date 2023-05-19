@@ -25,6 +25,12 @@ class Member extends Model
         return $this->hasMany(Subscription::class);
     }
 
+    public function reservations()
+    {
+        return $this->hasMany(Reservation::class, 'user_id');
+    }
+
+
     protected $appends = ['subscription_status'];
 
     public function getSubscriptionStatusAttribute()
@@ -49,6 +55,11 @@ class Member extends Model
         }
 
         return 'inactive';
+    }
+
+    public function favorite_trainers()
+    {
+        return $this->belongsToMany(Trainer::class, 'member_trainer');
     }
 
 

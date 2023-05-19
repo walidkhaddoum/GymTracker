@@ -219,9 +219,9 @@
                         <div class="img ie-img">
                             <img src="{{ asset('public-website/img/blog-1.jpg') }}" alt="">
                         </div>
-                        <p class="_date">FITNESS / 15 NOV. 2019</p>
+                        <p class="_date">FITNESS / 20 MAI. 2023</p>
                         <h3 class="_title">
-                            Best Of New In: Slip Skirts & Zebra
+                            Sweat it Out: Unleashing Your Inner Athlete
                         </h3>
                     </a>
 
@@ -229,9 +229,9 @@
                         <div class="img ie-img">
                             <img src="{{ asset('public-website/img/blog-2.jpg') }}" alt="">
                         </div>
-                        <p class="_date">FITNESS / 15 NOV. 2019</p>
+                        <p class="_date">FITNESS / 20 MAI. 2023</p>
                         <h3 class="_title">
-                            Lorem ipsum dolor sit amet, consectetur adipisicing.
+                            Fit and Fabulous: Your Journey to a Healthier You
                         </h3>
                     </a>
 
@@ -239,9 +239,9 @@
                         <div class="img ie-img">
                             <img src="{{ asset('public-website/img/blog-3.jpg') }}" alt="">
                         </div>
-                        <p class="_date">FITNESS / 15 NOV. 2019</p>
+                        <p class="_date">FITNESS / 20 MAI. 2023</p>
                         <h3 class="_title">
-                            Lorem ipsum dolor sit amet, consectetur.
+                            From Couch Potato to Fitness Enthusiast: Embracing the Active Lifestyle
                         </h3>
                     </a>
                 </div>
@@ -266,7 +266,7 @@
             <div class="wrap_float">
                 <h2 class="title">Gym Tracker Fitness Club</h2>
                 <p class="block text">
-                    Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum.
+                    Gym Tracker Fitness Club is a project developed by Walid Khaddoum using the Laravel framework. It is a comprehensive fitness management system designed to streamline and enhance the operations of fitness clubs. With Gym Tracker, fitness club owners and managers can effortlessly manage memberships, track attendance, schedule classes, and handle billing and payments. The project incorporates a user-friendly interface that allows members to easily access their profiles, view class schedules. Gym Tracker Fitness Club aims to optimize efficiency and provide a seamless experience for both fitness club administrators and members, ensuring a smooth and enjoyable fitness journey for all.
                 </p>
             </div>
         </div>

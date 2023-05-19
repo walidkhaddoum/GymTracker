@@ -23,15 +23,6 @@
       opacity-0"></div>
     <div class="sidebar-menus bg-white dark:bg-slate-800 py-2 px-4 h-[calc(100%-80px)] overflow-y-auto z-50" id="sidebar_menus">
         <ul class="sidebar-menu">
-            <li class="sidebar-menu-title">Menu</li>
-            <li>
-                <a href="{{ route('admin.dashboard') }}" class="navItem">
-              <span class="flex items-center">
-            <iconify-icon class="nav-icon" icon="heroicons-outline:view-grid"></iconify-icon>
-            <span>Dashboard</span>
-              </span>
-                </a>
-            </li>
             <!-- Apps Area -->
             <li class="sidebar-menu-title">Gyms</li>
             <li>

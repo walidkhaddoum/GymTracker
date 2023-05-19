@@ -10,7 +10,7 @@
             <div class="left" style="background-image: url({{asset('storage/'.$trainer->picture)}});">
                 <div class="content">
                     <div class="breadcrumbs">
-                        <a href="/">Home</a> / <a href="{{ route('trainers') }}l">Trainers</a> / <a href="trainer-sinlge.html" class="current">{{ $trainer->first_name }} {{ $trainer->last_name }}</a>
+                        <a href="/">Home</a> / <a href="{{ route('trainers') }}">Trainers</a> / <a href="{{ route('trainers') }}" class="current">{{ $trainer->first_name }} {{ $trainer->last_name }}</a>
                     </div>
                     <h1 class="page_title">{{ $trainer->first_name }} {{ $trainer->last_name }}</h1>
                     <p class="page_subtitle">@foreach($trainer->specializations as $specialization)
@@ -23,7 +23,7 @@
                         <a href="#" class="instagram"></a>
                     </div>
                     <div class="links">
-                        <button class="btn js-change getModal" data-href="#join" style="background: none;">JOIN NOW</button>
+                        <a class="btn js-change " href="{{ route('prices') }}" style="background: none;">JOIN NOW</a>
                         <a href="#shedule" class="anchor js-anchor">Schedule</a>
                     </div>
                 </div>
@@ -57,7 +57,7 @@
                                         </div>
                                         <div class="name">{{ $trainer->first_name }} {{ $trainer->last_name }}</div>
                                     </div>
-                                    <button data-href="#join" class="btn getModal">Join now</button>
+                                    <a href="{{ route('user.group-sessions.browse', $session->id) }}" class="btn getModal">Join now</a>
                                 </div>
                             </div>
                         @endforeach

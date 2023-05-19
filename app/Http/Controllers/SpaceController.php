@@ -44,7 +44,6 @@ class SpaceController extends Controller
         $request->validate([
             'name' => 'required',
             'description' => 'required',
-            // Add validation rules for other input fields as needed
         ]);
 
         $space = Space::findOrFail($id);

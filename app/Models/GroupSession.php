@@ -39,6 +39,15 @@ class GroupSession extends Model
         return $this->hasMany(SessionAssignment::class, 'group_session_id');
     }
 
+    public function registrations()
+    {
+        return $this->hasMany(SessionRegistration::class, 'group_session_id');
+    }
+
+    public function catalogues()
+    {
+        return $this->belongsToMany(Catalogue::class, 'catalogue_group_session');
+    }
 
 }
 
