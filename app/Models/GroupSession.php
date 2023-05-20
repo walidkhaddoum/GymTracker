@@ -6,10 +6,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class GroupSession extends Model
 {
     use HasFactory;
+    use SoftDeletes;
 
     protected $fillable = [
         'name',
@@ -33,6 +35,8 @@ class GroupSession extends Model
     {
         return $this->belongsToMany(Trainer::class, 'session_assignments', 'group_session_id', 'trainer_id');
     }
+
+
 
     public function session_assignments()
     {

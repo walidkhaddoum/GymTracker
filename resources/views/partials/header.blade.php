@@ -151,38 +151,6 @@
       overflow-hidden">
                         <ul class="py-1 text-sm text-slate-800 dark:text-slate-200">
                             <li>
-                                <a href="#" class="block px-4 py-2 hover:bg-slate-100 dark:hover:bg-slate-600 dark:hover:text-white font-inter text-sm text-slate-600
-            dark:text-white font-normal">
-                                    <iconify-icon icon="heroicons-outline:user"
-                                                  class="relative top-[2px] text-lg ltr:mr-1 rtl:ml-1"></iconify-icon>
-                                    <span class="font-Inter">Dashboard</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="" class="block px-4 py-2 hover:bg-slate-100 dark:hover:bg-slate-600 dark:hover:text-white font-inter text-sm text-slate-600
-            dark:text-white font-normal">
-                                    <iconify-icon icon="heroicons-outline:user-circle"
-                                                  class="relative top-[2px] text-lg ltr:mr-1 rtl:ml-1"></iconify-icon>
-                                    <span class="font-Inter">Profile</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="" class="block px-4 py-2 hover:bg-slate-100 dark:hover:bg-slate-600 dark:hover:text-white font-inter text-sm text-slate-600
-            dark:text-white font-normal">
-                                    <iconify-icon icon="heroicons-outline:clipboard-list"
-                                                  class="relative top-[2px] text-lg ltr:mr-1 rtl:ml-1"></iconify-icon>
-                                    <span class="font-Inter">My Activities</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="" class="block px-4 py-2 hover:bg-slate-100 dark:hover:bg-slate-600 dark:hover:text-white font-inter text-sm text-slate-600
-            dark:text-white font-normal">
-                                    <iconify-icon icon="heroicons-outline:lock-open"
-                                                  class="relative top-[2px] text-lg ltr:mr-1 rtl:ml-1"></iconify-icon>
-                                    <span class="font-Inter">Ch. Password</span>
-                                </a>
-                            </li>
-                            <li>
                                 <a href="{{ route('logout') }}" class="block px-4 py-2 hover:bg-slate-100 dark:hover:bg-slate-600 dark:hover:text-white font-inter text-sm text-slate-600
                                             dark:text-white font-normal"
                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">

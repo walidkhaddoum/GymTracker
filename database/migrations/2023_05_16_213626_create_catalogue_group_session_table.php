@@ -15,7 +15,6 @@ return new class extends Migration
             $table->unsignedBigInteger('catalogue_id');
             $table->unsignedBigInteger('group_session_id');
             $table->timestamps();
-
             $table->foreign('catalogue_id')->references('id')->on('catalogues')->onDelete('cascade');
             $table->foreign('group_session_id')->references('id')->on('group_sessions')->onDelete('cascade');
         });

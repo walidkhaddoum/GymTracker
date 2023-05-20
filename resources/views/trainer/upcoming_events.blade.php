@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
-    <title>Gym Tracker - Reservations</title>
+    <title>Gym Tracker - UpComing Events</title>
     <link rel="icon" type="image/png" href="{{ asset('images/logo/logo-c-white.svg') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
@@ -63,19 +63,15 @@
                             <div class="mb-5">
                                 <ul class="m-0 p-0 list-none">
                                     <li class="inline-block relative top-[3px] text-base text-primary-500 font-Inter ">
-                                        <a href="index.html">
-                                            <iconify-icon icon="heroicons-outline:home"></iconify-icon>
+                                        <a href="{{ route('trainer.dashboard') }}">                                            <iconify-icon icon="heroicons-outline:home"></iconify-icon>
                                             <iconify-icon icon="heroicons-outline:chevron-right"
                                                           class="relative text-slate-500 text-sm rtl:rotate-180"></iconify-icon>
                                         </a>
                                     </li>
                                     <li class="inline-block relative text-sm text-primary-500 font-Inter ">
-                                        Table
+                                        UpComing Events
                                         <iconify-icon icon="heroicons-outline:chevron-right"
                                                       class="relative top-[3px] text-slate-500 rtl:rotate-180"></iconify-icon>
-                                    </li>
-                                    <li class="inline-block relative text-sm text-slate-500 font-Inter dark:text-white">
-                                        Basic-Table
                                     </li>
                                 </ul>
                             </div>
@@ -86,7 +82,7 @@
                                 <!-- BEGIN: Striped Tables -->
                                 <div class="card">
                                     <header class=" card-header noborder">
-                                        <h4 class="card-title">Reservations
+                                        <h4 class="card-title">UpComing Events
                                         </h4>
                                     </header>
                                     <div class="card-body px-6 pb-6">
@@ -108,7 +104,7 @@
                                                         </thead>
                                                         <tbody
                                                             class="bg-white divide-y divide-slate-100 dark:bg-slate-800 dark:divide-slate-700">
-                                                        @foreach($allSessions as $allSession)
+                                                        @forelse($allSessions as $allSession)
                                                             <tr class="even:bg-slate-50 dark:even:bg-slate-700">
                                                                 <td class="table-td">{{ get_class($allSession) == 'App\Models\GroupSession' ? 'Group Session' : 'Individual Session' }}</td>
                                                                 <td class="table-td">
@@ -134,7 +130,11 @@
                                                                     </button>
                                                                 </td>
                                                             </tr>
-                                                        @endforeach
+                                                        @empty
+                                                            <tr>
+                                                                <td colspan="7" style="padding-top: 2%" class="text-center">No Reservations found</td>
+                                                            </tr>
+                                                        @endforelse
                                                         </tbody>
                                                     </table>
                                                 </div>

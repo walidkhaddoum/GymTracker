@@ -102,33 +102,28 @@
                                                                 <td  class="table-td">{{ $member->id }}</td>
                                                                 <td  class="table-td">{{ $member->first_name }} {{ $member->last_name }}</td>
                                                                 <td  class="table-td">{{ $member->email }}</td>
-                                                                <td  class="table-td">
-                                                                    @php
-                                                                        $latestSubscription = $member->subscriptions()->latest()->first();
-                                                                        $subscriptionStatus = $member->getSubscriptionStatus();
-
-                                                                    @endphp
-
-                                                                    @if ($subscriptionStatus === 'active')
-                                                                        <span class="badge bg-success-500 text-white capitalize">
-                                                            <iconify-icon class="ltr:mr-1 rtl:ml-1"
-                                                                          icon="heroicons-outline:check"></iconify-icon>
-                                                            Active
-                                                        </span>
-                                                                    @elseif ($subscriptionStatus === 'inactive')
-                                                                        <span class="badge bg-warning-500 text-white capitalize">
-                                                            <iconify-icon class="ltr:mr-1 rtl:ml-1"
-                                                                          icon="heroicons-outline:x-mark"></iconify-icon>
-                                                            Inactive
-                                                        </span>
-                                                                    @else
-                                                                        <span class="badge bg-danger-500 text-white capitalize">
-                                                        <iconify-icon class="ltr:mr-1 rtl:ml-1"
-                                                                      icon="heroicons-outline:exclamation"></iconify-icon>
-                                                        No Subscription
-                                                    </span>
+                                                                <td class="table-td">
+                                                                    @if ($member->subscriptionStatus === 'active')
+                                                                        <span
+                                                                            class="badge bg-success-500 text-white capitalize">
+                                                                                <iconify-icon class="ltr:mr-1 rtl:ml-1" icon="heroicons-outline:check"></iconify-icon>
+                                                                                Active
+                                                                            </span>
+                                                                                                                                        @elseif ($member->subscriptionStatus === 'inactive')
+                                                                                                                                            <span
+                                                                                                                                                class="badge bg-warning-500 text-white capitalize">
+                                                                                <iconify-icon class="ltr:mr-1 rtl:ml-1" icon="heroicons-outline:x-mark"></iconify-icon>
+                                                                                Inactive
+                                                                            </span>
+                                                                                                                                        @else
+                                                                                                                                            <span
+                                                                                                                                                class="badge bg-danger-500 text-white capitalize">
+                                                                                <iconify-icon class="ltr:mr-1 rtl:ml-1" icon="heroicons-outline:exclamation"></iconify-icon>
+                                                                                No Subscription
+                                                                            </span>
                                                                     @endif
                                                                 </td>
+
                                                                 <td>
                                                                     <a href="{{ route('members.show', $member) }}" class="btn btn-primary">View</a>
                                                                 </td>

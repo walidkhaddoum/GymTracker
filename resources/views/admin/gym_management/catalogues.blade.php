@@ -106,6 +106,21 @@
                                                                     <a href="#" class="text-indigo-500 hover:text-indigo-700 ml-2 edit-btn" data-id="{{ $catalogue->id }}" id="editBtn_{{ $catalogue->id }}">
                                                                         <iconify-icon icon="heroicons-outline:pencil-square" class="relative top-[2px] text-lg ltr:mr-1 rtl:ml-1"></iconify-icon>
                                                                     </a>
+                                                                    <form method="POST"
+                                                                          action="{{ route('admin.destroyCatalogue', $catalogue) }}"
+                                                                          onsubmit="return confirm('Are you sure you want to delete this Admin? This action cannot be undone.')">
+                                                                        @csrf
+                                                                        @method('DELETE')
+                                                                        <span
+                                                                            class="flex-none space-x-2 text-base text-secondary-500 rtl:space-x-reverse">
+                                                                    <button type="submit"
+                                                                            class="transition duration-150 hover:text-danger-500">
+                                                                      <iconify-icon
+                                                                          icon="heroicons-outline:trash"></iconify-icon>
+                                                                    </button>
+
+                                                                    </span>
+                                                                    </form>
                                                                 </td>
                                                             </tr>
                                                         @endforeach

@@ -63,19 +63,15 @@
                             <div class="mb-5">
                                 <ul class="m-0 p-0 list-none">
                                     <li class="inline-block relative top-[3px] text-base text-primary-500 font-Inter ">
-                                        <a href="index.html">
-                                            <iconify-icon icon="heroicons-outline:home"></iconify-icon>
+                                        <a href="{{ route('trainer.dashboard') }}">                                            <iconify-icon icon="heroicons-outline:home"></iconify-icon>
                                             <iconify-icon icon="heroicons-outline:chevron-right"
                                                           class="relative text-slate-500 text-sm rtl:rotate-180"></iconify-icon>
                                         </a>
                                     </li>
                                     <li class="inline-block relative text-sm text-primary-500 font-Inter ">
-                                        Table
+                                        Reservations
                                         <iconify-icon icon="heroicons-outline:chevron-right"
                                                       class="relative top-[3px] text-slate-500 rtl:rotate-180"></iconify-icon>
-                                    </li>
-                                    <li class="inline-block relative text-sm text-slate-500 font-Inter dark:text-white">
-                                        Basic-Table
                                     </li>
                                 </ul>
                             </div>
@@ -126,7 +122,7 @@
                                                         </thead>
                                                         <tbody
                                                             class="bg-white divide-y divide-slate-100 dark:bg-slate-800 dark:divide-slate-700">
-                                                        @foreach($reservations as $reservation)
+                                                        @forelse($reservations as $reservation)
                                                             <tr class="even:bg-slate-50 dark:even:bg-slate-700">
                                                                 <td class="table-td">
                                                                     {{ $reservation->member->first_name }} {{ $reservation->member->last_name }}
@@ -170,7 +166,11 @@
                                                                     @endif
                                                                 </td>
                                                             </tr>
-                                                        @endforeach
+                                                        @empty
+                                                            <tr>
+                                                                <td colspan="6" style="padding-top: 2%" class="text-center">No Reservations found</td>
+                                                            </tr>
+                                                        @endforelse
                                                         </tbody>
                                                     </table>
                                                 </div>

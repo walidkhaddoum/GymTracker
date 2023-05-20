@@ -21,6 +21,7 @@ return new class extends Migration
             $table->integer('duration');
             $table->boolean('status')->default(0);
             $table->timestamps();
+            $table->softDeletes();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('trainer_id')->references('id')->on('trainers')->onDelete('cascade');
         });

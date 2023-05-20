@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreign('member_id')->references('id')->on('members');
             $table->unsignedBigInteger('group_session_id')->nullable();
             $table->unsignedBigInteger('individual_session_id')->nullable();
+            $table->softDeletes();
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
         });

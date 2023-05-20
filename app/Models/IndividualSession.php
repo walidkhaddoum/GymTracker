@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class IndividualSession extends Model
 {
     use HasFactory;
+    use SoftDeletes;
 
     protected $fillable = [
         'trainer_id',
@@ -39,6 +41,6 @@ class IndividualSession extends Model
 
     public function sessionAssignments()
     {
-        return $this->hasMany(SessionAssignment::class);
+        return $this->hasMany(SessionAssignment::class, 'individual_session_id');
     }
 }

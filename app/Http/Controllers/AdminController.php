@@ -2,13 +2,57 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Catalogue;
+use App\Models\GroupSession;
 use App\Models\GymMembership;
+use App\Models\IndividualSession;
+use App\Models\Materiel;
+use App\Models\Trainer;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
 {
+    public function groupSessions()
+    {
+        $groupSessions = GroupSession::with('trainers.user')->get();
+
+        return view('admin.sessions_management.group_sessions', ['groupSessions' => $groupSessions]);
+    }
+
+
+    public function deleteuser(User $user)
+    {
+        $user->delete();
+        return redirect()->route('admin.admins');
+    }
+
+    public function deletecatalogue(Catalogue $catalogue)
+    {
+        $catalogue->delete();
+        return redirect()->route('admin.catalogues');
+    }
+
+    public function destroysession(GroupSession $groupSession)
+    {
+        $groupSession->delete();
+        return redirect()->route('admin.group-sessions');
+    }
+
+    public function deletetrainer(Trainer $trainer)
+    {
+        $trainer->delete();
+        return redirect()->route('admin.trainers');
+    }
+
+    public function destroyequipment(Materiel $materiel)
+    {
+        $materiel->delete();
+        return redirect()->route('admin.equipments');
+    }
+
     public function dashboard()
     {
 
@@ -133,14 +177,20 @@ class AdminController extends Controller
         return view('admin.payments_subscriptions.payments');
     }
 
-    public function groupSessions()
-    {
-        return view('admin.sessions_management.group_sessions');
-    }
+
 
     public function individualSessions()
     {
-        return view('admin.sessions_management.individual_sessions');
+        $previous_sessions = IndividualSession::with('sessionRegistrations.member', 'sessionAssignments.trainer')
+            ->get()
+            ->filter(function ($session) {
+                $startDateTime = Carbon::createFromFormat('Y-m-d H:i:s', $session->date . ' ' . $session->start_time);
+                $endDateTime = Carbon::createFromFormat('Y-m-d H:i:s', $session->date . ' ' . $session->end_time);
+
+                return $endDateTime->lt(Carbon::now());
+            });
+
+        return view('admin.sessions_management.individual_sessions', ['previous_sessions' => $previous_sessions]);
     }
 
     public function attendances()

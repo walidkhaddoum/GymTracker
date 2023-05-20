@@ -93,5 +93,42 @@ class TrainerController extends Controller
         return redirect('/add-trainer')->with('status', 'Trainer added successfully!');
     }
 
+    public function update(Request $request, $id)
+    {
+        $user = User::find($id);
+        $trainer = $user->trainer;
+
+        if ($trainer) {
+            $trainer->update($request->except('_token', 'picture', 'specializations'));
+
+            if($request->hasFile('picture')) {
+                $trainer->picture = $request->file('picture')->store('pictures');
+                $trainer->save();
+            }
+
+            if($request->has('specializations')) {
+                $trainer->specializations()->sync($request->specializations);
+            }
+        }
+
+        return redirect()->back()->with('success', 'Trainer updated successfully');
+    }
+    public function edit($id)
+    {
+        // Fetch the trainer from the database
+        $trainer = Trainer::find($id);
+
+        // Fetch the gyms and specializations
+        $gyms = Gym::all();
+        $specializations = Specialization::all();
+
+        // Return the edit view, with the trainer, gyms and specializations data
+        return view('admin.users.edit-trainer', [
+            'trainer' => $trainer,
+            'gyms' => $gyms,
+            'specializations' => $specializations,
+        ]);
+    }
+
 
 }

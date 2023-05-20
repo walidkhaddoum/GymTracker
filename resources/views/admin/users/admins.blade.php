@@ -103,6 +103,7 @@
                                                             <th scope="col" class=" table-th ">ID</th>
                                                             <th scope="col" class=" table-th ">Name</th>
                                                             <th scope="col" class=" table-th ">Email</th>
+                                                            <th scope="col" class=" table-th ">Action</th>
                                                         </tr>
                                                         </tr>
                                                         </thead>
@@ -113,6 +114,23 @@
                                                                 <td class="table-td">{{ $admin->id }}</td>
                                                                 <td class="table-td">{{ $admin->name }}</td>
                                                                 <td class="table-td">{{ $admin->email }}</td>
+                                                                <td class="table-td">
+                                                                    <form method="POST"
+                                                                          action="{{ route('admin.destroyequipment', $admin) }}"
+                                                                          onsubmit="return confirm('Are you sure you want to delete this Admin? This action cannot be undone.')">
+                                                                        @csrf
+                                                                        @method('DELETE')
+                                                                        <span
+                                                                            class="flex-none space-x-2 text-base text-secondary-500 rtl:space-x-reverse">
+                                                                    <button type="submit"
+                                                                            class="transition duration-150 hover:text-danger-500">
+                                                                      <iconify-icon
+                                                                          icon="heroicons-outline:trash"></iconify-icon>
+                                                                    </button>
+
+                                                                    </span>
+                                                                    </form>
+                                                                </td>
                                                             </tr>
                                                         @endforeach
                                                         </tbody>
@@ -138,7 +156,7 @@
                                                                         </div>
                                                                         <div>
                                                                             <label for="duration" class="block text-sm font-medium text-gray-700">Password</label>
-                                                                            <input type="text" name="password" id="password" required class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                                                            <input type="password" name="password" id="password" required class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                                                                         </div>
                                                                     </form>
                                                                 </div>

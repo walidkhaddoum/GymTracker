@@ -21,6 +21,8 @@ return new class extends Migration
             $table->foreign('payment_id')->references('id')->on('payments');
             $table->date('start_date');
             $table->date('end_date');
+            $table->softDeletes();
+
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
         });

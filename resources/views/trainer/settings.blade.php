@@ -65,17 +65,16 @@
                             <div class="mb-5">
                                 <ul class="m-0 p-0 list-none">
                                     <li class="inline-block relative top-[3px] text-base text-primary-500 font-Inter ">
-                                        <a href="index.html">
-                                            <iconify-icon icon="heroicons-outline:home"></iconify-icon>
-                                            <iconify-icon icon="heroicons-outline:chevron-right" class="relative text-slate-500 text-sm rtl:rotate-180"></iconify-icon>
+                                        <a href="{{ route('trainer.dashboard') }}">                                            <iconify-icon icon="heroicons-outline:home"></iconify-icon>
+                                            <iconify-icon icon="heroicons-outline:chevron-right"
+                                                          class="relative text-slate-500 text-sm rtl:rotate-180"></iconify-icon>
                                         </a>
                                     </li>
                                     <li class="inline-block relative text-sm text-primary-500 font-Inter ">
-                                        Forms
-                                        <iconify-icon icon="heroicons-outline:chevron-right" class="relative top-[3px] text-slate-500 rtl:rotate-180"></iconify-icon>
+                                        Change Password
+                                        <iconify-icon icon="heroicons-outline:chevron-right"
+                                                      class="relative top-[3px] text-slate-500 rtl:rotate-180"></iconify-icon>
                                     </li>
-                                    <li class="inline-block relative text-sm text-slate-500 font-Inter dark:text-white">
-                                        Input</li>
                                 </ul>
                             </div>
                             <!-- END: BreadCrumb -->
@@ -85,7 +84,7 @@
                                     <div class="card-body flex flex-col p-6">
                                         <header class="flex mb-5 items-center border-b border-slate-100 dark:border-slate-700 pb-5 -mx-6 px-6">
                                             <div class="flex-1">
-                                                <div class="card-title text-slate-900 dark:text-white">Basic Inputs</div>
+                                                <div class="card-title text-slate-900 dark:text-white">Change Password</div>
                                             </div>
                                         </header>
                                         <div class="card-text h-full space-y-4">
@@ -116,9 +115,12 @@
                                                     <label for="new_password_confirmation">Confirm New Password</label>
                                                     <input type="password" name="new_password_confirmation" id="new_password_confirmation" class="form-control">
                                                 </div>
-                                                <div class="input-area">
-                                                    <button type="submit" class="btn btn-primary">Change Password</button>
+                                                <div class="mt-10">
+                                                    <div class="input-area">
+                                                        <button type="submit" class="btn btn-primary">Change Password</button>
+                                                    </div>
                                                 </div>
+
                                             </form>
                                         </div>
                                     </div>

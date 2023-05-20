@@ -16,7 +16,18 @@
     <section class="classes_list_section">
         <div class="wrap">
             <div class="wrap_float">
-                <h2 class="page_title">Classes</h2>
+                <div class="select-trainer">
+                    <div class="trainers-p">Classes:</div>
+                    <div class="select_div">
+                        <div class="select_val">All</div>
+                        <select class="js-select" id="CategoriesSelect">
+                            <option value="All Classes">All</option>
+                            @foreach($categories as $categorie)
+                                <option value="{{ $categorie->id }}">{{ $categorie->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
                 <div class="classes_list">
                     @foreach($sessions as $session)
                         <a href="{{ route('user.group-sessions.browse', $session->id) }}" class="classes_item" style="background-color: #FF5100" data-color-type="dark">
@@ -26,14 +37,18 @@
                                 </div>
                             </div>
                             <div class="classes_item_left">
-                                <p class="block _category">Group programs</p>
+                                @if ($session->catalogues->isNotEmpty())
+                                    <p class="block _category">{{ $session->catalogues->first()->name }}</p>
+                                @endif
                                 <h3 class="block _title">{{ $session->name }}</h3>
-                                <div class="_author">
-                                    <div class="img ie-img">
-                                        <img src="{{asset('storage/'.$session->session_assignments->first()->trainer->picture)}}" alt="">
+                                @if($session->session_assignments->isNotEmpty())
+                                    <div class="_author">
+                                        <div class="img ie-img">
+                                            <img src="{{asset('storage/'.$session->session_assignments->first()->trainer->picture)}}" alt="">
+                                        </div>
+                                        <p class="block name">{{ $session->session_assignments->first()->trainer->first_name }} {{ $session->session_assignments->first()->trainer->last_name }}</p>
                                     </div>
-                                    <p class="block name">{{ $session->session_assignments->first()->trainer->first_name }} {{ $session->session_assignments->first()->trainer->last_name }}</p>
-                                </div>
+                                @endif
                             </div>
                             <div class="bg js-image-background"></div>
                         </a>
@@ -238,6 +253,37 @@
 
 
 
+</script>
+<script>
+    // Get the select element
+    const categoriesSelect = document.getElementById('CategoriesSelect');
+
+    // Get the container element for sessions
+    const sessionsContainer = document.getElementsByClassName('classes_list')[0];
+
+    // Add an event listener for the select element
+    categoriesSelect.addEventListener('change', function() {
+        const catalogueId = this.value; // Get the selected catalogue ID
+
+        // Send an AJAX request to fetch sessions based on the selected catalogue
+        fetch(`/sessions/${catalogueId}`)
+            .then(response => response.text())
+            .then(data => {
+                console.log(data);
+                sessionsContainer.innerHTML = data; // Populate the sessions container with the fetched data
+            })
+            .catch(error => {
+                console.log('Error:', error);
+            });
+    });
+</script>
+<script>
+    $(document).ready(function() {
+        $('.js-select').change(function() {
+            var selectedOption = $(this).children("option:selected").text();
+            $('.select_val').text(selectedOption);
+        });
+    });
 </script>
 </body>
 

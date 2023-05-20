@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
-    <title>Gym Tracker - Reservations</title>
+    <title>Gym Tracker - Individual Sessions</title>
     <link rel="icon" type="image/png" href="{{ asset('images/logo/logo-c-white.svg') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
@@ -63,19 +63,15 @@
                             <div class="mb-5">
                                 <ul class="m-0 p-0 list-none">
                                     <li class="inline-block relative top-[3px] text-base text-primary-500 font-Inter ">
-                                        <a href="index.html">
-                                            <iconify-icon icon="heroicons-outline:home"></iconify-icon>
+                                        <a href="{{ route('trainer.dashboard') }}">                                            <iconify-icon icon="heroicons-outline:home"></iconify-icon>
                                             <iconify-icon icon="heroicons-outline:chevron-right"
                                                           class="relative text-slate-500 text-sm rtl:rotate-180"></iconify-icon>
                                         </a>
                                     </li>
                                     <li class="inline-block relative text-sm text-primary-500 font-Inter ">
-                                        Table
+                                        Individual Sessions
                                         <iconify-icon icon="heroicons-outline:chevron-right"
                                                       class="relative top-[3px] text-slate-500 rtl:rotate-180"></iconify-icon>
-                                    </li>
-                                    <li class="inline-block relative text-sm text-slate-500 font-Inter dark:text-white">
-                                        Basic-Table
                                     </li>
                                 </ul>
                             </div>
@@ -86,7 +82,7 @@
                                 <!-- BEGIN: Striped Tables -->
                                 <div class="card">
                                     <header class=" card-header noborder">
-                                        <h4 class="card-title">Reservations
+                                        <h4 class="card-title">My Individual Sessions
                                         </h4>
                                     </header>
                                     <div class="card-body px-6 pb-6">
@@ -107,7 +103,7 @@
                                                         </thead>
                                                         <tbody
                                                             class="bg-white divide-y divide-slate-100 dark:bg-slate-800 dark:divide-slate-700">
-                                                        @foreach($individualSessions as $individualSession)
+                                                        @forelse($individualSessions as $individualSession)
                                                             <tr class="even:bg-slate-50 dark:even:bg-slate-700">
                                                                 <td class="table-td">{{ $individualSession->members[0]->first_name }} {{ $individualSession->members[0]->last_name }}</td>
                                                                 <td class="table-td">{{ $individualSession->date }}</td>
@@ -115,18 +111,30 @@
                                                                 <td class="table-td">{{ $individualSession->end_time }}</td>
                                                                 <td class="table-td">{{ \Carbon\Carbon::parse($individualSession->end_time)->diffInMinutes(\Carbon\Carbon::parse($individualSession->start_time)) }} Minutes</td>
                                                                 <td class="table-td">
-                                                                    <button
-                                                                        class="btn inline-flex justify-center btn-danger rounded-[25px]">
-                                                                            <span class="flex items-center">
-                                                                                <iconify-icon
-                                                                                    class="text-xl ltr:mr-2 rtl:ml-2"
-                                                                                    icon="heroicons-outline:x-mark"></iconify-icon>
-                                                                                <span>Cancel</span>
-                                                                            </span>
+                                                                    <form method="POST"
+                                                                          action="{{ route('trainer.destroyindividualsessions', $individualSession) }}"
+                                                                          onsubmit="return confirm('Are you sure you want to cancel this Reservation? This action cannot be undone.')">
+                                                                        @csrf
+                                                                        @method('DELETE')
+                                                                        <span
+                                                                            class="flex-none space-x-2 text-base text-secondary-500 rtl:space-x-reverse">
+                                                                    <button type="submit"
+                                                                            class="transition duration-150 hover:text-danger-500">
+                                                                      <iconify-icon
+                                                                          icon="heroicons-outline:trash">
+                                                                      </iconify-icon>
+                                                                        Cancel
                                                                     </button>
+
+                                                                    </span>
+                                                                    </form>
                                                                 </td>
                                                             </tr>
-                                                        @endforeach
+                                                        @empty
+                                                            <tr>
+                                                                <td colspan="6" style="padding-top: 2%" class="text-center">No Individual Sessions found</td>
+                                                            </tr>
+                                                        @endforelse
                                                         </tbody>
                                                     </table>
                                                 </div>

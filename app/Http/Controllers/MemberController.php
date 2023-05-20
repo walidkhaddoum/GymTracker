@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Member;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\Subscription;
 
@@ -12,16 +13,30 @@ class MemberController extends Controller
     public function index()
     {
         $members = Member::orderBy('created_at', 'desc')->get();
-        return view('admin.users.members', compact('members'));
+
+        foreach ($members as $member) {
+            $latestSubscription = $member->subscriptions()->orderBy('end_date', 'desc')->first();
+
+            if (!$latestSubscription) {
+                $member->subscriptionStatus = 'none';
+            } else {
+                $today = Carbon::today();
+                $start_date = Carbon::parse($latestSubscription->start_date);
+                $end_date = Carbon::parse($latestSubscription->end_date);
+
+                if ($start_date->lessThanOrEqualTo($today) && $end_date->greaterThanOrEqualTo($today)) {
+                    $member->subscriptionStatus = 'active';
+                } else {
+                    $member->subscriptionStatus = 'inactive';
+                }
+            }
+        }
+
+        return view('admin.users.members', compact('members',));
     }
 
 
-    /*public function show(Member $member)
-    {
-        $subscriptions = $member->subscriptions()->orderBy('start_date', 'desc')->get();
-        $subscriptionStatus = $member->getSubscriptionStatus();
-        return view('admin.users.member-details', compact('member', 'subscriptions', 'subscriptionStatus'));
-    }*/
+
 
     public function show(Member $member)
     {

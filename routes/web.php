@@ -56,16 +56,34 @@ Route::get('/trainers', function () {
 })->name('trainers');
 
 Route::get('/trainers/{specializationId}', function ($specializationId) {
-    $trainers = Trainer::with('specializations')->whereHas('specializations', function ($query) use ($specializationId) {
-        $query->where('specialization_id', $specializationId);
-    })->get();
+    if ($specializationId == 'All Classes') {
+        $trainers = Trainer::all();
+    } else {
+        $trainers = Trainer::with('specializations')->whereHas('specializations', function ($query) use ($specializationId) {
+            $query->where('specialization_id', $specializationId);
+        })->get();
+    }
 
     return view('trainerslist', ['trainers' => $trainers]);
 });
 
+
 Route::get('/trainer/{id}', 'App\Http\Controllers\TrainerController@showinformation')->name('trainer.show');
 
 Route::get('session/{session}', 'SessionController@checkLoginAndRedirect')->name('session.redirect');
+Route::get('/sessions/{catalogueId}', function ($catalogueId) {
+    if ($catalogueId == 'All Classes') {
+        $sessions = GroupSession::all();
+    } else {
+        $sessions = GroupSession::with('catalogues')->whereHas('catalogues', function ($query) use ($catalogueId) {
+            $query->where('catalogue_id', $catalogueId);
+        })->get();
+    }
+
+    return view('sessionslist', ['sessions' => $sessions]);
+});
+
+
 
 Route::get('/prices', function () {
     $memberships = GymMembership::all();
@@ -119,6 +137,7 @@ Route::middleware(['auth'])->group(function () {
         // Your user dashboard logic here
     })->name('user.dashboard');
 
+
     // Admin routes
     Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/', function () {
@@ -126,14 +145,23 @@ Route::middleware(['auth'])->group(function () {
         });
         Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
         Route::get('admins', [AdminController::class, 'admins'])->name('admins');
+        Route::delete('admins/{user}', [AdminController::class, 'deleteuser'])->name('destroy');
         Route::get('members', [MemberController::class, 'index'])->name('members');
         Route::get('trainers', [TrainerController::class, 'index'])->name('trainers');
+        Route::delete('trainers/{trainer}', [AdminController::class, 'deletetrainer'])->name('destroytrainer');
+        Route::post('update-trainer/{id}', [TrainerController::class, 'update'])->name('update-trainer');
+        Route::get('trainer/{id}/edit', [TrainerController::class, 'edit'])->name('edit-trainer');
         Route::get('gyms', [GymController::class, 'index'])->name('gyms');
         Route::get('spaces', [SpaceController::class, 'index'])->name('spaces');
         Route::get('specializations', [SpecializationController::class, 'index'])->name('specializations');
         Route::get('subscriptions', [SubscriptionController::class, 'index'])->name('subscriptions');
         Route::get('payments', [PaymentController::class, 'index'])->name('payments');
+        Route::get('/group-sessions/browse', [MemberUserController::class, 'browseGroupSessions'])->middleware('active.subscription')->name('user.group-sessions.browse');
+
         Route::get('group-sessions', [GroupSessionController::class, 'index'])->name('group-sessions');
+        Route::delete('group-sessions/{groupSession}', [AdminController::class, 'destroySession'])->name('destroysession');
+        Route::post('group-sessions/', 'App\Http\Controllers\GroupSessionController@store')->name('group-sessions.store');
+
         Route::get('individual_sessions', [IndividualSessionController::class, 'index'])->name('individual_sessions');
         Route::get('attendances', [AttendanceController::class, 'index'])->name('attendances');
         Route::get('reports', [ReportController::class, 'index'])->name('reports');
@@ -145,6 +173,7 @@ Route::middleware(['auth'])->group(function () {
         Route::post('gym-memberships/store', [GymMembershipController::class, 'store'])->name('gym_memberships.store');
         Route::get('gym-memberships/{id}/active-subscriptions', [GymMembershipController::class, 'active_subscriptions'])->name('gym_memberships.active_subscriptions');
         Route::get('equipments', [EquipmentController::class, 'index'])->name('equipments');
+        Route::delete('equipments/{equipment}', [AdminController::class, 'destroyequipment'])->name('destroyequipment');
         Route::get('equipments/create', [EquipmentController::class, 'create'])->name('equipments.create');
         Route::post('equipments/store', [EquipmentController::class, 'store'])->name('equipments.store');
 
@@ -155,6 +184,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/admin/subscriptions', [SubscriptionController::class, 'subscriptions'])->name('admin.subscriptions');
     Route::get('/admin/subscriptions/{id}', [SubscriptionController::class, 'show']);
     Route::get('/trainers/{id}', [TrainerController::class, 'show']);
+
     Route::get('/members/{member}', [App\Http\Controllers\MemberController::class, 'show'])->name('members.show');
     //Route::put('/admin/spaces/{space}', [\App\Http\Controllers\SpaceController::class, 'update'])->name('admin.spaces.update');
     Route::put('/admin/spaces/{id}', 'App\Http\Controllers\SpaceController@update')->name('admin.spaces.update');
@@ -172,6 +202,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/admin/catalogues', [App\Http\Controllers\CatalogueController::class, 'store'])->name('admin.catalogues.store');
     Route::get('/admin/catalogues/{catalogue}/edit', [\App\Http\Controllers\CatalogueController::class, 'edit'])->name('admin.catalogues.edit');
     Route::post('/admin/catalogues/store', [CatalogueController::class, 'store'])->name('catalogues.store');
+    Route::delete('/admins/catalogues/{catalogue}', [AdminController::class, 'deletecatalogue'])->name('admin.destroyCatalogue');
 
     /////////////////////
     ///
@@ -236,12 +267,12 @@ Route::middleware(['auth'])->group(function () {
         })->name('dashboard');
         Route::get('/group-sessions', [TrainerUsercontroller::class, 'groupSessions'])->name('groupSessions');
         Route::get('/individual-sessions', [TrainerUsercontroller::class, 'individualSessions'])->name('individualSessions');
+        Route::delete('individual-sessions/{individualSession}', [TrainerUsercontroller::class, 'destroyindividualsessions'])->name('destroyindividualsessions');
         Route::get('/reservations', [TrainerUsercontroller::class, 'reservations'])->name('reservations');
         Route::get('/upcoming-events', [TrainerUsercontroller::class, 'upcomingEvents'])->name('upcomingEvents');
         Route::get('/settings', [TrainerUsercontroller::class, 'settings'])->name('settings');
         Route::post('/update-reservation', [TrainerUsercontroller::class, 'updateReservation'])->name('updateReservation');
         Route::post('/change-password', [TrainerUsercontroller::class, 'changePassword'])->name('changePassword');
-
     });
 
 

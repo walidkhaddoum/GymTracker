@@ -21,6 +21,13 @@ class TrainerUsercontroller extends Controller
         return view('trainer.group_sessions');
     }
 
+    public function destroyindividualsessions(IndividualSession $individualSession)
+    {
+        $individualSession->delete();
+        return redirect()->route('trainer.individualSessions');
+    }
+
+
     public function groupSessions()
     {
         $user = Auth::user();
@@ -128,7 +135,7 @@ class TrainerUsercontroller extends Controller
     {
         $reservation = Reservation::findOrFail($request->reservation_id);
         $action = $request->action;
-        $user = Auth::user();
+        $trainer = Auth::user()->trainer; // Get the trainer associated with the authenticated user
 
         if ($action == 'accept') {
             $reservation->status = 1;
@@ -139,8 +146,7 @@ class TrainerUsercontroller extends Controller
             ]);
 
             // Get the member associated with the user
-            $member = Member::where('user_id', $reservation->user_id)->first();
-
+            $member = Member::where('id', $reservation->user_id)->first();
 
             SessionRegistration::create([
                 'member_id' => $member->id,

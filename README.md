@@ -68,7 +68,7 @@ Contributions are welcome! If you encounter any issues or have suggestions for i
 
 
 
-About the Developer
+<About the Developer
 I am a Data Science and Computer Science Engineering student passionate about developing practical applications and exploring the intersections of data science and software engineering. This Gym Tracker System is a personal project aimed at applying my backend development skills using Laravel.
 
 

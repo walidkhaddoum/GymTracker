@@ -4,24 +4,26 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Trainer extends Model
 {
     use HasFactory;
+    use SoftDeletes;
 
     protected $fillable = [
         'user_id',
         'first_name',
         'last_name',
-        'email',
         'phone_number',
         'picture',
         'gym_id',
     ];
 
+
     public function specializations()
     {
-        return $this->belongsToMany(Specialization::class);
+        return $this->belongsToMany(Specialization::class, 'specialization_trainer', 'trainer_id', 'specialization_id');
     }
 
     public function gym()
@@ -40,7 +42,10 @@ class Trainer extends Model
         return $this->hasMany(SessionAssignment::class);
     }
 
-
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 
     public function individualSessions()
     {
@@ -58,10 +63,5 @@ class Trainer extends Model
     {
         return $this->belongsToMany(Member::class, 'member_trainer');
     }
-
-
-
-
-
 }
 

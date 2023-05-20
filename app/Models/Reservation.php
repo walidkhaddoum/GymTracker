@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Reservation extends Model
 {
     use HasFactory;
+    use SoftDeletes;
 
     protected $fillable = [
         'user_id',
@@ -31,7 +33,7 @@ class Reservation extends Model
 
     public function member()
     {
-        return $this->belongsTo(Member::class, 'user_id', 'user_id');
+        return $this->belongsTo(Member::class, 'user_id', 'id');
     }
 
 

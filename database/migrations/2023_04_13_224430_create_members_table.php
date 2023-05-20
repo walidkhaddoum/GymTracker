@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('phone_number');
             $table->string('email')->unique();
             $table->text('address');
+            $table->softDeletes();
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
         });
