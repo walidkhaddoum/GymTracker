@@ -95,22 +95,9 @@
                                                     </span>
                                                     <span
                                                         class="block mb- text-2xl text-slate-900 dark:text-white font-medium mb-6">
-                                                        {{ $totalMembers }}
+                                                        {{ $totalMembers }} Members
                                                     </span>
-                                                    <div class="flex space-x-2 rtl:space-x-reverse">
-                                                        <div class="flex-none text-xl  text-primary-500">
-                                                            <iconify-icon
-                                                                icon="heroicons:arrow-trending-up"></iconify-icon>
-                                                        </div>
-                                                        <div class="flex-1 text-sm">
-                                                              <span class="block mb-[2px] text-primary-500">
-                                                                    25.67%
-                                                              </span>
-                                                            <span class="block mb-1 text-slate-600 dark:text-slate-300">
-                                                        From last week
-                                                            </span>
-                                                        </div>
-                                                    </div>
+
                                                 </div>
 
                                                 <div
@@ -125,22 +112,9 @@
                                                     </span>
                                                     <span
                                                         class="block mb- text-2xl text-slate-900 dark:text-white font-medium mb-6">
-                                                        {{$totalTrainers}}
+                                                        {{$totalTrainers}} Trainers
                                                     </span>
-                                                    <div class="flex space-x-2 rtl:space-x-reverse">
-                                                        <div class="flex-none text-xl  text-primary-500">
-                                                            <iconify-icon
-                                                                icon="heroicons:arrow-trending-up"></iconify-icon>
-                                                        </div>
-                                                        <div class="flex-1 text-sm">
-                                                            <span class="block mb-[2px] text-primary-500">
-                                                                8.67%
-                                                            </span>
-                                                            <span class="block mb-1 text-slate-600 dark:text-slate-300">
-                                                                From last week
-                                                            </span>
-                                                        </div>
-                                                    </div>
+
                                                 </div>
 
                                                 <div
@@ -155,22 +129,8 @@
                                                     </span>
                                                     <span
                                                         class="block mb- text-2xl text-slate-900 dark:text-white font-medium mb-6">
-                                                        {{ $totalGyms }}
+                                                        {{ $totalGyms }} Gyms
                                                     </span>
-                                                    <div class="flex space-x-2 rtl:space-x-reverse">
-                                                        <div class="flex-none text-xl  text-danger-500">
-                                                            <iconify-icon
-                                                                icon="heroicons:arrow-trending-down"></iconify-icon>
-                                                        </div>
-                                                        <div class="flex-1 text-sm">
-                                                          <span class="block mb-[2px] text-danger-500">
-                                                            1.67%
-                                                            </span>
-                                                            <span class="block mb-1 text-slate-600 dark:text-slate-300">
-                                                                Total
-                                                            </span>
-                                                        </div>
-                                                    </div>
                                                 </div>
 
                                                 <div
@@ -185,22 +145,9 @@
                                                         </span>
                                                     <span
                                                         class="block mb- text-2xl text-slate-900 dark:text-white font-medium mb-6">
-                                                                {{ $monthlyRevenue }}
+                                                                {{ $monthlyRevenue }} DH
                                                         </span>
-                                                    <div class="flex space-x-2 rtl:space-x-reverse">
-                                                        <div class="flex-none text-xl  text-primary-500">
-                                                            <iconify-icon
-                                                                icon="heroicons:arrow-trending-up"></iconify-icon>
-                                                        </div>
-                                                        <div class="flex-1 text-sm">
-                                  <span class="block mb-[2px] text-primary-500">
-                            11.67%
-                        </span>
-                                                            <span class="block mb-1 text-slate-600 dark:text-slate-300">
-                            From last week
-                        </span>
-                                                        </div>
-                                                    </div>
+
                                                 </div>
 
                                                 <!-- END: Group Chart3 -->
@@ -209,7 +156,7 @@
                                         <div class="card p-6">
                                             <header class="md:flex md:space-y-0 space-y-4">
                                                 <h6 class="flex-1 text-slate-900 dark:text-white capitalize">
-                                                    New Client Statistic
+                                                    New Client Statistics
                                                 </h6>
                                             </header>
                                             <div class="card-body p-6">
@@ -233,10 +180,10 @@
                                                                 <button class="text-xl text-center block w-full "
                                                                         type="button" data-bs-toggle="dropdown"
                                                                         aria-expanded="false">
-                                      <span class="text-lg inline-flex h-6 w-6 flex-col items-center justify-center border border-slate-200 dark:border-slate-700
-                    rounded dark:text-slate-400">
-                <iconify-icon icon="heroicons-outline:dots-horizontal"></iconify-icon>
-            </span>
+                                                                                          <span class="text-lg inline-flex h-6 w-6 flex-col items-center justify-center border border-slate-200 dark:border-slate-700
+                                                                        rounded dark:text-slate-400">
+                                                                    <iconify-icon icon="heroicons-outline:dots-horizontal"></iconify-icon>
+                                                                </span>
                                                                 </button>
                                                                 <ul class=" dropdown-menu min-w-[120px] absolute text-sm text-slate-700 dark:text-white hidden bg-white dark:bg-slate-700
                 shadow z-[2] overflow-hidden list-none text-left rounded-lg mt-1 m-0 bg-clip-padding border-none">
@@ -263,11 +210,11 @@
                                                 </header>
                                                 <div class="card-body p-6">
                                                     <ul class="divide-y divide-slate-100 dark:divide-slate-700">
-                                                        @foreach($top5Gyms as $gym)
+                                                        @foreach($popularGyms as $gym)
                                                             <li class="text-sm text-slate-600 dark:text-slate-300 py-2">
                                                                 <div class="flex justify-between">
                                                                     <span>{{ $gym->name }}</span>
-                                                                    <span>{{ $gym->attendance_count }}</span>
+                                                                    <span>{{ $gym->total_attendance }}</span>
                                                                 </div>
                                                             </li>
                                                         @endforeach
@@ -278,7 +225,7 @@
                                             <div class="card">
                                                 <header class="card-header">
                                                     <h4 class="card-title">
-                                                        Member Demographics
+                                                        Sessions per Trainer
                                                     </h4>
                                                     <div>
                                                         <!-- BEGIN: Card Dropdown -->
@@ -317,7 +264,7 @@
                                                 </header>
                                                 <div class="card-body p-6">
                                                     <div class="legend-ring3">
-                                                        <canvas id="myPieChart" width="393" height="393"></canvas>
+                                                        <div id="pie-chart-cal" style="width: 393px; height: 393px;"></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -353,15 +300,7 @@
                                                             </th>
 
                                                             <th scope="col" class=" table-th ">
-                                                                Amount Paid
-                                                            </th>
-
-                                                            <th scope="col" class=" table-th ">
-                                                                Date Start
-                                                            </th>
-
-                                                            <th scope="col" class=" table-th ">
-                                                                Amount
+                                                                Start Date
                                                             </th>
 
                                                             <th scope="col" class=" table-th ">
@@ -369,11 +308,15 @@
                                                             </th>
 
                                                             <th scope="col" class=" table-th ">
-                                                                Status
+                                                                Amount Paid
                                                             </th>
 
                                                             <th scope="col" class=" table-th ">
-                                                                Action
+                                                                Payment Method
+                                                            </th>
+
+                                                            <th scope="col" class=" table-th ">
+                                                                Status
                                                             </th>
 
                                                         </tr>
@@ -382,18 +325,20 @@
                                                             class="bg-white divide-y divide-slate-100 dark:bg-slate-800 dark:divide-slate-700">
                                                         @foreach($latestSubscriptions as $latestSubscription)
                                                             <tr>
-                                                                <td class="table-td"><span class="flex"><span class="text-sm text-slate-600 dark:text-slate-300 capitalize">{{ $latestSubscription->first_name }} {{ $latestSubscription->last_name }}</span></span></td>
+                                                                <td class="table-td"><span class="flex"><span
+                                                                            class="text-sm text-slate-600 dark:text-slate-300 capitalize">{{ $latestSubscription->first_name }} {{ $latestSubscription->last_name }}</span></span>
+                                                                </td>
                                                                 <td class="table-td ">{{ $latestSubscription->membership_name }}</td>
-                                                                <td class="table-td ">{{ $latestSubscription->amount }} DH</td>
                                                                 <td class="table-td"> {{ Carbon\Carbon::parse($latestSubscription->start_date)->format('F j, Y') }}</td>
+                                                                <td class="table-td"> {{ $latestSubscription->subscription_duration }} Days</td>
                                                                 <td class="table-td ">
                                                                     <div>
-                                                                        {{ $latestSubscription->payment_method }}
+                                                                        {{ $latestSubscription->amount }}
                                                                     </div>
                                                                 </td>
                                                                 <td class="table-td ">
                                                                     <div>
-                                                                        {{ $latestSubscription->date_diff }} Days
+                                                                        {{ $latestSubscription->payment_method }}
                                                                     </div>
                                                                 </td>
                                                                 <td class="table-td ">
@@ -403,14 +348,6 @@
                                                                         paid
                                                                     </div>
 
-                                                                </td>
-                                                                <td class="table-td ">
-                                                                    <div class="flex space-x-3 rtl:space-x-reverse">
-                                                                        <button class="action-btn" type="button">
-                                                                            <iconify-icon
-                                                                                icon="heroicons:eye"></iconify-icon>
-                                                                        </button>
-                                                                    </div>
                                                                 </td>
                                                             </tr>
                                                         @endforeach
@@ -434,90 +371,16 @@
 
     @include("partials.mobile_header")
 </main>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<input type="hidden" id="memberDemographics" value="{{ json_encode($memberDemographics) }}" />
-<input type="hidden" id="newClientsJson" value="{{ $newClientsJson }}">
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-<script>
-    // New Clients Area Chart
-    const areaChartLabels = ['2022-01', '2022-02', '2022-03', '2022-04', '2022-05'];
-    const areaChartData = [15, 28, 23, 35, 40];
-    const areaChartConfig = {
-        type: 'line',
-        data: {
-            labels: areaChartLabels,
-            datasets: [{
-                label: 'New Clients',
-                data: areaChartData,
-                backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                borderColor: 'rgba(75, 192, 192, 1)',
-                borderWidth: 1,
-                tension: 0.4,
-                fill: true
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: {
-                    position: 'top',
-                },
-                title: {
-                    display: true,
-                    text: 'New Client Statistics'
-                }
-            },
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-        }
-    };
-
-    const areaChartCtx = document.getElementById('newClientsAreaChart').getContext('2d');
-    const newClientsAreaChart = new Chart(areaChartCtx, areaChartConfig);
-
-    // Member Demographics Pie Chart
-    const pieChartData = {
-        labels: ['Under 18', 'Between 18 and 30', 'Over 30'],
-        datasets: [{
-            data: [50, 100, 150], // Replace these values with the actual member demographics data
-            backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
-            hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56']
-        }]
-    };
-
-    const pieChartConfig = {
-        type: 'pie',
-        data: pieChartData,
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: {
-                    position: 'top',
-                },
-                title: {
-                    display: true,
-                    text: 'Member Demographics'
-                }
-            }
-        },
-    };
-
-    const pieChartCtx = document.getElementById('myPieChart').getContext('2d');
-    const memberDemographicsPieChart = new Chart(pieChartCtx, pieChartConfig);
-</script>
 
 <!-- scripts -->
+<script>
+    window.sessionsPerTrainerLabels = @json($sessionsPerTrainerLabels);
+    window.sessionsPerTrainerData = @json($sessionsPerTrainerData);
+    window.newClientsLabels = @json($newClientsLabels);
+    window.newClientsData = @json($newClientsData);
+</script>
 <script src="{{ asset('js/jquery-3.6.0.min.js') }}"></script>
 <script src="{{ asset('js/rt-plugins.js') }}"></script>
 <script src="{{ asset('js/app.js') }}"></script>
-<script>
-
-</script>
 </body>
 </html>

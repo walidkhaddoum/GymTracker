@@ -4,9 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Catalogue;
 use App\Models\GroupSession;
+use App\Models\Gym;
 use App\Models\GymMembership;
 use App\Models\IndividualSession;
 use App\Models\Materiel;
+use App\Models\Member;
+use App\Models\SessionAssignment;
+use App\Models\Subscription;
 use App\Models\Trainer;
 use App\Models\User;
 use Carbon\Carbon;
@@ -55,53 +59,65 @@ class AdminController extends Controller
 
     public function dashboard()
     {
+        $totalMembers = Member::count();
+        $totalTrainers = Trainer::count();
+        $totalGyms = Gym::count();
+        $monthlyRevenue = DB::table('payments')
+            ->whereMonth('payment_date', '=', date('m'))
+            ->sum('amount');
 
-        $totalMembers = DB::table('users')->where('role_id', 2)->count();
-        $totalTrainers = DB::table('users')->where('role_id', 3)->count();
-        $totalGyms = DB::table('gyms')->count();
-        $monthlyRevenue = DB::table('payments')->where('payment_status', 1)->whereRaw("DATE_FORMAT(payment_date, '%Y-%m') = DATE_FORMAT(CURDATE(), '%Y-%m')")->sum('amount');
-
-        // Get Top 5 Gyms
-        $top5Gyms = DB::table('attendances')
+        $popularGyms = DB::table('attendances')
             ->join('gyms', 'attendances.gym_space_id', '=', 'gyms.id')
-            ->select('gyms.id', 'gyms.name', DB::raw('COUNT(attendances.id) AS attendance_count'))
-            ->groupBy('gyms.id', 'gyms.name')
-            ->orderByDesc('attendance_count')
-            ->limit(5)
+            ->select('gyms.name', DB::raw('count(*) as total_attendance'))
+            ->groupBy('gyms.name')
+            ->orderBy('total_attendance', 'desc')
+            ->take(5)
             ->get();
 
-        // Get member demographics
-        $memberDemographics = DB::table('members')
-            ->select(DB::raw("
-                                COUNT(CASE WHEN TIMESTAMPDIFF(YEAR, date_of_birth, CURDATE()) < 18 THEN 1 END) AS under_18,
-                                COUNT(CASE WHEN TIMESTAMPDIFF(YEAR, date_of_birth, CURDATE()) BETWEEN 18 AND 30 THEN 1 END) AS between_18_and_30,
-                                COUNT(CASE WHEN TIMESTAMPDIFF(YEAR, date_of_birth, CURDATE()) > 30 THEN 1 END) AS over_30
-                            "))
-            ->first();
+        $newClientsStats = Member::select(DB::raw('DATE(created_at) as date'), DB::raw('count(*) as count'))
+            ->groupBy('date')
+            ->get();
 
-        // Get new client statistics
-        $newClients = DB::table('subscriptions')
+        // Convert the newClientsStats to the format needed by the chart
+        $newClientsData = $newClientsStats->pluck('count')->toArray();
+        $newClientsLabels = $newClientsStats->pluck('date')->map(function ($date) {
+            return \Carbon\Carbon::parse($date)->format('M d');
+        })->toArray();
+
+
+        $sessionsPerTrainer = SessionAssignment::select('trainer_id', DB::raw('count(*) as sessions'))
+            ->groupBy('trainer_id')
+            ->get();
+
+        // Convert the sessionsPerTrainer to the format needed by the chart
+        $sessionsPerTrainerData = $sessionsPerTrainer->pluck('sessions')->toArray();
+        $sessionsPerTrainerLabels = $sessionsPerTrainer->pluck('trainer_id')->map(function ($trainerId) {
+            $trainer = Trainer::find($trainerId);
+            return $trainer->first_name . ' ' . $trainer->last_name;
+        })->toArray();
+
+        $latestSubscriptions = Subscription::join('members', 'subscriptions.member_id', '=', 'members.id')
             ->join('payments', 'subscriptions.payment_id', '=', 'payments.id')
-            ->where('payments.payment_status', 1)
-            ->select(DB::raw("DATE_FORMAT(subscriptions.created_at, '%Y-%m') AS month"), DB::raw('COUNT(*) AS new_clients'))
-            ->groupBy('month')
-            ->orderBy('month')
-            ->get();
-        $newClientsJson = json_encode($newClients);
-
-        // Get latest subscriptions
-        $latestSubscriptions = DB::table('subscriptions')
-            ->join('members', 'subscriptions.member_id', '=', 'members.id')
             ->join('gym_memberships', 'subscriptions.gym_membership_id', '=', 'gym_memberships.id')
-            ->join('payments', 'subscriptions.payment_id', '=', 'payments.id')
-            ->where('payments.payment_status', 1)
-            ->select('members.first_name', 'members.last_name', 'gym_memberships.name as membership_name', 'payments.amount', 'subscriptions.start_date', DB::raw('DATEDIFF(subscriptions.end_date, subscriptions.start_date) AS date_diff'), 'payments.payment_method')
-            ->orderByDesc('subscriptions.start_date')
-            ->limit(10)
+            ->select(
+                'members.first_name',
+                'members.last_name',
+                'subscriptions.start_date',
+                'subscriptions.end_date',
+                'payments.amount',
+                'payments.payment_method',
+                'payments.payment_status',
+                'gym_memberships.name as membership_name',
+                DB::raw('DATEDIFF(subscriptions.end_date, subscriptions.start_date) as subscription_duration')
+            )
+            ->orderBy('subscriptions.created_at', 'desc')
             ->get();
 
-        return view('admin.dashboard', compact('totalMembers', 'totalTrainers', 'totalGyms', 'monthlyRevenue', 'top5Gyms', 'memberDemographics', 'newClientsJson', 'latestSubscriptions'));
+
+        return view('admin.dashboard', compact('totalMembers', 'totalTrainers', 'totalGyms', 'monthlyRevenue', 'popularGyms', 'newClientsData', 'newClientsLabels', 'sessionsPerTrainerData', 'sessionsPerTrainerLabels', 'latestSubscriptions'));
     }
+
+
 
     public function viewProfile()
     {
@@ -176,7 +192,6 @@ class AdminController extends Controller
     {
         return view('admin.payments_subscriptions.payments');
     }
-
 
 
     public function individualSessions()

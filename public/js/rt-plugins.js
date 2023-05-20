@@ -33203,7 +33203,7 @@ for (let e = 0; e < categoryCheckboxes.length; e++) categoryCheckboxes[e].addEve
         id: "areaChart",
         options: {
             chart: {height: 350, type: "area", toolbar: {show: !1}},
-            series: [{data: [15, 28, 23, 35, 40]}],
+            series: [{data: window.newClientsData}],
             dataLabels: {enabled: !1},
             stroke: {curve: "smooth", width: 4},
             colors: ["#4669FA"],
@@ -33216,7 +33216,7 @@ for (let e = 0; e < categoryCheckboxes.length; e++) categoryCheckboxes[e].addEve
             },
             yaxis: {labels: {style: {colors: l ? "#CBD5E1" : "#475569", fontFamily: "Inter"}}},
             xaxis: {
-                categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+                categories: window.newClientsLabels,
                 labels: {style: {colors: l ? "#CBD5E1" : "#475569", fontFamily: "Inter"}},
                 axisBorder: {show: !1},
                 axisTicks: {show: !1}
@@ -34091,11 +34091,16 @@ for (let e = 0; e < categoryCheckboxes.length; e++) categoryCheckboxes[e].addEve
     }, {
         id: "pie-chart-cal",
         options: {
-            chart: {height: 335, type: "pie", toolbar: {show: !1}},
-            labels: ["7% Sent", "18% Opend", "12% Rejected"],
+            chart: {
+                height: 393, // Set height
+                width: 393, // Set width
+                type: "pie",
+                toolbar: {show: !1}
+            },
+            labels: window.sessionsPerTrainerLabels,
             dataLabels: {enabled: !0},
             colors: [i, s, "#A3A1FB"],
-            series: [44, 55, 30],
+            series: window.sessionsPerTrainerData,
             legend: {
                 position: "bottom",
                 fontSize: "12px",
@@ -34107,13 +34112,11 @@ for (let e = 0; e < categoryCheckboxes.length; e++) categoryCheckboxes[e].addEve
             },
             responsive: [{breakpoint: 480, options: {legend: {position: "bottom"}}}]
         }
-    }, {
+    }
+    , {
         id: "history-chart", options: {
             chart: {height: 360, type: "area", toolbar: {show: !1}, offsetX: 0, offsetY: 0, zoom: {enabled: !1}},
-            series: [{name: "Earnings", data: [31, 40, 28, 51, 42, 109, 100]}, {
-                name: "Expenses",
-                data: [11, 32, 45, 32, 34, 52, 41]
-            }],
+            series: window.sessionsPerTrainerData.data,
             dataLabels: {enabled: !1},
             stroke: {curve: "straight", width: 2},
             colors: [t, s],
