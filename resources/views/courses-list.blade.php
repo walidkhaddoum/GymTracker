@@ -44,7 +44,7 @@
                                 @if($session->session_assignments->isNotEmpty())
                                     <div class="_author">
                                         <div class="img ie-img">
-                                            <img src="{{asset('storage/'.$session->session_assignments->first()->trainer->picture)}}" alt="">
+                                            <img src="{{secure_asset('storage/'.$session->session_assignments->first()->trainer->picture)}}" alt="">
                                         </div>
                                         <p class="block name">{{ $session->session_assignments->first()->trainer->first_name }} {{ $session->session_assignments->first()->trainer->last_name }}</p>
                                     </div>

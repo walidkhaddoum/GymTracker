@@ -287,7 +287,7 @@
                                                  style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
                                                 <!-- Team Thumb-->
                                                 <div class="advisor_thumb"><img
-                                                        src="{{ asset('storage/'.$trainer->picture) }}" alt="">
+                                                        src="{{ secure_asset('storage/'.$trainer->picture) }}" alt="">
                                                     <!-- Social Info-->
                                                     <div
                                                         class="heart {{ Auth::user()->member->favorite_trainers->contains($trainer) ? 'active' : '' }}"
@@ -302,9 +302,10 @@
                                                 </div>
                                                 <!-- Reserve button -->
                                                 <div class="button_container mt-auto">
-                                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                                            data-bs-target="#reserveModal">Reserve
+                                                    <button type="button" class="btn btn-primary reserve-button" data-bs-toggle="modal"
+                                                            data-bs-target="#reserveModal" data-trainer-id="{{ $trainer->id }}">Reserve
                                                     </button>
+
                                                 </div>
                                             </div>
                                         </div>
@@ -500,8 +501,24 @@
             }
         });
     });
-
-
+    $(document).ready(function() {
+        $('.reserve-button').click(function() {
+            const trainerId = $(this).attr('data-trainer-id');
+            console.log(trainerId);
+            $.ajax({
+                url: `/user/gettrainerdata/${trainerId}`,
+                type: 'GET',
+                success: function(response) {
+                    const trainer = response;
+                    $('#reserveModal h3').text(`Reserve a session with ${trainer.first_name} ${trainer.last_name}`);
+                    $('#reserveModal input[name="trainer_id"]').val(trainer.id);
+                },
+                error: function(err) {
+                    console.error('Error fetching trainer data:', err);
+                }
+            });
+        });
+    });
 </script>
 </body>
 </html>

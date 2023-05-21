@@ -113,7 +113,7 @@
                                                                     <div class="flex items-center">
                                                                         <div class="flex-none">
                                                                             <div class="w-8 h-8 rounded-[100%] ltr:mr-3 rtl:ml-3">
-                                                                                <img src="{{ asset('storage/'.$trainer->picture) }}" alt="" class="w-full h-full rounded-[100%] object-cover">
+                                                                                <img src="{{ secure_asset('storage/'.$trainer->picture) }}" alt="" class="w-full h-full rounded-[100%] object-cover">
                                                                             </div>
                                                                         </div>
                                                                         <div class="flex-1 text-start">

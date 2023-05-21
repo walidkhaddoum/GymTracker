@@ -166,9 +166,9 @@
     @include("partials.mobile_header")
 </main>
 <!-- scripts -->
-<script src="{{ asset('js/jquery-3.6.0.min.js') }}"></script>
-<script src="{{ asset('js/app.js') }}"></script>
-<script src="{{ asset('js/rt-plugins.js') }}"></script>
+<script src="{{ secure_asset('js/jquery-3.6.0.min.js') }}"></script>
+<script src="{{ secure_asset('js/app.js') }}"></script>
+<script src="{{ secure_asset('js/rt-plugins.js') }}"></script>
 <script>
     $(document).ready(function(){
         $("#submit_admin_form").click(function(event){

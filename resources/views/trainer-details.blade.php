@@ -7,7 +7,7 @@
     <div class="container classes_page trainer_page trainer-single-page">
         @include('partials/header_public')
         <section class="classes_header">
-            <div class="left" style="background-image: url({{asset('storage/'.$trainer->picture)}});">
+            <div class="left" style="background-image: url({{secure_asset('storage/'.$trainer->picture)}});">
                 <div class="content">
                     <div class="breadcrumbs">
                         <a href="/">Home</a> / <a href="{{ route('trainers') }}">Trainers</a> / <a href="{{ route('trainers') }}" class="current">{{ $trainer->first_name }} {{ $trainer->last_name }}</a>
@@ -53,7 +53,7 @@
                                 <div class="item_bottom">
                                     <div class="trainer">
                                         <div class="img ie-img">
-                                            <img src="{{asset('storage/'.$trainer->picture)}}" alt="">
+                                            <img src="{{secure_asset('storage/'.$trainer->picture)}}" alt="">
                                         </div>
                                         <div class="name">{{ $trainer->first_name }} {{ $trainer->last_name }}</div>
                                     </div>
@@ -222,13 +222,13 @@
         </div>
     </div>
 
-    <script src="{{ asset('public-website/js/jquery.min.js') }}"></script>
-    <script src="{{ asset('public-website/js/jquery-ui.min.js') }}"></script>
-    <script src="{{ asset('public-website/js/device.min.js') }}"></script>
-    <script src="{{ asset('public-website/js/lightgallery.js') }}"></script>
-    <script src="{{ asset('public-website/js/slick.min.js') }}"></script>
-    <script src="{{ asset('public-website/js/jquery.arcticmodal.min.js') }}"></script>
-    <script src="{{ asset('public-website/js/scripts.js') }}"></script>
+    <script src="{{ secure_asset('public-website/js/jquery.min.js') }}"></script>
+    <script src="{{ secure_asset('public-website/js/jquery-ui.min.js') }}"></script>
+    <script src="{{ secure_asset('public-website/js/device.min.js') }}"></script>
+    <script src="{{ secure_asset('public-website/js/lightgallery.js') }}"></script>
+    <script src="{{ secure_asset('public-website/js/slick.min.js') }}"></script>
+    <script src="{{ secure_asset('public-website/js/jquery.arcticmodal.min.js') }}"></script>
+    <script src="{{ secure_asset('public-website/js/scripts.js') }}"></script>
 </body>
 
 </html>

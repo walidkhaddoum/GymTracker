@@ -105,7 +105,7 @@
                                 <div class="flex ltr:text-left rtl:text-right">
                                     <div class="flex-none ltr:mr-3 rtl:ml-3">
                                         <div class="h-8 w-8 bg-white rounded-full">
-                                            <img src="{{ asset('images/all-img/user.png') }}" alt="user"
+                                            <img src="{{ secure_asset('images/all-img/user.png') }}" alt="user"
                                                  class="border-white block w-full h-full object-cover rounded-full border">
                                         </div>
                                     </div>
@@ -133,7 +133,7 @@
                     <button class="text-slate-800 dark:text-white focus:ring-0 focus:outline-none font-medium rounded-lg text-sm text-center
       inline-flex items-center" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <div class="lg:h-8 lg:w-8 h-7 w-7 rounded-full flex-1 ltr:mr-[10px] rtl:ml-[10px]">
-                            <img src="{{ asset('images/avatar/av-1.svg') }}" alt="user"
+                            <img src="{{ secure_asset('images/avatar/av-1.svg') }}" alt="user"
                                  class="block w-full h-full object-cover rounded-full">
                         </div>
                         <span

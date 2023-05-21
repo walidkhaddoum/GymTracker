@@ -26,7 +26,7 @@
                 </div>
                 <div class="clubcard">
                     <div class="left ie-img">
-                        <img src="{{ asset('public-website/img/card.png') }}" alt="">
+                        <img src="{{ secure_asset('public-website/img/card.png') }}" alt="">
                     </div>
                     <div class="right">
                         <h3 class="_title">The club card includes</h3>

@@ -86,7 +86,7 @@
                                                 <div
                                                     class="bg-warning-500 rounded-md p-4 bg-opacity-[0.15] dark:bg-opacity-25 relative z-[1]">
                                                     <div class="overlay absolute left-0 top-0 w-full h-full z-[-1]">
-                                                        <img src="{{ asset('images/all-img/shade-1.png') }}" alt=""
+                                                        <img src="{{ secure_asset('images/all-img/shade-1.png') }}" alt=""
                                                              draggable="false" class="w-full h-full object-contain">
                                                     </div>
                                                     <span
@@ -103,7 +103,7 @@
                                                 <div
                                                     class="bg-info-500 rounded-md p-4 bg-opacity-[0.15] dark:bg-opacity-25 relative z-[1]">
                                                     <div class="overlay absolute left-0 top-0 w-full h-full z-[-1]">
-                                                        <img src="{{ asset('images/all-img/shade-2.png') }}" alt=""
+                                                        <img src="{{ secure_asset('images/all-img/shade-2.png') }}" alt=""
                                                              draggable="false" class="w-full h-full object-contain">
                                                     </div>
                                                     <span
@@ -120,7 +120,7 @@
                                                 <div
                                                     class="bg-primary-500 rounded-md p-4 bg-opacity-[0.15] dark:bg-opacity-25 relative z-[1]">
                                                     <div class="overlay absolute left-0 top-0 w-full h-full z-[-1]">
-                                                        <img src="{{ asset('images/all-img/shade-3.png') }}" alt=""
+                                                        <img src="{{ secure_asset('images/all-img/shade-3.png') }}" alt=""
                                                              draggable="false" class="w-full h-full object-contain">
                                                     </div>
                                                     <span
@@ -136,7 +136,7 @@
                                                 <div
                                                     class="bg-success-500 rounded-md p-4 bg-opacity-[0.15] dark:bg-opacity-25 relative z-[1]">
                                                     <div class="overlay absolute left-0 top-0 w-full h-full z-[-1]">
-                                                        <img src="{{ asset('images/all-img/shade-4.png') }}" alt=""
+                                                        <img src="{{ secure_asset('images/all-img/shade-4.png') }}" alt=""
                                                              draggable="false" class="w-full h-full object-contain">
                                                     </div>
                                                     <span

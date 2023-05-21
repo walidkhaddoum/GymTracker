@@ -104,8 +104,13 @@
                                             <td class="table-td">{{ $session->date }}</td>
                                             <td class="table-td">{{ Carbon\Carbon::parse($session->start_time)->diff(Carbon\Carbon::parse($session->end_time))->format('%H:%I') }}</td>
                                             <td class="table-td">{{ $session->remaining_capacity }}</td>
-                                            <td class="table-td">{{ $session->sessionAssignments->first()->trainer->first_name }} {{ $session->sessionAssignments->first()->trainer->last_name }}</td>
                                             <td class="table-td">
+                                                @if($session->sessionAssignments->first() && $session->sessionAssignments->first()->trainer)
+                                                    {{ $session->sessionAssignments->first()->trainer->first_name }} {{ $session->sessionAssignments->first()->trainer->last_name }}
+                                                @else
+                                                    No trainer assigned
+                                                @endif
+                                            </td>                                            <td class="table-td">
                                                 @php
                                                     $user_id = Auth::user()->member->id;
                                                 @endphp
@@ -150,7 +155,7 @@
                                                         <!-- Modal body -->
                                                         <div class="p-6 space-y-4">
                                                             <div class="modal-body">
-                                                                Are you sure you want to register for the "{{ $session->name }}" session with {{ $session->sessionAssignments->first()->trainer->first_name }} {{ $session->sessionAssignments->first()->trainer->last_name }}?
+                                                                Are you sure you want to register for the "{{ $session->name }}" session ?
                                                             </div>
                                                         </div>
                                                         <!-- Modal footer -->

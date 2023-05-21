@@ -137,8 +137,9 @@
                                     <h3 class="_title">{{ $session->name }}</h3>
                                     <div class="_author">
                                         <div class="img ie-img">
-                                            <img src="{{secure_asset('storage/'.$session->trainers->first()->picture)}}" alt="">
-                                        </div>
+                                            @if ($session->trainers->first())
+                                                <img src="{{ secure_asset('storage/'.$session->trainers->first()->picture) }}" alt="">
+                                            @endif                                        </div>
                                         <p class="name">{{ $session->trainers->first()->first_name ?? '' }} {{ $session->trainers->first()->last_name ?? '' }}</p>
                                     </div>
                                 </div>

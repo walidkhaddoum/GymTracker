@@ -23,7 +23,7 @@
     <!-- START : Theme Config js-->
     <script src="{{ secure_asset('js/settings.js') }}" sync></script></head>
 <body class="font-inter skin-default">
-<div class="loginwrapper bg-cover bg-no-repeat bg-center" style="background-image: url({{ asset('images/all-img/page-bg.png') }});">
+<div class="loginwrapper bg-cover bg-no-repeat bg-center" style="background-image: url({{ secure_asset('images/all-img/page-bg.png') }});">
     <div class="lg-inner-column">
         <div class="left-columns lg:w-1/2 lg:block hidden">
             <div class="logo-box-3">
@@ -37,7 +37,7 @@
                 <div class="mobile-logo text-center mb-6 lg:hidden block">
                     <a href="{{ route('IndexPage') }}">
                         <img src="{{ secure_asset('public-website/img/logo.png') }}" alt="" class="mb-10 dark_logo">
-                        <img src="{{ asset('images/logo/logo-white.png') }}" alt="" class="mb-10 white_logo">
+                        <img src="{{ secure_asset('images/logo/logo-white.png') }}" alt="" class="mb-10 white_logo">
                     </a>
                 </div>
                 <div class="text-center 2xl:mb-10 mb-5">

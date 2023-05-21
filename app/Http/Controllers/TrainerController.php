@@ -16,6 +16,18 @@ use Illuminate\Support\Str;
 
 class TrainerController extends Controller
 {
+
+    public function getTrainerData($id)
+    {
+        $trainer = Trainer::find($id);
+
+        if($trainer) {
+            return response()->json($trainer);
+        } else {
+            return 'zeb';
+        }
+    }
+
     public function index()
     {
         $trainers = Trainer::with('specializations')->get();
@@ -73,7 +85,8 @@ class TrainerController extends Controller
         $picture = $request->file('picture');
         $extension = $picture->getClientOriginalExtension();
         $newFileName = Str::random(20) . '.' . $extension;
-        $picture->storeAs('public', $newFileName);
+        $picture->storeAs('public/storage', $newFileName);
+
 
         // Create Trainer
         $trainer = Trainer::create([

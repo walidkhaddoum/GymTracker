@@ -31,7 +31,7 @@
     your experience and security.
 </p> <![endif] -->
 
-<div class="loginwrapper bg-cover bg-no-repeat bg-center" style="background-image: url({{ asset('images/all-img/page-bg-3.png') }});">
+<div class="loginwrapper bg-cover bg-no-repeat bg-center" style="background-image: url({{ secure_asset('images/all-img/page-bg-3.png') }});">
     <div class="lg-inner-column">
         <div class="left-columns lg:w-1/2 lg:block hidden">
             <div class="logo-box-3">

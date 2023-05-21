@@ -224,7 +224,7 @@
         });
     </script>
 @endif
-<script src="{{ asset('js/jquery-3.6.0.min.js') }}"></script>
+<script src="{{ secure_asset('js/jquery-3.6.0.min.js') }}"></script>
 <script>
     function openModal(id) {
         var modalId = 'view_modal_' + id;
@@ -304,7 +304,7 @@
     });
 
 </script>
-<script src="{{ asset('js/rt-plugins.js') }}"></script>
-<script src="{{ asset('js/app.js') }}"></script>
+<script src="{{ secure_asset('js/rt-plugins.js') }}"></script>
+<script src="{{ secure_asset('js/app.js') }}"></script>
 </body>
 </html>

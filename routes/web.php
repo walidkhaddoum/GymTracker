@@ -242,6 +242,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/group-sessions/reserve/{id}', [MemberUserController::class, 'reserveGroupSession'])->middleware('active.subscription')->name('user.group-sessions.reserve');
         Route::get('/personal-training', [MemberUserController::class, 'personalTrainingIndex'])->middleware('active.subscription')->name('user.personal-training.index');
         Route::get('/trainers', [MemberUserController::class, 'trainersIndex'])->middleware('active.subscription')->name('user.trainers.index');
+        Route::get('/gettrainerdata/{trainer}', [TrainerController::class, 'getTrainerData'])->middleware('active.subscription')->name('trainersdata');
         Route::get('/trainers/reserve/{id}', [MemberUserController::class, 'reserveTrainer'])->middleware('active.subscription')->name('user.trainers.reserve');
         Route::get('/personal-training/upcoming', [MemberUserController::class, 'upcomingPersonalTrainingSessions'])->middleware('active.subscription')->name('user.personal-training.upcoming');
         Route::get('/personal-training/previous', [MemberUserController::class, 'previousPersonalTrainingSessions'])->middleware('active.subscription')->name('user.personal-training.previous');
