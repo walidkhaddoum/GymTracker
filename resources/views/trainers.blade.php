@@ -218,13 +218,13 @@
     </div>
 </div>
 
-<script src="{{ asset('public-website/js/jquery.min.js') }}"></script>
-<script src="{{ asset('public-website/js/jquery-ui.min.js') }}"></script>
-<script src="{{ asset('public-website/js/device.min.js') }}"></script>
-<script src="{{ asset('public-website/js/lightgallery.js') }}"></script>
-<script src="{{ asset('public-website/js/slick.min.js') }}"></script>
-<script src="{{ asset('public-website/js/jquery.arcticmodal.min.js') }}"></script>
-<script src="{{ asset('public-website/js/scripts.js') }}"></script>
+<script src="{{ secure_asset('public-website/js/jquery.min.js') }}"></script>
+<script src="{{ secure_asset('public-website/js/jquery-ui.min.js') }}"></script>
+<script src="{{ secure_asset('public-website/js/device.min.js') }}"></script>
+<script src="{{ secure_asset('public-website/js/lightgallery.js') }}"></script>
+<script src="{{ secure_asset('public-website/js/slick.min.js') }}"></script>
+<script src="{{ secure_asset('public-website/js/jquery.arcticmodal.min.js') }}"></script>
+<script src="{{ secure_asset('public-website/js/scripts.js') }}"></script>
 <script>
     $(document).ready(function() {
         $('select[name="specialization"]').on('change', function() {
