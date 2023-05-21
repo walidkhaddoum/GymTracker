@@ -1,3 +1,14 @@
+<style>
+    .mobile-only {
+        display: none;
+    }
+
+    @media (max-width: 768px) {
+        .mobile-only {
+            display: block;
+        }
+    }
+</style>
 <header class="top_panel">
     <div class="wrap">
         <div class="wrap_float">
@@ -20,6 +31,17 @@
                             <li>
                                 <a href="{{ url('/prices') }}"><span>Prices</span></a>
                             </li>
+                            @if (Route::has('login'))
+                                @auth
+                                    <li class="mobile-only">
+                                        <a href="{{ url('/home') }}"><span>My Space</span></a>
+                                    </li>
+                                @else
+                                    <li class="mobile-only">
+                                        <a href="{{ route('login') }}"><span>Login</span></a>
+                                    </li>
+                                @endauth
+                            @endif
                         </ul>
                         <div class="close" id="menu-close"></div>
                     </div>
