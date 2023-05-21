@@ -9,7 +9,7 @@
     <section class="top_slider">
         <div class="slider_wrap" id="main_slider">
             <div class="slide" data-color="#FF5100" data-color-type="dark">
-                <div class="left" style="background-image: url({{ asset('public-website/img/placeholder.jpg') }})">
+                <div class="left" style="background-image: url({{ secure_asset('public-website/img/placeholder.jpg') }})">
                     <div class="slide_content">
                         <div>
                             <h2 class="_title">
@@ -30,14 +30,14 @@
                         </p>
                     </div>
                     <div class="right_bottom">
-                        <a class="video_link getModal js-video" data-href="#video" data-src="XXXXXX" style="background-image:  url({{ asset('public-website/img/video_link.jpg') }})">
+                        <a class="video_link getModal js-video" data-href="#video" data-src="XXXXXX" style="background-image:  url({{ secure_asset('public-website/img/video_link.jpg') }})">
                             <div class="play-btn"></div>
                         </a>
                     </div>
                 </div>
             </div>
             <div class="slide" data-color="#FF4F58" data-color-type="dark">
-                <div class="left" style="background-image: url({{ asset('public-website/img/slider4.jpg') }})">
+                <div class="left" style="background-image: url({{ secure_asset('public-website/img/slider4.jpg') }})">
                     <div class="slide_content">
                         <div>
                             <h2 class="_title">
@@ -58,14 +58,14 @@
                         </p>
                     </div>
                     <div class="right_bottom">
-                        <a class="video_link getModal js-video" data-href="#video" data-src="XEwYuqMWo8U" style="background-image: url({{ asset('public-website/img/video_link_4.jpg') }})">
+                        <a class="video_link getModal js-video" data-href="#video" data-src="XEwYuqMWo8U" style="background-image: url({{ secure_asset('public-website/img/video_link_4.jpg') }})">
                             <div class="play-btn"></div>
                         </a>
                     </div>
                 </div>
             </div>
             <div class="slide" data-color="#7749FF" data-color-type="dark">
-                <div class="left" style="background-image: url({{ asset('public-website/img/slider3.jpg') }})">
+                <div class="left" style="background-image: url({{ secure_asset('public-website/img/slider3.jpg') }})">
                     <div class="slide_content">
                         <div>
                             <h2 class="_title">
@@ -86,7 +86,7 @@
                         </p>
                     </div>
                     <div class="right_bottom">
-                        <a class="video_link getModal js-video" data-href="#video" data-src="XXXXXX" style="background-image: url({{ asset('public-website/img/video_link_3.jpg') }})">
+                        <a class="video_link getModal js-video" data-href="#video" data-src="XXXXXX" style="background-image: url({{ secure_asset('public-website/img/video_link_3.jpg') }})">
                             <div class="play-btn"></div>
                         </a>
                     </div>
@@ -137,7 +137,7 @@
                                     <h3 class="_title">{{ $session->name }}</h3>
                                     <div class="_author">
                                         <div class="img ie-img">
-                                            <img src="{{asset('storage/'.$session->trainers->first()->picture)}}" alt="">
+                                            <img src="{{secure_asset('storage/'.$session->trainers->first()->picture)}}" alt="">
                                         </div>
                                         <p class="name">{{ $session->trainers->first()->first_name ?? '' }} {{ $session->trainers->first()->last_name ?? '' }}</p>
                                     </div>
@@ -183,7 +183,7 @@
                         @foreach($trainers as $trainer)
                             <div class="item">
                                 <a href="{{ route('trainer.show', ['id' => $trainer->id]) }}" class="photo ie-img">
-                                    <img src="{{asset('storage/'.$trainer->picture)}}" alt="">
+                                    <img src="{{secure_asset('storage/'.$trainer->picture)}}" alt="">
                                 </a>
                                 <a href="{{ route('trainer.show', ['id' => $trainer->id]) }}" class="info">
                                     <div class="name">{{ $trainer->first_name }} {{ $trainer->last_name }}</div>
@@ -217,7 +217,7 @@
                 <div class="section_content">
                     <a href="#" class="blog_item">
                         <div class="img ie-img">
-                            <img src="{{ asset('public-website/img/blog-1.jpg') }}" alt="">
+                            <img src="{{ secure_asset('public-website/img/blog-1.jpg') }}" alt="">
                         </div>
                         <p class="_date">FITNESS / 20 MAI. 2023</p>
                         <h3 class="_title">
@@ -227,7 +227,7 @@
 
                     <a href="#" class="blog_item">
                         <div class="img ie-img">
-                            <img src="{{ asset('public-website/img/blog-2.jpg') }}" alt="">
+                            <img src="{{ secure_asset('public-website/img/blog-2.jpg') }}" alt="">
                         </div>
                         <p class="_date">FITNESS / 20 MAI. 2023</p>
                         <h3 class="_title">
@@ -237,7 +237,7 @@
 
                     <a href="#" class="blog_item">
                         <div class="img ie-img">
-                            <img src="{{ asset('public-website/img/blog-3.jpg') }}" alt="">
+                            <img src="{{ secure_asset('public-website/img/blog-3.jpg') }}" alt="">
                         </div>
                         <p class="_date">FITNESS / 20 MAI. 2023</p>
                         <h3 class="_title">
@@ -249,7 +249,7 @@
         </div>
     </section>
     <section class="video_section ie-img">
-        <img src="{{ asset('public-website/img/video_img.jpg') }}" class="img" alt="">
+        <img src="{{ secure_asset('public-website/img/video_img.jpg') }}" class="img" alt="">
         <div class="wrap">
             <div class="wrap_float">
                 <h2 class="title">
@@ -273,28 +273,28 @@
     </section>
     <div class="instagram-block">
         <a class="item ie-img">
-            <img src="{{ asset('public-website/img/picture1.jpg') }}" alt="">
+            <img src="{{ secure_asset('public-website/img/picture1.jpg') }}" alt="">
         </a>
         <a class="item ie-img">
-            <img src="{{ asset('public-website/img/picture2.jpg') }}" alt="">
+            <img src="{{ secure_asset('public-website/img/picture2.jpg') }}" alt="">
         </a>
         <a class="item ie-img">
-            <img src="{{ asset('public-website/img/picture3.jpg') }}" alt="">
+            <img src="{{ secure_asset('public-website/img/picture3.jpg') }}" alt="">
         </a>
         <a class="item ie-img">
-            <img src="{{ asset('public-website/img/picture4.jpg') }}" alt="">
+            <img src="{{ secure_asset('public-website/img/picture4.jpg') }}" alt="">
         </a>
     </div>
     @include('partials/footer_public')
 </div>
 
-<script src="{{ asset('public-website/js/jquery.min.js') }}"></script>
-<script src="{{ asset('public-website/js/jquery-ui.min.js') }}"></script>
-<script src="{{ asset('public-website/js/device.min.js') }}"></script>
-<script src="{{ asset('public-website/js/lightgallery.js') }}"></script>
-<script src="{{ asset('public-website/js/slick.min.js') }}"></script>
-<script src="{{ asset('public-website/js/jquery.arcticmodal.min.js') }}"></script>
-<script src="{{ asset('public-website/js/scripts.js') }}"></script>
+<script src="{{ secure_asset('public-website/js/jquery.min.js') }}"></script>
+<script src="{{ secure_asset('public-website/js/jquery-ui.min.js') }}"></script>
+<script src="{{ secure_asset('public-website/js/device.min.js') }}"></script>
+<script src="{{ secure_asset('public-website/js/lightgallery.js') }}"></script>
+<script src="{{ secure_asset('public-website/js/slick.min.js') }}"></script>
+<script src="{{ secure_asset('public-website/js/jquery.arcticmodal.min.js') }}"></script>
+<script src="{{ secure_asset('public-website/js/scripts.js') }}"></script>
 <script>
     let baseUrl = document.getElementById('base-url').getAttribute('content');
     let storageBaseUrl = baseUrl + "/storage/";

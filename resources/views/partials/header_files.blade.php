@@ -3,7 +3,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>Gym Tracker</title>
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('public-website/css/style.css') }}">
+    <link rel="stylesheet" href="{{ secure_assetg('public-website/css/style.css') }}">
     <link rel="apple-touch-icon" sizes="180x180" href="{{ secure_asset('images/logo/logo-c-white.svg') }}">
     <link rel="icon" type="image/png" sizes="32x32" href="{{ secure_asset('images/logo/logo-c-white.svg') }}">
     <link rel="icon" type="image/png" sizes="16x16" href="{{ secure_asset('images/logo/logo-c-white.svg') }}">
