@@ -6,16 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <title>Gym Tracker - Reservations</title>
-    <link rel="icon" type="image/png" href="{{ asset('images/logo/logo-c-white.svg') }}">
+    <link rel="icon" type="image/png" href="{{ secure_asset('images/logo/logo-c-white.svg') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
           rel="stylesheet">
     <!-- BEGIN: Theme CSS-->
-    <link rel="stylesheet" href="{{ asset('css/rt-plugins.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <link rel="stylesheet" href="{{ secure_asset('css/rt-plugins.css') }}">
+    <link rel="stylesheet" href="{{ secure_asset('css/app.css') }}">
     <!-- End : Theme CSS-->
-    <script src="{{ asset('js/settings.js') }}" sync></script>
+    <script src="{{ secure_asset('js/settings.js') }}" sync></script>
 </head>
 
 <body class=" font-inter dashcode-app" id="body_class">
@@ -170,7 +170,7 @@
                                                                 <td>
                                                                     <form method="POST"
                                                                           action="{{ route('admin.destroysession', $groupSession) }}"
-                                                                          onsubmit="return confirm('Are you sure you want to delete this Admin? This action cannot be undone.')">
+                                                                          onsubmit="return confirm('Are you sure you want to delete this Group Session? This action cannot be undone.')">
                                                                         @csrf
                                                                         @method('DELETE')
                                                                         <span
@@ -193,12 +193,20 @@
                                                         <div class="modal-dialog relative w-auto pointer-events-none">
                                                             <div class="modal-content border-none shadow-lg relative flex flex-col w-full pointer-events-auto bg-white bg-clip-padding rounded-md outline-none text-current">
                                                                 <div class="relative bg-white rounded-lg shadow dark:bg-slate-700">
-                                                                    <!-- Modal header -->
                                                                     <!-- Modal body -->
                                                                     <div class="p-6 space-y-4">
                                                                         <form method="POST" action="{{ route('admin.group-sessions.store') }}">
                                                                             @csrf
                                                                             <div class="modal-body">
+                                                                                @if ($errors->any())
+                                                                                    <div class="alert alert-danger">
+                                                                                        <ul>
+                                                                                            @foreach ($errors->all() as $error)
+                                                                                                <li>{{ $error }}</li>
+                                                                                            @endforeach
+                                                                                        </ul>
+                                                                                    </div>
+                                                                                @endif
                                                                                 <div class="mb-3">
                                                                                     <label for="name" class="form-label">Session Name</label>
                                                                                     <input type="text" class="form-control" id="name" name="name" required>
@@ -241,17 +249,17 @@
                                                                             </div>
                                                                         </form>
                                                                     </div>
-                                                                    <!-- Modal footer -->
                                                                     <div class="flex items-center justify-end p-6 space-x-2 border-t border-slate-200 rounded-b dark:border-slate-600">
-                                                                        <button type="button" class="btn btn-secondary" class="btn inline-flex justify-center text-white bg-black-500"data-bs-dismiss="modal">Close</button>
-                                                                        <button type="submit" class="btn inline-flex justify-center text-white bg-black-500" class="btn btn-primary">Save Session</button>
+                                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                                        <button type="submit" class="btn inline-flex justify-center text-white bg-black-500">Save Session</button>
                                                                     </div>
+                                                                    </form>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <!-- END: Modals -->
                                                     </div>
-
+                                                    <!-- END: Modals -->
+                                                </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -274,9 +282,9 @@
 </main>
 
 <!-- scripts -->
-<script src="{{ asset('js/jquery-3.6.0.min.js') }}"></script>
-<script src="{{ asset('js/rt-plugins.js') }}"></script>
-<script src="{{ asset('js/app.js') }}"></script>
+<script src="{{ secure_asset('js/jquery-3.6.0.min.js') }}"></script>
+<script src="{{ secure_asset('js/rt-plugins.js') }}"></script>
+<script src="{{ secure_asset('js/app.js') }}"></script>
 
 </body>
 </html>

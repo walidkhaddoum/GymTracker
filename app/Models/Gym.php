@@ -23,14 +23,15 @@ class Gym extends Model
         return $this->hasMany(Trainer::class);
     }
 
-    public function spaces()
-    {
+    public function spaces(){
         return $this->belongsToMany(Space::class, 'gym_space');
     }
 
-    public function materiels()
-    {
-        return $this->belongsToMany(Materiel::class, 'gym_materiel');
+    public function materiels(){
+        return $this->belongsToMany(Materiel::class, 'gym_materiel')->withPivot('quantity');
     }
+
+
+
 }
 

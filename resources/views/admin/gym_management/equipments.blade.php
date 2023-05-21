@@ -7,15 +7,15 @@
     <meta name="description" content="">
     <title>Gym Tracker - Equipments Lists</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="icon" type="image/png" href="{{ asset('images/logo/logo-c-white.svg') }}">
+    <link rel="icon" type="image/png" href="{{ secure_asset('images/logo/logo-c-white.svg') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- BEGIN: Theme CSS-->
-    <link rel="stylesheet" href="{{ asset('css/rt-plugins.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <link rel="stylesheet" href="{{ secure_asset('css/rt-plugins.css') }}">
+    <link rel="stylesheet" href="{{ secure_asset('css/app.css') }}">
     <!-- End : Theme CSS-->
-    <script src="{{ asset('js/settings.js') }}" sync></script>
+    <script src="{{ secure_asset('js/settings.js') }}" sync></script>
 </head>
 
 <body class=" font-inter dashcode-app" id="body_class">
@@ -107,20 +107,12 @@
                                                                     <a href="#" class="text-indigo-500 hover:text-indigo-700 ml-2 edit-btn" data-id="{{ $equipment->id }}" id="editBtn_{{ $equipment->id }}">
                                                                         <iconify-icon icon="heroicons-outline:pencil-square" class="relative top-[2px] text-lg ltr:mr-1 rtl:ml-1"></iconify-icon>
                                                                     </a>
-                                                                    <form method="POST"
-                                                                          action="{{ route('admin.destroyequipment', $equipment) }}"
-                                                                          onsubmit="return confirm('Are you sure you want to delete this Admin? This action cannot be undone.')">
+                                                                    <form method="POST" action="{{ route('admin.destroyequipment', ['equipment' => $equipment]) }}" onsubmit="return confirm('Are you sure you want to delete this Equipment? This action cannot be undone.')">
                                                                         @csrf
                                                                         @method('DELETE')
-                                                                        <span
-                                                                            class="flex-none space-x-2 text-base text-secondary-500 rtl:space-x-reverse">
-                                                                    <button type="submit"
-                                                                            class="transition duration-150 hover:text-danger-500">
-                                                                      <iconify-icon
-                                                                          icon="heroicons-outline:trash"></iconify-icon>
-                                                                    </button>
-
-                                                                    </span>
+                                                                        <button type="submit" class="transition duration-150 hover:text-danger-500">
+                                                                            <iconify-icon icon="heroicons-outline:trash"></iconify-icon>
+                                                                        </button>
                                                                     </form>
                                                                 </td>
                                                             </tr>
@@ -188,9 +180,9 @@
     @include("partials.mobile_header")
 </main>
 <!-- scripts -->
-<script src="{{ asset('js/jquery-3.6.0.min.js') }}"></script>
-<script src="{{ asset('js/rt-plugins.js') }}"></script>
-<script src="{{ asset('js/app.js') }}"></script>
+<script src="{{ secure_asset('js/jquery-3.6.0.min.js') }}"></script>
+<script src="{{ secure_asset('js/rt-plugins.js') }}"></script>
+<script src="{{ secure_asset('js/app.js') }}"></script>
 <script>
     function openModal(id) {
         var modalId = 'view_modal_' + id;

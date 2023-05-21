@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
-    <title>Gym Tracker - Trainers</title>
+    <title>Gym Tracker - Trainers Lists</title>
     <link rel="icon" type="image/png" href="{{ secure_asset('images/logo/logo-c-white.svg') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
@@ -30,6 +30,7 @@
     <div class="flex flex-col justify-between min-h-screen">
         <div>
             <!-- BEGIN: Header -->
+
             <!-- BEGIN: Header -->
             @include('partials.header')
             <!-- BEGIN: Search Modal -->
@@ -55,6 +56,7 @@
             <!-- END: Header -->
             <!-- END: Header -->
             <div class="content-wrapper transition-all duration-150 ltr:ml-[248px] rtl:mr-[248px]" id="content_wrapper">
+
                 <div class="page-content">
                     <div class="transition-all duration-150 container-fluid" id="page_layout">
                         <div id="content_layout">
@@ -74,52 +76,55 @@
                                                       class="relative top-[3px] text-slate-500 rtl:rotate-180"></iconify-icon>
                                     </li>
                                     <li class="inline-block relative text-sm text-slate-500 font-Inter dark:text-white">
-                                        Trainers
+                                        Trainers Lists
                                     </li>
                                 </ul>
                             </div>
                             <!-- END: BreadCrumb -->
-                            <div class="card-body px-6 pb-6">
-                                <div class="overflow-x-auto -mx-6 dashcode-data-table">
-                                    <span class=" col-span-8  hidden"></span>
-                                    <span class="  col-span-4 hidden"></span>
-                                    <div class="inline-block min-w-full align-middle">
-                                        <div class="overflow-hidden ">
-                                            <table
-                                                class="min-w-full divide-y divide-slate-100 table-fixed dark:divide-slate-700"
-                                                id="data-table">
-                                                <thead class=" border-t border-slate-100 dark:border-slate-800">
-                                                <tr>
-                                                    <th scope="col" class=" table-th ">ID</th>
-                                                    <th scope="col" class=" table-th ">Name</th>
-                                                    <th scope="col" class=" table-th ">Email</th>
-                                                    <th scope="col" class=" table-th ">Phone</th>
-                                                    <th scope="col" class=" table-th ">Actions</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody
-                                                    class="bg-white divide-y divide-slate-100 dark:bg-slate-800 dark:divide-slate-700">
+                            <div class=" space-y-5">
 
-                                                @foreach($trainers as $trainer)
-                                                    <tr>
-                                                        <td class="table-td">{{ $trainer->id }}</td>
-                                                        <td class="table-td">{{ $trainer->first_name }} {{ $trainer->last_name }}</td>
-                                                        <td class="table-td">{{ $trainer->email }}</td>
-                                                        <td class="table-td">{{ $trainer->phone_number }}</td>
-                                                        <td class="table-td">
-                                                            <button class="view-btn" data-id="{{ $trainer->id }}"
-                                                                    data-bs-toggle="modal"
-                                                                    data-bs-target="#trainer_modal">View
-                                                            </button>
-                                                        </td>
-                                                    </tr>
-                                                @endforeach
+                                <div class="card">
+                                    <header class=" card-header noborder">
+                                        <h4 class="card-title">Trainers Lists </h4>
+                                    </header>
+                                    <div class="card-body px-6 pb-6">
+                                        <div class="overflow-x-auto -mx-6 dashcode-data-table">
+                                            <span class=" col-span-8  hidden"></span>
+                                            <span class="  col-span-4 hidden"></span>
+                                            <div class="inline-block min-w-full align-middle">
+                                                <div class="overflow-hidden ">
+                                        <form method="POST" action="{{ route('admin.gyms.store') }}" class="card-text h-full space-y-4">
+                                            @csrf
+                                            <div class="input-area">
+                                                <label for="name" class="form-label">GYM Name </label>
+                                                <input type="text" class="form-control" id="name" name="name" placeholder="Gym Name">
+                                            </div>
+                                            <div class="input-area">
+                                                <label for="name" class="form-label">Address</label>
+                                                <input class="form-control" type="text" id="address" name="address" placeholder="Address">
+                                            </div>
+                                            <div class="input-area">
+                                                <label for="name" class="form-label">Spaces</label>
 
-                                                </tbody>
-                                            </table>
+                                                <select name="gym_id" class="form-control">
+                                                    @foreach($spaces as $space)
+                                                        <input type="checkbox" id="spaces" name="spaces[]" value="{{ $space->id }}"> {{ $space->name }}<br>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class="input-area">
+                                                <label for="materiels" class="form-label">Materiels</label>
+                                                    @foreach($materiels as $materiel)
+                                                        <input type="checkbox" id="materiels" name="materiels[]" value="{{ $materiel->id }}"> {{ $materiel->name }}<br>
+                                                        <input type="number" id="quantity" name="quantity[{{ $materiel->id }}]" placeholder="Quantity for {{ $materiel->name }}"><br>
+                                                    @endforeach
+                                            </div>
+                                            <button type="submit" class="btn inline-flex justify-center btn-primary shadow-base2">Add Gym</button>
+                                        </form>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
                         </div>
@@ -133,35 +138,9 @@
     @include("partials.mobile_header")
 </main>
 <!-- scripts -->
-<script src="{{ asset('js/jquery-3.6.0.min.js') }}"></script>
-<script>
-    $(document).ready(function() {
-        $('.view-btn').on('click', function() {
-            let trainerId = $(this).data('id');
+<script src="{{ secure_asset('js/jquery-3.6.0.min.js') }}"></script>
+<script src="{{ secure_asset('js/rt-plugins.js') }}"></script>
+<script src="{{ secure_asset('js/app.js') }}"></script>
 
-            $.ajax({
-                url: '/trainers/' + trainerId,
-                type: 'GET',
-                success: function(trainer) {
-                    let specializations = trainer.specializations.map(s => s.name).join(', ');
-                    let gym = trainer.gym.name;
-
-                    let modalBody = `
-                    <p><strong>Name: </strong>${trainer.first_name} ${trainer.last_name}</p>
-                    <p><strong>Email: </strong>${trainer.email}</p>
-                    <p><strong>Phone: </strong>${trainer.phone_number}</p>
-                    <p><strong>Specializations: </strong>${specializations}</p>
-                    <p><strong>Gym: </strong>${gym}</p>
-                `;
-
-                    $('#trainer_modal .modal-body').html(modalBody);
-                }
-            });
-        });
-    });
-
-</script>
-<script src="{{ asset('js/rt-plugins.js') }}"></script>
-<script src="{{ asset('js/app.js') }}"></script>
 </body>
 </html>

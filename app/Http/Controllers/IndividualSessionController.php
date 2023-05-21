@@ -11,8 +11,7 @@ class IndividualSessionController extends Controller
 {
     public function index()
     {
-        $previous_sessions = IndividualSession::with('sessionRegistrations.member', 'sessionAssignments.trainer')->get();
-
-        return view('admin.sessions_management.individual_sessions', ['previous_sessions' => $previous_sessions]);
+        $sessions = IndividualSession::with(['trainers', 'members'])->get();
+        return view('admin.sessions_management.individual_sessions', compact('sessions'));
     }
 }

@@ -90,7 +90,7 @@ class TrainerController extends Controller
         // Assign Specializations
         $trainer->specializations()->attach($request->input('specializations'));
 
-        return redirect('/add-trainer')->with('status', 'Trainer added successfully!');
+        return redirect()->route('admin.trainers');
     }
 
     public function update(Request $request, $id)

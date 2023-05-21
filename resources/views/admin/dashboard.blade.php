@@ -6,16 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <title>Gym Tracker - Tableau de bord</title>
-    <link rel="icon" type="image/png" href="{{ asset('images/logo/logo-c-white.svg') }}">
+    <link rel="icon" type="image/png" href="{{ secure_asset('images/logo/logo-c-white.svg') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
           rel="stylesheet">
     <!-- BEGIN: Theme CSS-->
-    <link rel="stylesheet" href="{{ asset('css/rt-plugins.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <link rel="stylesheet" href="{{ secure_asset('css/rt-plugins.css') }}">
+    <link rel="stylesheet" href="{{ secure_asset('css/app.css') }}">
     <!-- End : Theme CSS-->
-    <script src="{{ asset('js/settings.js') }}" sync></script>
+    <script src="{{ secure_asset('js/settings.js') }}" sync></script>
 </head>
 
 <body class=" font-inter dashcode-app" id="body_class">
@@ -264,7 +264,7 @@
                                                 </header>
                                                 <div class="card-body p-6">
                                                     <div class="legend-ring3">
-                                                        <div id="pie-chart-cal" style="width: 393px; height: 393px;"></div>
+                                                        <div id="pie-chart-cal" style="width: 393px; height: 343px;"></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -379,8 +379,8 @@
     window.newClientsLabels = @json($newClientsLabels);
     window.newClientsData = @json($newClientsData);
 </script>
-<script src="{{ asset('js/jquery-3.6.0.min.js') }}"></script>
-<script src="{{ asset('js/rt-plugins.js') }}"></script>
-<script src="{{ asset('js/app.js') }}"></script>
+<script src="{{ secure_asset('js/jquery-3.6.0.min.js') }}"></script>
+<script src="{{ secure_asset('js/rt-plugins.js') }}"></script>
+<script src="{{ secure_asset('js/app.js') }}"></script>
 </body>
 </html>

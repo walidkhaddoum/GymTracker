@@ -2,8 +2,8 @@
     <div id="bodyOverlay" class="w-screen h-screen fixed top-0 bg-slate-900 bg-opacity-50 backdrop-blur-sm z-10 hidden"></div>
     <div class="logo-segment">
         <a class="flex items-center" href="{{ route('admin.dashboard') }}">
-            <img src="{{ asset('images/logo/logo-c.svg') }}" style="width: 32px" class="black_logo" alt="logo">
-            <img src="{{ asset('images/logo/logo-c-white.svg') }}" style="width: 32px" class="white_logo" alt="logo">
+            <img src="{{ secure_asset('images/logo/logo-c.svg') }}" style="width: 32px" class="black_logo" alt="logo">
+            <img src="{{ secure_asset('images/logo/logo-c-white.svg') }}" style="width: 32px" class="white_logo" alt="logo">
             <span class="ltr:ml-3 rtl:mr-3 text-xl font-Inter font-bold text-slate-900 dark:text-white">GYM Tracker</span>
         </a>
         <!-- Sidebar Type Button -->

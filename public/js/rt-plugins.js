@@ -33224,6 +33224,25 @@ for (let e = 0; e < categoryCheckboxes.length; e++) categoryCheckboxes[e].addEve
             padding: {top: 0, right: 0, bottom: 0, left: 0}
         }
     }, {
+        id: "areaSpaline",
+        options: {
+            chart: {height: 350, type: "area", toolbar: {show: !1}},
+            series: [{data: [31, 40, 28, 51, 42, 109, 100]}, {data: [11, 32, 45, 32, 34, 52, 41]}],
+            dataLabels: {enabled: !1},
+            stroke: {curve: "smooth", width: 2},
+            yaxis: {labels: {style: {colors: l ? "#CBD5E1" : "#475569", fontFamily: "Inter"}}},
+            grid: {show: !0, borderColor: l ? "#334155" : "#e2e8f0", strokeDashArray: 10, position: "back"},
+            xaxis: {
+                type: "datetime",
+                categories: ["2018-09-19T00:00:00.000Z", "2018-09-19T01:30:00.000Z", "2018-09-19T02:30:00.000Z", "2018-09-19T03:30:00.000Z", "2018-09-19T04:30:00.000Z", "2018-09-19T05:30:00.000Z", "2018-09-19T06:30:00.000Z"],
+                labels: {style: {colors: l ? "#CBD5E1" : "#475569", fontFamily: "Inter"}},
+                axisBorder: {show: !1},
+                axisTicks: {show: !1}
+            },
+            legend: {labels: {colors: l ? "#CBD5E1" : "#475569"}, fontFamily: "Inter"},
+            tooltip: {x: {format: "dd/MM/yy HH:mm"}}
+        }
+    }, {
         id: "basicBarChart",
         options: {
             chart: {height: 350, type: "bar", toolbar: {show: !1}},
@@ -34091,14 +34110,9 @@ for (let e = 0; e < categoryCheckboxes.length; e++) categoryCheckboxes[e].addEve
     }, {
         id: "pie-chart-cal",
         options: {
-            chart: {
-                height: 393, // Set height
-                width: 393, // Set width
-                type: "pie",
-                toolbar: {show: !1}
-            },
+            chart: {height: 335, type: "pie", toolbar: {show: !1}},
             labels: window.sessionsPerTrainerLabels,
-            dataLabels: {enabled: !0},
+            dataLaareaChartbels: {enabled: !0},
             colors: [i, s, "#A3A1FB"],
             series: window.sessionsPerTrainerData,
             legend: {
@@ -34112,11 +34126,13 @@ for (let e = 0; e < categoryCheckboxes.length; e++) categoryCheckboxes[e].addEve
             },
             responsive: [{breakpoint: 480, options: {legend: {position: "bottom"}}}]
         }
-    }
-    , {
+    }, {
         id: "history-chart", options: {
             chart: {height: 360, type: "area", toolbar: {show: !1}, offsetX: 0, offsetY: 0, zoom: {enabled: !1}},
-            series: window.sessionsPerTrainerData.data,
+            series: [{name: "Earnings", data: [31, 40, 28, 51, 42, 109, 100]}, {
+                name: "Expenses",
+                data: [11, 32, 45, 32, 34, 52, 41]
+            }],
             dataLabels: {enabled: !1},
             stroke: {curve: "straight", width: 2},
             colors: [t, s],

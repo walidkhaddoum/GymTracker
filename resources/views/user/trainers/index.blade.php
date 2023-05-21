@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <title>Gym Tracker - Tableau de bord</title>
-    <link rel="icon" type="image/png" href="{{ asset('images/logo/logo-c-white.svg') }}">
+    <link rel="icon" type="image/png" href="{{ secure_asset('images/logo/logo-c-white.svg') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
@@ -15,10 +15,10 @@
 
     <!-- BEGIN: Theme CSS-->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="stylesheet" href="{{ asset('css/rt-plugins.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <link rel="stylesheet" href="{{ secure_asset('css/rt-plugins.css') }}">
+    <link rel="stylesheet" href="{{ secure_asset('css/app.css') }}">
     <!-- End : Theme CSS-->
-    <script src="{{ asset('js/settings.js') }}" sync></script>
+    <script src="{{ secure_asset('js/settings.js') }}" sync></script>
     <style>
         .heart {
             width: 100px;
@@ -402,9 +402,9 @@
 </main>
 
 <!-- scripts -->
-<script src="{{ asset('js/jquery-3.6.0.min.js') }}"></script>
-<script src="{{ asset('js/rt-plugins.js') }}"></script>
-<script src="{{ asset('js/app.js') }}"></script>
+<script src="{{ secure_asset('js/jquery-3.6.0.min.js') }}"></script>
+<script src="{{ secure_asset('js/rt-plugins.js') }}"></script>
+<script src="{{ secure_asset('js/app.js') }}"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         const reservationForm = document.getElementById('reservation-form');

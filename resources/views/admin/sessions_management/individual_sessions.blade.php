@@ -5,17 +5,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
-    <title>Gym Tracker - Reservations</title>
-    <link rel="icon" type="image/png" href="{{ asset('images/logo/logo-c-white.svg') }}">
+    <title>Gym Tracker - Individual Sessions</title>
+    <link rel="icon" type="image/png" href="{{ secure_asset('images/logo/logo-c-white.svg') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
           rel="stylesheet">
     <!-- BEGIN: Theme CSS-->
-    <link rel="stylesheet" href="{{ asset('css/rt-plugins.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <link rel="stylesheet" href="{{ secure_asset('css/rt-plugins.css') }}">
+    <link rel="stylesheet" href="{{ secure_asset('css/app.css') }}">
     <!-- End : Theme CSS-->
-    <script src="{{ asset('js/settings.js') }}" sync></script>
+    <script src="{{ secure_asset('js/settings.js') }}" sync></script>
 </head>
 
 <body class=" font-inter dashcode-app" id="body_class">
@@ -69,13 +69,8 @@
                                                           class="relative text-slate-500 text-sm rtl:rotate-180"></iconify-icon>
                                         </a>
                                     </li>
-                                    <li class="inline-block relative text-sm text-primary-500 font-Inter ">
-                                        Table
-                                        <iconify-icon icon="heroicons-outline:chevron-right"
-                                                      class="relative top-[3px] text-slate-500 rtl:rotate-180"></iconify-icon>
-                                    </li>
                                     <li class="inline-block relative text-sm text-slate-500 font-Inter dark:text-white">
-                                        Basic-Table
+                                        Individual Sessions
                                     </li>
                                 </ul>
                             </div>
@@ -86,8 +81,7 @@
                                 <!-- BEGIN: Striped Tables -->
                                 <div class="card">
                                     <header class=" card-header noborder">
-                                        <h4 class="card-title">Reservations
-                                        </h4>
+                                        <h4 class="card-title">Individual Sessions</h4>
                                     </header>
                                     <div class="card-body px-6 pb-6">
                                         <div class="overflow-x-auto -mx-6">
@@ -97,35 +91,42 @@
                                                         class="min-w-full divide-y divide-slate-100 table-fixed dark:divide-slate-700">
                                                         <thead class="bg-slate-200 dark:bg-slate-700">
                                                         <tr>
-                                                            <th scope="col" class="table-th">Member Name</th>
-                                                            <th scope="col" class="table-th">Date</th>
-                                                            <th scope="col" class="table-th">Start Time</th>
-                                                            <th scope="col" class="table-th">End Time</th>
-                                                            <th scope="col" class="table-th">Duration (Minutes)</th>
-                                                            <th scope="col" class="table-th">Action</th>
+                                                            <th scope="col" class=" table-th ">
+                                                                Trainer Name
+                                                            </th>
+
+                                                            <th scope="col" class=" table-th ">
+                                                                Member Name
+                                                            </th>
+
+                                                            <th scope="col" class=" table-th ">
+                                                                Date
+                                                            </th>
                                                         </tr>
                                                         </thead>
                                                         <tbody
                                                             class="bg-white divide-y divide-slate-100 dark:bg-slate-800 dark:divide-slate-700">
-                                                        @foreach($previous_sessions as $individualSession)
+                                                        @forelse($sessions as $session)
                                                             <tr class="even:bg-slate-50 dark:even:bg-slate-700">
-                                                                <td class="table-td">{{ $individualSession->sessionAssignments->trainer->first_name }} {{ $individualSession->sessionAssignments->trainer->last_name }}</td>
-                                                                <td class="table-td">{{ $individualSession->sessionRegistrations->member->first_name }} {{ $individualSession->sessionRegistrations->member->last_name }}</td>
-                                                                <td class="table-td">{{ $individualSession->date }}</td>
-                                                                <td class="table-td">{{ $individualSession->start_time }}</td>
-                                                                <td class="table-td">{{ $individualSession->end_time }}</td>
-                                                                <td class="table-td">{{ \Carbon\Carbon::parse($individualSession->end_time)->diffInMinutes(\Carbon\Carbon::parse($individualSession->start_time)) }} Minutes</td>
                                                                 <td class="table-td">
-                                                                    <button class="btn inline-flex justify-center btn-danger rounded-[25px]">
-                                                                        <span class="flex items-center">
-                                                                            <iconify-icon class="text-xl ltr:mr-2 rtl:ml-2" icon="heroicons-outline:x-mark"></iconify-icon>
-                                                                            <span>Cancel</span>
-                                                                        </span>
-                                                                    </button>
+                                                                    @foreach($session->trainers as $trainer)
+                                                                        {{ $trainer->first_name }} {{ $trainer->last_name }}
+                                                                    @endforeach
+                                                                </td>
+                                                                <td class="table-td">
+                                                                    @foreach($session->members as $member)
+                                                                        {{ $member->first_name }} {{ $member->last_name }}
+                                                                    @endforeach
+                                                                </td>
+                                                                <td class="table-td">
+                                                                    {{ $session->date }}
                                                                 </td>
                                                             </tr>
-                                                        @endforeach
-
+                                                        @empty
+                                                            <tr>
+                                                                <td colspan="3" class="table-td">No sessions available</td>
+                                                            </tr>
+                                                        @endforelse
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -150,9 +151,9 @@
 </main>
 
 <!-- scripts -->
-<script src="{{ asset('js/jquery-3.6.0.min.js') }}"></script>
-<script src="{{ asset('js/rt-plugins.js') }}"></script>
-<script src="{{ asset('js/app.js') }}"></script>
+<script src="{{ secure_asset('js/jquery-3.6.0.min.js') }}"></script>
+<script src="{{ secure_asset('js/rt-plugins.js') }}"></script>
+<script src="{{ secure_asset('js/app.js') }}"></script>
 
 </body>
 </html>

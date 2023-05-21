@@ -51,9 +51,9 @@ class AdminController extends Controller
         return redirect()->route('admin.trainers');
     }
 
-    public function destroyequipment(Materiel $materiel)
+    public function destroyequipment(Materiel $equipment)
     {
-        $materiel->delete();
+        $equipment->delete();
         return redirect()->route('admin.equipments');
     }
 
@@ -93,8 +93,9 @@ class AdminController extends Controller
         $sessionsPerTrainerData = $sessionsPerTrainer->pluck('sessions')->toArray();
         $sessionsPerTrainerLabels = $sessionsPerTrainer->pluck('trainer_id')->map(function ($trainerId) {
             $trainer = Trainer::find($trainerId);
-            return $trainer->first_name . ' ' . $trainer->last_name;
+            return $trainer ? $trainer->first_name . ' ' . $trainer->last_name : 'No trainer found';
         })->toArray();
+
 
         $latestSubscriptions = Subscription::join('members', 'subscriptions.member_id', '=', 'members.id')
             ->join('payments', 'subscriptions.payment_id', '=', 'payments.id')
@@ -196,16 +197,9 @@ class AdminController extends Controller
 
     public function individualSessions()
     {
-        $previous_sessions = IndividualSession::with('sessionRegistrations.member', 'sessionAssignments.trainer')
-            ->get()
-            ->filter(function ($session) {
-                $startDateTime = Carbon::createFromFormat('Y-m-d H:i:s', $session->date . ' ' . $session->start_time);
-                $endDateTime = Carbon::createFromFormat('Y-m-d H:i:s', $session->date . ' ' . $session->end_time);
+        $sessions = IndividualSession::with(['trainer', 'members'])->get();
 
-                return $endDateTime->lt(Carbon::now());
-            });
-
-        return view('admin.sessions_management.individual_sessions', ['previous_sessions' => $previous_sessions]);
+        return view('admin.sessions_management.individual_sessions',compact('sessions'));
     }
 
     public function attendances()

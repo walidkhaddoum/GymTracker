@@ -4,8 +4,8 @@
         <div class="flex justify-between items-center h-full">
             <div class="flex items-center md:space-x-4 space-x-2 xl:space-x-0 rtl:space-x-reverse vertical-box">
                 <a href="index.html" class="mobile-logo xl:hidden inline-block">
-                    <img src="{{ asset('images/logo/logo-c.svg') }}" style="width: 32px" class="black_logo" alt="logo">
-                    <img src="{{ asset('images/logo/logo-c-white.svg') }}" style="width: 32px" class="white_logo"
+                    <img src="{{ secure_asset('images/logo/logo-c.svg') }}" style="width: 32px" class="black_logo" alt="logo">
+                    <img src="{{ secure_asset('images/logo/logo-c-white.svg') }}" style="width: 32px" class="white_logo"
                          alt="logo">
                 </a>
                 <button class="smallDeviceMenuController hidden md:inline-block xl:hidden">
@@ -25,12 +25,12 @@
             <div class="items-center space-x-4 rtl:space-x-reverse horizental-box">
                 <a href="">
                   <span class="xl:inline-block hidden">
-        <img src="{{ asset('images/logo/logo-c.svg') }}" style="width: 32px" class="black_logo" alt="logo">
-            <img src="{{ asset('images/logo/logo-c-white.svg') }}" style="width: 32px" class="white_logo" alt="logo">
+        <img src="{{ secure_asset('images/logo/logo-c.svg') }}" style="width: 32px" class="black_logo" alt="logo">
+            <img src="{{ secure_asset('images/logo/logo-c-white.svg') }}" style="width: 32px" class="white_logo" alt="logo">
     </span>
                     <span class="xl:hidden inline-block">
-        <img src="{{ asset('images/logo/logo-c.svg') }}" style="width: 32px" class="black_logo" alt="logo">
-            <img src="{{ asset('images/logo/logo-c-white.svg') }}" style="width: 32px" class="white_logo" alt="logo">
+        <img src="{{ secure_asset('images/logo/logo-c.svg') }}" style="width: 32px" class="black_logo" alt="logo">
+            <img src="{{ secure_asset('images/logo/logo-c-white.svg') }}" style="width: 32px" class="white_logo" alt="logo">
     </span>
                 </a>
                 <button class="smallDeviceMenuController  open-sdiebar-controller xl:hidden inline-block">

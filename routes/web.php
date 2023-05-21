@@ -151,9 +151,18 @@ Route::middleware(['auth'])->group(function () {
         Route::delete('trainers/{trainer}', [AdminController::class, 'deletetrainer'])->name('destroytrainer');
         Route::post('update-trainer/{id}', [TrainerController::class, 'update'])->name('update-trainer');
         Route::get('trainer/{id}/edit', [TrainerController::class, 'edit'])->name('edit-trainer');
-        Route::get('gyms', [GymController::class, 'index'])->name('gyms');
+        Route::get('gyms', 'App\Http\Controllers\GymController@index')->name('gyms.index');
+        Route::get('gyms/create', 'App\Http\Controllers\GymController@create')->name('gyms.create');
+        Route::post('gyms', 'App\Http\Controllers\GymController@store')->name('gyms.store');
+        Route::delete('gyms/{id}', 'App\Http\Controllers\GymController@destroy')->name('gyms.destroy');
+
         Route::get('spaces', [SpaceController::class, 'index'])->name('spaces');
         Route::get('specializations', [SpecializationController::class, 'index'])->name('specializations');
+        Route::get('specializations/create', [SpecializationController::class, 'create'])->name('specializations.create');
+        Route::post('specializations', [SpecializationController::class, 'store']);
+        Route::get('specializations/{specialization}/edit', [SpecializationController::class, 'edit'])->name('specializations.edit');
+        Route::put('specializations/{specialization}', [SpecializationController::class, 'update'])->name('specializations.update');
+        Route::delete('specializations/{specialization}', [SpecializationController::class, 'destroy'])->name('specializations.destroy');
         Route::get('subscriptions', [SubscriptionController::class, 'index'])->name('subscriptions');
         Route::get('payments', [PaymentController::class, 'index'])->name('payments');
         Route::get('/group-sessions/browse', [MemberUserController::class, 'browseGroupSessions'])->middleware('active.subscription')->name('user.group-sessions.browse');

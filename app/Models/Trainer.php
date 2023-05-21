@@ -15,6 +15,7 @@ class Trainer extends Model
         'user_id',
         'first_name',
         'last_name',
+        'email',
         'phone_number',
         'picture',
         'gym_id',

@@ -81,7 +81,7 @@
             </h2>
             <div class="trainer">
                 <div class="userpic ie-img">
-                    <img src="{{ asset('images/logo/logo-c.svg') }}" alt="">
+                    <img src="{{ secure_asset('images/logo/logo-c.svg') }}" alt="">
                 </div>
                 <div class="name">
                     Gym Tracker

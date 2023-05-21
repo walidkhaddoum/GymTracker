@@ -23,6 +23,11 @@ class IndividualSession extends Model
         return $this->belongsTo(Trainer::class);
     }
 
+    public function trainers()
+    {
+        return $this->belongsToMany(Trainer::class, 'session_assignments', 'individual_session_id', 'trainer_id');
+    }
+
     public function members()
     {
         return $this->belongsToMany(
